@@ -4,7 +4,7 @@
   --green: #34c759;
   --purple: #af52de;
   --ink: #17324d;
-  --white-glass: rgba(255,255,255,.90);
+  --white-glass: rgba(255, 255, 255, 0.92);
 }
 
 * {
@@ -18,109 +18,203 @@ body {
   margin: 0;
 }
 
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+html {
   overflow: hidden;
+}
+
+body {
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Arial,
+    sans-serif;
+
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
   background: #078aff;
-  color: #fff;
+  color: #ffffff;
 }
 
 button {
   font: inherit;
 }
 
+/* =========================
+   APP BACKGROUND
+   ========================= */
+
 .app-shell {
   width: 100%;
   height: 100dvh;
   min-height: 520px;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: max(10px, env(safe-area-inset-top))
-           max(10px, env(safe-area-inset-right))
-           max(10px, env(safe-area-inset-bottom))
-           max(10px, env(safe-area-inset-left));
+
+  padding:
+    max(10px, env(safe-area-inset-top))
+    max(10px, env(safe-area-inset-right))
+    max(10px, env(safe-area-inset-bottom))
+    max(10px, env(safe-area-inset-left));
+
   background:
-    linear-gradient(rgba(0, 80, 155, .08), rgba(0, 40, 100, .08)),
+    linear-gradient(
+      rgba(0, 80, 155, 0.08),
+      rgba(0, 40, 100, 0.08)
+    ),
     url("assets/background.png") center / cover no-repeat;
 }
 
+/* =========================
+   HOME PANEL
+   ========================= */
+
 .home-panel {
-  width: min(100%, 430px);
-  height: min(100%, 820px);
+  width: 430px;
+  max-width: calc(100vw - 20px);
+
+  height: 820px;
+  max-height: calc(100dvh - 20px);
+
   min-height: 0;
-  padding: clamp(12px, 2.4vh, 22px) clamp(12px, 3.2vw, 20px);
+
+  padding:
+    clamp(12px, 2.4vh, 20px)
+    clamp(12px, 3vw, 18px);
+
   display: flex;
   flex-direction: column;
+
   justify-content: space-between;
+
   border-radius: 30px;
-  background: rgba(255,255,255,.15);
-  border: 1px solid rgba(255,255,255,.42);
-  box-shadow: 0 18px 55px rgba(0,30,70,.30);
+
+  background: rgba(255, 255, 255, 0.15);
+
+  border: 1px solid rgba(255, 255, 255, 0.42);
+
+  box-shadow:
+    0 18px 55px rgba(0, 30, 70, 0.30);
+
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
+
   overflow: hidden;
 }
 
+/* =========================
+   BRAND
+   ========================= */
+
 .brand-area {
   flex: 0 0 auto;
+
   text-align: center;
-  text-shadow: 0 2px 10px rgba(0,35,80,.30);
+
+  text-shadow:
+    0 2px 10px rgba(0, 35, 80, 0.30);
 }
 
 .brand-logo {
-  width: clamp(48px, 10vw, 66px);
-  height: clamp(48px, 10vw, 66px);
+  width: clamp(48px, 15vw, 64px);
+  height: clamp(48px, 15vw, 64px);
+
   margin: 0 auto 3px;
 }
 
 .brand-logo svg {
   width: 100%;
   height: 100%;
+
   display: block;
 }
 
 .brand-area h1 {
   margin: 0;
-  font-size: clamp(25px, 6.2vw, 34px);
+
+  font-size: clamp(24px, 7vw, 32px);
+
   line-height: 1.05;
+
   font-weight: 800;
-  letter-spacing: -.5px;
+
+  letter-spacing: -0.5px;
 }
 
 .brand-area p {
   margin: 5px 0 0;
-  font-size: clamp(12px, 3.1vw, 16px);
+
+  font-size: clamp(11px, 3.2vw, 15px);
+
   font-weight: 500;
 }
 
+/* =========================
+   MAIN MENU GRID
+   ========================= */
+
 .menu-grid {
   flex: 1 1 auto;
+
   min-height: 0;
+
   display: grid;
+
   grid-template-columns: 1fr 1fr;
-  gap: clamp(8px, 2.2vw, 13px);
-  margin: clamp(9px, 1.8vh, 16px) 0;
+
+  gap: clamp(8px, 2.5vw, 12px);
+
+  margin:
+    clamp(8px, 1.5vh, 14px)
+    0;
+
   align-content: center;
 }
 
+/* =========================
+   MENU CARD
+   ========================= */
+
 .menu-card {
+  width: 100%;
+
   min-width: 0;
-  min-height: clamp(122px, 18vh, 172px);
-  padding: clamp(9px, 2.3vw, 15px);
+
+  min-height: clamp(120px, 17vh, 160px);
+
+  padding:
+    clamp(8px, 2vw, 13px);
+
   border: 0;
+
   border-radius: 21px;
+
   display: flex;
+
   flex-direction: column;
+
   align-items: center;
+
   justify-content: space-between;
+
   cursor: pointer;
-  color: #fff;
+
+  color: #ffffff;
+
   text-align: center;
+
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.42),
-    0 8px 18px rgba(0,30,70,.20);
-  transition: transform .16s ease, filter .16s ease;
+    inset 0 1px 0 rgba(255, 255, 255, 0.42),
+    0 8px 18px rgba(0, 30, 70, 0.20);
+
+  transition:
+    transform 0.16s ease,
+    filter 0.16s ease;
 }
 
 .menu-card:hover {
@@ -128,122 +222,278 @@ button {
 }
 
 .menu-card:active {
-  transform: scale(.985);
+  transform: scale(0.985);
 }
 
-.voice { background: linear-gradient(145deg, #19b7ff, #0878eb); }
-.text  { background: linear-gradient(145deg, #ffbd26, #ff7e00); }
-.search { background: linear-gradient(145deg, #54dd57, #19ad4d); }
-.ask { background: linear-gradient(145deg, #cf64f3, #9135dc); }
+/* =========================
+   MENU COLORS
+   ========================= */
+
+.voice {
+  background:
+    linear-gradient(
+      145deg,
+      #19b7ff,
+      #0878eb
+    );
+}
+
+.text {
+  background:
+    linear-gradient(
+      145deg,
+      #ffbd26,
+      #ff7e00
+    );
+}
+
+.search {
+  background:
+    linear-gradient(
+      145deg,
+      #54dd57,
+      #19ad4d
+    );
+}
+
+.ask {
+  background:
+    linear-gradient(
+      145deg,
+      #cf64f3,
+      #9135dc
+    );
+}
+
+/* =========================
+   ICON AREA
+   DEDICATED — NEVER OVERLAPS TEXT
+   ========================= */
 
 .icon-area {
   width: 100%;
-  flex: 1 1 auto;
-  min-height: 0;
+
+  height: clamp(62px, 9vh, 88px);
+
+  flex: 0 0 auto;
+
   display: flex;
+
   align-items: center;
+
   justify-content: center;
-  padding: 2px 0 5px;
+
+  padding: 2px 0;
 }
+
+/* =========================
+   ICON
+   ========================= */
 
 .menu-icon {
   display: block;
-  width: clamp(55px, 15vw, 94px);
-  height: clamp(55px, 15vw, 94px);
+
+  width: clamp(52px, 14vw, 78px);
+
+  height: clamp(52px, 14vw, 78px);
+
   max-width: 100%;
   max-height: 100%;
+
   object-fit: contain;
+
+  flex-shrink: 0;
 }
+
+/* =========================
+   TEXT AREA
+   DEDICATED — NEVER OVERLAPS ICON
+   ========================= */
 
 .text-area {
   width: 100%;
+
+  min-width: 0;
+
+  height: clamp(42px, 6vh, 52px);
+
   flex: 0 0 auto;
-  min-height: 43px;
+
   display: flex;
+
   flex-direction: column;
+
   align-items: center;
+
   justify-content: center;
+
+  text-align: center;
+
+  overflow: hidden;
+
   overflow-wrap: anywhere;
+
+  word-break: normal;
 }
 
 .text-area strong {
-  font-size: clamp(15px, 3.8vw, 20px);
+  display: block;
+
+  max-width: 100%;
+
+  font-size: clamp(14px, 3.8vw, 19px);
+
   line-height: 1.1;
+
   font-weight: 800;
+
+  overflow-wrap: anywhere;
 }
 
 .text-area span {
+  display: block;
+
+  max-width: 100%;
+
   margin-top: 3px;
-  font-size: clamp(10px, 2.7vw, 13px);
+
+  font-size: clamp(9px, 2.6vw, 12px);
+
   line-height: 1.15;
+
   font-weight: 600;
-  opacity: .96;
+
+  opacity: 0.96;
+
+  overflow-wrap: anywhere;
 }
+
+/* =========================
+   SETTINGS
+   ========================= */
 
 .settings-card {
   width: 100%;
-  min-height: clamp(62px, 9vh, 82px);
+
+  min-height: clamp(60px, 8vh, 76px);
+
   flex: 0 0 auto;
-  padding: 9px clamp(12px, 3vw, 17px);
-  border: 1px solid rgba(255,255,255,.75);
+
+  padding:
+    8px
+    clamp(10px, 3vw, 15px);
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.75);
+
   border-radius: 19px;
+
   display: grid;
-  grid-template-columns: clamp(42px, 12vw, 58px) minmax(0, 1fr) 22px;
+
+  grid-template-columns:
+    clamp(42px, 12vw, 55px)
+    minmax(0, 1fr)
+    20px;
+
   align-items: center;
-  gap: 9px;
+
+  gap: 8px;
+
   background: var(--white-glass);
+
   color: var(--ink);
-  box-shadow: 0 8px 18px rgba(0,30,70,.18);
+
+  box-shadow:
+    0 8px 18px rgba(0, 30, 70, 0.18);
+
   cursor: pointer;
+
   text-align: left;
 }
+
+/* =========================
+   SETTINGS ICON AREA
+   ========================= */
 
 .settings-icon-area {
   width: 100%;
   height: 100%;
+
   display: flex;
+
   align-items: center;
+
   justify-content: center;
 }
 
 .settings-icon {
-  width: clamp(38px, 10vw, 52px);
-  height: clamp(38px, 10vw, 52px);
+  width: clamp(36px, 10vw, 50px);
+
+  height: clamp(36px, 10vw, 50px);
+
   object-fit: contain;
+
+  flex-shrink: 0;
 }
+
+/* =========================
+   SETTINGS TEXT AREA
+   ========================= */
 
 .settings-text-area {
   min-width: 0;
+
   display: flex;
+
   flex-direction: column;
+
   justify-content: center;
+
   overflow-wrap: anywhere;
 }
 
 .settings-text-area strong {
-  font-size: clamp(15px, 3.7vw, 20px);
+  font-size: clamp(14px, 3.7vw, 19px);
+
   line-height: 1.1;
 }
 
 .settings-text-area span {
   margin-top: 3px;
-  font-size: clamp(9px, 2.5vw, 12px);
+
+  font-size: clamp(9px, 2.5vw, 11px);
+
   line-height: 1.2;
+
   color: #4b6175;
+
+  overflow-wrap: anywhere;
 }
 
 .settings-arrow {
-  font-size: 29px;
+  font-size: 27px;
+
   line-height: 1;
+
   text-align: center;
+
   color: #547086;
 }
 
+/* =========================
+   FOOTER
+   ========================= */
+
 .home-footer {
   flex: 0 0 auto;
-  padding-top: clamp(7px, 1.4vh, 11px);
+
+  padding-top: clamp(6px, 1.2vh, 10px);
+
   text-align: center;
-  text-shadow: 0 2px 7px rgba(0,35,80,.35);
+
+  text-shadow:
+    0 2px 7px rgba(0, 35, 80, 0.35);
 }
 
 .home-footer strong,
@@ -252,40 +502,78 @@ button {
 }
 
 .home-footer strong {
-  font-size: clamp(10px, 2.6vw, 13px);
+  font-size: clamp(9px, 2.5vw, 12px);
+
   font-weight: 800;
 }
 
 .home-footer span {
   margin-top: 2px;
-  font-size: clamp(8px, 2.2vw, 11px);
+
+  font-size: clamp(8px, 2.1vw, 10px);
+
   font-weight: 500;
 }
 
+/* =========================
+   STAGE MESSAGE
+   ========================= */
+
 .stage-message {
   position: fixed;
+
   left: 50%;
-  bottom: max(18px, env(safe-area-inset-bottom));
-  transform: translate(-50%, 20px);
-  width: min(calc(100% - 28px), 390px);
-  padding: 11px 15px;
+
+  bottom:
+    max(18px, env(safe-area-inset-bottom));
+
+  transform:
+    translate(-50%, 20px);
+
+  width: min(
+    calc(100% - 28px),
+    390px
+  );
+
+  padding:
+    11px
+    15px;
+
   border-radius: 13px;
-  background: rgba(15,30,45,.92);
-  color: #fff;
+
+  background:
+    rgba(15, 30, 45, 0.92);
+
+  color: #ffffff;
+
   text-align: center;
+
   font-size: 13px;
+
   opacity: 0;
+
   pointer-events: none;
-  transition: opacity .2s ease, transform .2s ease;
+
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+
   z-index: 20;
 }
 
 .stage-message.show {
   opacity: 1;
-  transform: translate(-50%, 0);
+
+  transform:
+    translate(-50%, 0);
 }
 
+/* =========================
+   SHORT SCREEN
+   ========================= */
+
 @media (max-height: 680px) {
+
   .home-panel {
     padding-top: 8px;
     padding-bottom: 8px;
@@ -297,84 +585,118 @@ button {
   }
 
   .brand-area h1 {
-    font-size: 24px;
+    font-size: 23px;
   }
 
   .menu-grid {
     gap: 7px;
-    margin: 7px 0;
+
+    margin:
+      7px
+      0;
   }
 
   .menu-card {
-    min-height: 108px;
+    min-height: 105px;
+
     border-radius: 17px;
+
     padding: 7px;
   }
 
-  .menu-icon {
-    width: 53px;
-    height: 53px;
-  }
-
-  .settings-card {
-    min-height: 56px;
-  }
-
-  .home-footer {
-    padding-top: 5px;
-  }
-}
-
-@media (max-width: 350px) {
-  .home-panel {
-    border-radius: 24px;
-    padding-left: 9px;
-    padding-right: 9px;
-  }
-
-  .menu-card {
-    padding-left: 6px;
-    padding-right: 6px;
-  }
-
-  .text-area strong {
-    font-size: 14px;
-  }
-
-  .text-area span {
-    font-size: 9px;
-  }
-}
-
-@media (orientation: landscape) and (max-height: 560px) {
-  .home-panel {
-    width: min(92vw, 760px);
-    height: 96dvh;
-  }
-
-  .brand-area {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    column-gap: 10px;
-    align-items: center;
-    text-align: left;
-  }
-
-  .brand-logo {
-    grid-row: span 2;
-    margin: 0;
-  }
-
-  .brand-area p {
-    margin-top: 0;
-  }
-
-  .menu-card {
-    min-height: 92px;
+  .icon-area {
+    height: 52px;
   }
 
   .menu-icon {
     width: 50px;
     height: 50px;
+  }
+
+  .text-area {
+    height: 39px;
+  }
+
+  .settings-card {
+    min-height: 54px;
+  }
+
+  .home-footer {
+    padding-top: 4px;
+  }
+}
+
+/* =========================
+   VERY SMALL PHONE
+   ========================= */
+
+@media (max-width: 350px) {
+
+  .home-panel {
+    max-width: calc(100vw - 12px);
+
+    border-radius: 24px;
+
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .menu-card {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  .text-area strong {
+    font-size: 13px;
+  }
+
+  .text-area span {
+    font-size: 8px;
+  }
+}
+
+/* =========================
+   LANDSCAPE PHONE
+   ========================= */
+
+@media (orientation: landscape) and (max-height: 560px) {
+
+  .home-panel {
+    width: min(
+      430px,
+      calc(100vw - 20px)
+    );
+
+    height: calc(100dvh - 20px);
+  }
+
+  .brand-logo {
+    width: 42px;
+    height: 42px;
+  }
+
+  .brand-area h1 {
+    font-size: 21px;
+  }
+
+  .brand-area p {
+    font-size: 10px;
+  }
+
+  .menu-card {
+    min-height: 88px;
+  }
+
+  .icon-area {
+    height: 45px;
+  }
+
+  .menu-icon {
+    width: 45px;
+    height: 45px;
+  }
+
+  .text-area {
+    height: 35px;
   }
 }
