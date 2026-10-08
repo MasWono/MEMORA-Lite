@@ -1,111 +1,399 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#078aff">
-  <meta name="description" content="MEMORA Lite — Your Personal Memory">
-  <link rel="manifest" href="manifest.webmanifest">
-  <link rel="stylesheet" href="styles.css">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  >
+
+  <meta
+    name="theme-color"
+    content="#078aff"
+  >
+
+  <meta
+    name="description"
+    content="MEMORA Lite — Your Personal Memory"
+  >
+
+  <!-- PWA -->
+  <link
+    rel="manifest"
+    href="manifest.webmanifest"
+  >
+
+  <!-- iPhone / iPad Home Screen Icons -->
+  <link
+    rel="apple-touch-icon"
+    sizes="180x180"
+    href="icon/icon-180(1).png"
+  >
+
+  <link
+    rel="apple-touch-icon"
+    sizes="152x152"
+    href="icon/icon-152.png"
+  >
+
+  <link
+    rel="apple-touch-icon"
+    sizes="120x120"
+    href="icon/icon-120.png"
+  >
+
+  <link
+    rel="apple-touch-icon"
+    sizes="76x76"
+    href="icon/icon-76.png"
+  >
+
+  <!-- Browser Favicon -->
+  <link
+    rel="icon"
+    type="image/png"
+    sizes="1024x1024"
+    href="icon/icon-1024.png"
+  >
+
+  <link
+    rel="icon"
+    type="image/png"
+    href="icon/favicon.png"
+  >
+
+  <link
+    rel="stylesheet"
+    href="styles.css"
+  >
+
   <title>MEMORA Lite</title>
 </head>
 
 <body>
-  <main class="app-shell" aria-label="MEMORA Lite">
+
+  <main
+    class="app-shell"
+    aria-label="MEMORA Lite"
+  >
 
     <section class="home-panel">
 
+      <!-- =========================
+           BRAND
+           ========================= -->
+
       <header class="brand-area">
-        <div class="brand-logo" aria-hidden="true">
-          <svg viewBox="0 0 100 100" role="presentation">
+
+        <div
+          class="brand-logo"
+          aria-hidden="true"
+        >
+
+          <svg
+            viewBox="0 0 100 100"
+            role="presentation"
+          >
+
             <defs>
-              <linearGradient id="logoBlue" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#67e8ff"/>
-                <stop offset="45%" stop-color="#1597ff"/>
-                <stop offset="100%" stop-color="#0057e7"/>
+
+              <linearGradient
+                id="logoBlue"
+                x1="0"
+                y1="0"
+                x2="1"
+                y2="1"
+              >
+
+                <stop
+                  offset="0%"
+                  stop-color="#67e8ff"
+                />
+
+                <stop
+                  offset="45%"
+                  stop-color="#1597ff"
+                />
+
+                <stop
+                  offset="100%"
+                  stop-color="#0057e7"
+                />
+
               </linearGradient>
-              <filter id="logoShadow" x="-30%" y="-30%" width="160%" height="160%">
-                <feDropShadow dx="0" dy="4" stdDeviation="3" flood-opacity=".30"/>
+
+              <filter
+                id="logoShadow"
+                x="-30%"
+                y="-30%"
+                width="160%"
+                height="160%"
+              >
+
+                <feDropShadow
+                  dx="0"
+                  dy="4"
+                  stdDeviation="3"
+                  flood-opacity=".30"
+                />
+
               </filter>
+
             </defs>
-            <circle cx="50" cy="50" r="43" fill="url(#logoBlue)" filter="url(#logoShadow)"/>
-            <path d="M28 55c-7-11 1-23 13-23 4-9 18-12 26-4 12-2 20 7 18 18 8 5 6 18-4 21H38c-9 0-15-5-10-12Z"
-                  fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
-            <path d="M50 30v40M42 70h16" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
-            <circle cx="50" cy="47" r="5" fill="#fff"/>
+
+            <circle
+              cx="50"
+              cy="50"
+              r="43"
+              fill="url(#logoBlue)"
+              filter="url(#logoShadow)"
+            />
+
+            <path
+              d="M28 55c-7-11 1-23 13-23 4-9 18-12 26-4 12-2 20 7 18 18 8 5 6 18-4 21H38c-9 0-15-5-10-12Z"
+              fill="none"
+              stroke="#fff"
+              stroke-width="5"
+              stroke-linecap="round"
+            />
+
+            <path
+              d="M50 30v40M42 70h16"
+              stroke="#fff"
+              stroke-width="5"
+              stroke-linecap="round"
+            />
+
+            <circle
+              cx="50"
+              cy="47"
+              r="5"
+              fill="#fff"
+            />
+
           </svg>
+
         </div>
 
         <h1>MEMORA Lite</h1>
+
         <p>Your Personal Memory</p>
+
       </header>
 
-      <section class="menu-grid" aria-label="Main menu">
 
-        <button class="menu-card voice" data-action="voice" type="button">
+      <!-- =========================
+           MAIN MENU
+           ========================= -->
+
+      <section
+        class="menu-grid"
+        aria-label="Main menu"
+      >
+
+        <!-- VOICE -->
+
+        <button
+          class="menu-card voice"
+          data-action="voice"
+          type="button"
+        >
+
           <div class="icon-area">
-            <img src="assets/voice.png" alt="" class="menu-icon">
+
+            <img
+              src="assets/voice.png"
+              alt=""
+              class="menu-icon"
+            >
+
           </div>
+
           <div class="text-area">
+
             <strong>Voice</strong>
-            <span>Speak &amp; Save</span>
+
+            <span>
+              Speak &amp; Save
+            </span>
+
           </div>
+
         </button>
 
-        <button class="menu-card text" data-action="text" type="button">
+
+        <!-- TEXT -->
+
+        <button
+          class="menu-card text"
+          data-action="text"
+          type="button"
+        >
+
           <div class="icon-area">
-            <img src="assets/text.png" alt="" class="menu-icon">
+
+            <img
+              src="assets/text.png"
+              alt=""
+              class="menu-icon"
+            >
+
           </div>
+
           <div class="text-area">
+
             <strong>Text</strong>
-            <span>Write &amp; Save</span>
+
+            <span>
+              Write &amp; Save
+            </span>
+
           </div>
+
         </button>
 
-        <button class="menu-card search" data-action="search" type="button">
+
+        <!-- SEARCH -->
+
+        <button
+          class="menu-card search"
+          data-action="search"
+          type="button"
+        >
+
           <div class="icon-area">
-            <img src="assets/search.png" alt="" class="menu-icon">
+
+            <img
+              src="assets/search.png"
+              alt=""
+              class="menu-icon"
+            >
+
           </div>
+
           <div class="text-area">
+
             <strong>Search</strong>
-            <span>Find Memories</span>
+
+            <span>
+              Find Memories
+            </span>
+
           </div>
+
         </button>
 
-        <button class="menu-card ask" data-action="ask" type="button">
+
+        <!-- ASK MEMORA -->
+
+        <button
+          class="menu-card ask"
+          data-action="ask"
+          type="button"
+        >
+
           <div class="icon-area">
-            <img src="assets/ask-memora.png" alt="" class="menu-icon">
+
+            <img
+              src="assets/ask-memora.png"
+              alt=""
+              class="menu-icon"
+            >
+
           </div>
+
           <div class="text-area">
+
             <strong>Ask MEMORA</strong>
-            <span>Ask Your Memories</span>
+
+            <span>
+              Ask Your Memories
+            </span>
+
           </div>
+
         </button>
 
       </section>
 
-      <button class="settings-card" data-action="settings" type="button">
+
+      <!-- =========================
+           SETTINGS
+           ========================= -->
+
+      <button
+        class="settings-card"
+        data-action="settings"
+        type="button"
+      >
+
         <div class="settings-icon-area">
-          <img src="assets/settings.png" alt="" class="settings-icon">
+
+          <img
+            src="assets/settings.png"
+            alt=""
+            class="settings-icon"
+          >
+
         </div>
+
         <div class="settings-text-area">
+
           <strong>Settings</strong>
-          <span>Language, Voice, Backup</span>
+
+          <span>
+            Language, Voice, Backup
+          </span>
+
         </div>
-        <span class="settings-arrow" aria-hidden="true">›</span>
+
+        <span
+          class="settings-arrow"
+          aria-hidden="true"
+        >
+          ›
+        </span>
+
       </button>
 
+
+      <!-- =========================
+           FOOTER
+           ========================= -->
+
       <footer class="home-footer">
-        <strong>Small inputs. Big memories.</strong>
-        <span>Your personal memory, always with you.</span>
+
+        <strong>
+          Small inputs. Big memories.
+        </strong>
+
+        <span>
+          Your personal memory, always with you.
+        </span>
+
       </footer>
 
     </section>
 
   </main>
 
-  <div id="stage-message" class="stage-message" role="status" aria-live="polite"></div>
+
+  <!-- Stage message -->
+
+  <div
+    id="stage-message"
+    class="stage-message"
+    role="status"
+    aria-live="polite"
+  ></div>
+
+
+  <!-- JavaScript -->
 
   <script src="app.js"></script>
+
 </body>
+
 </html>
