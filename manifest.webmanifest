@@ -1,0 +1,11 @@
+{
+  "name": "MEMORA Lite",
+  "short_name": "MEMORA",
+  "description": "Your Personal Memory",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#078aff",
+  "theme_color": "#078aff",
+  "lang": "en"
+}
