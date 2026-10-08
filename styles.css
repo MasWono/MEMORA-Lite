@@ -4,7 +4,7 @@
   --green: #34c759;
   --purple: #af52de;
   --ink: #17324d;
-  --white-glass: rgba(255, 255, 255, 0.92);
+  --white-glass: rgba(255, 255, 255, 0.94);
 }
 
 * {
@@ -16,9 +16,6 @@ body {
   width: 100%;
   height: 100%;
   margin: 0;
-}
-
-html {
   overflow: hidden;
 }
 
@@ -31,21 +28,21 @@ body {
     Arial,
     sans-serif;
 
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
+  background:
+    linear-gradient(
+      180deg,
+      #8bdcff 0%,
+      #42afea 50%,
+      #087dcc 100%
+    );
 
-  background: #078aff;
   color: #ffffff;
 }
 
-button {
-  font: inherit;
-}
-
-/* =========================
-   APP BACKGROUND
-   ========================= */
+/* =====================================================
+   APP SHELL
+   Background outside MEMORA panel
+   ===================================================== */
 
 .app-shell {
   width: 100%;
@@ -61,18 +58,12 @@ button {
     max(10px, env(safe-area-inset-right))
     max(10px, env(safe-area-inset-bottom))
     max(10px, env(safe-area-inset-left));
-
-  background:
-    linear-gradient(
-      rgba(0, 80, 155, 0.08),
-      rgba(0, 40, 100, 0.08)
-    ),
-    url("assets/background.png") center / cover no-repeat;
 }
 
-/* =========================
-   HOME PANEL
-   ========================= */
+/* =====================================================
+   MEMORA HOME PANEL
+   The scenic background exists ONLY inside this panel
+   ===================================================== */
 
 .home-panel {
   width: 430px;
@@ -89,14 +80,18 @@ button {
 
   display: flex;
   flex-direction: column;
-
   justify-content: space-between;
 
   border-radius: 30px;
 
-  background: rgba(255, 255, 255, 0.15);
+  background:
+    linear-gradient(
+      rgba(255, 255, 255, 0.18),
+      rgba(0, 135, 210, 0.16)
+    ),
+    url("assets/background.png") center / cover no-repeat;
 
-  border: 1px solid rgba(255, 255, 255, 0.42);
+  border: 1px solid rgba(255, 255, 255, 0.50);
 
   box-shadow:
     0 18px 55px rgba(0, 30, 70, 0.30);
@@ -107,9 +102,9 @@ button {
   overflow: hidden;
 }
 
-/* =========================
+/* =====================================================
    BRAND
-   ========================= */
+   ===================================================== */
 
 .brand-area {
   flex: 0 0 auto;
@@ -154,9 +149,9 @@ button {
   font-weight: 500;
 }
 
-/* =========================
-   MAIN MENU GRID
-   ========================= */
+/* =====================================================
+   MAIN MENU
+   ===================================================== */
 
 .menu-grid {
   flex: 1 1 auto;
@@ -176,9 +171,9 @@ button {
   align-content: center;
 }
 
-/* =========================
+/* =====================================================
    MENU CARD
-   ========================= */
+   ===================================================== */
 
 .menu-card {
   width: 100%;
@@ -225,9 +220,9 @@ button {
   transform: scale(0.985);
 }
 
-/* =========================
+/* =====================================================
    MENU COLORS
-   ========================= */
+   ===================================================== */
 
 .voice {
   background:
@@ -265,10 +260,11 @@ button {
     );
 }
 
-/* =========================
+/* =====================================================
    ICON AREA
-   DEDICATED — NEVER OVERLAPS TEXT
-   ========================= */
+   Dedicated area.
+   NEVER overlaps text.
+   ===================================================== */
 
 .icon-area {
   width: 100%;
@@ -286,9 +282,9 @@ button {
   padding: 2px 0;
 }
 
-/* =========================
-   ICON
-   ========================= */
+/* =====================================================
+   MENU ICON
+   ===================================================== */
 
 .menu-icon {
   display: block;
@@ -305,10 +301,11 @@ button {
   flex-shrink: 0;
 }
 
-/* =========================
+/* =====================================================
    TEXT AREA
-   DEDICATED — NEVER OVERLAPS ICON
-   ========================= */
+   Dedicated area.
+   NEVER overlaps icon.
+   ===================================================== */
 
 .text-area {
   width: 100%;
@@ -368,9 +365,9 @@ button {
   overflow-wrap: anywhere;
 }
 
-/* =========================
+/* =====================================================
    SETTINGS
-   ========================= */
+   ===================================================== */
 
 .settings-card {
   width: 100%;
@@ -412,9 +409,9 @@ button {
   text-align: left;
 }
 
-/* =========================
+/* =====================================================
    SETTINGS ICON AREA
-   ========================= */
+   ===================================================== */
 
 .settings-icon-area {
   width: 100%;
@@ -437,9 +434,9 @@ button {
   flex-shrink: 0;
 }
 
-/* =========================
+/* =====================================================
    SETTINGS TEXT AREA
-   ========================= */
+   ===================================================== */
 
 .settings-text-area {
   min-width: 0;
@@ -481,14 +478,15 @@ button {
   color: #547086;
 }
 
-/* =========================
+/* =====================================================
    FOOTER
-   ========================= */
+   ===================================================== */
 
 .home-footer {
   flex: 0 0 auto;
 
-  padding-top: clamp(6px, 1.2vh, 10px);
+  padding-top:
+    clamp(6px, 1.2vh, 10px);
 
   text-align: center;
 
@@ -502,7 +500,8 @@ button {
 }
 
 .home-footer strong {
-  font-size: clamp(9px, 2.5vw, 12px);
+  font-size:
+    clamp(9px, 2.5vw, 12px);
 
   font-weight: 800;
 }
@@ -510,14 +509,15 @@ button {
 .home-footer span {
   margin-top: 2px;
 
-  font-size: clamp(8px, 2.1vw, 10px);
+  font-size:
+    clamp(8px, 2.1vw, 10px);
 
   font-weight: 500;
 }
 
-/* =========================
+/* =====================================================
    STAGE MESSAGE
-   ========================= */
+   ===================================================== */
 
 .stage-message {
   position: fixed;
@@ -530,14 +530,14 @@ button {
   transform:
     translate(-50%, 20px);
 
-  width: min(
-    calc(100% - 28px),
-    390px
-  );
+  width:
+    min(
+      calc(100% - 28px),
+      390px
+    );
 
   padding:
-    11px
-    15px;
+    11px 15px;
 
   border-radius: 13px;
 
@@ -568,9 +568,9 @@ button {
     translate(-50%, 0);
 }
 
-/* =========================
+/* =====================================================
    SHORT SCREEN
-   ========================= */
+   ===================================================== */
 
 @media (max-height: 680px) {
 
@@ -592,8 +592,7 @@ button {
     gap: 7px;
 
     margin:
-      7px
-      0;
+      7px 0;
   }
 
   .menu-card {
@@ -626,14 +625,15 @@ button {
   }
 }
 
-/* =========================
+/* =====================================================
    VERY SMALL PHONE
-   ========================= */
+   ===================================================== */
 
 @media (max-width: 350px) {
 
   .home-panel {
-    max-width: calc(100vw - 12px);
+    max-width:
+      calc(100vw - 12px);
 
     border-radius: 24px;
 
@@ -655,19 +655,21 @@ button {
   }
 }
 
-/* =========================
+/* =====================================================
    LANDSCAPE PHONE
-   ========================= */
+   ===================================================== */
 
 @media (orientation: landscape) and (max-height: 560px) {
 
   .home-panel {
-    width: min(
-      430px,
-      calc(100vw - 20px)
-    );
+    width:
+      min(
+        430px,
+        calc(100vw - 20px)
+      );
 
-    height: calc(100dvh - 20px);
+    height:
+      calc(100dvh - 20px);
   }
 
   .brand-logo {
