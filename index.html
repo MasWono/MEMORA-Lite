@@ -25,7 +25,7 @@
     href="manifest.webmanifest"
   >
 
-  <!-- iPhone / iPad Home Screen Icons -->
+  <!-- iPhone / iPad Home Screen -->
   <link
     rel="apple-touch-icon"
     sizes="180x180"
@@ -50,7 +50,7 @@
     href="icon/icon-76.png"
   >
 
-  <!-- Browser Favicon -->
+  <!-- Browser Icon -->
   <link
     rel="icon"
     type="image/png"
@@ -70,7 +70,449 @@
   >
 
   <title>MEMORA Lite</title>
+
+
+  <!-- =================================================
+       MEMORA 3D HEADER
+       This is intentionally inside index.html so
+       the locked mobile Home CSS is not disturbed.
+       ================================================= -->
+
+  <style>
+
+    /* -------------------------------------------------
+       3D LOGO CONTAINER
+       ------------------------------------------------- */
+
+    .brand-logo-3d {
+      position: relative;
+
+      width: clamp(82px, 21vw, 116px);
+      height: clamp(82px, 21vw, 116px);
+
+      margin: 0 auto 2px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      perspective: 700px;
+
+      filter:
+        drop-shadow(
+          0 10px 12px
+          rgba(0, 35, 90, 0.35)
+        );
+    }
+
+
+    /* -------------------------------------------------
+       BLUE LIGHT GLOW
+       ------------------------------------------------- */
+
+    .logo-glow {
+      position: absolute;
+
+      width: 72%;
+      height: 72%;
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(91, 235, 255, 0.80) 0%,
+          rgba(21, 151, 255, 0.38) 42%,
+          rgba(0, 80, 230, 0.00) 72%
+        );
+
+      filter: blur(5px);
+
+      opacity: 0.95;
+
+      z-index: 0;
+    }
+
+
+    /* -------------------------------------------------
+       OUTER METAL RING
+       ------------------------------------------------- */
+
+    .logo-ring {
+      position: relative;
+
+      width: 76%;
+      height: 76%;
+
+      border-radius: 50%;
+
+      padding: 7px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background:
+        linear-gradient(
+          145deg,
+          #ffffff 0%,
+          #d8f7ff 18%,
+          #8fc8df 42%,
+          #ffffff 62%,
+          #8aaec2 82%,
+          #ffffff 100%
+        );
+
+      box-shadow:
+        inset 0 2px 3px
+        rgba(255,255,255,0.95),
+
+        inset 0 -4px 6px
+        rgba(0,55,100,0.30),
+
+        0 5px 8px
+        rgba(0,35,90,0.35);
+
+      transform:
+        translateZ(20px);
+
+      z-index: 2;
+    }
+
+
+    /* -------------------------------------------------
+       INNER BLUE CIRCLE
+       ------------------------------------------------- */
+
+    .logo-inner {
+      position: relative;
+
+      width: 100%;
+      height: 100%;
+
+      overflow: hidden;
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(
+          circle at 32% 22%,
+          #52eaff 0%,
+          #159bff 24%,
+          #0878ed 48%,
+          #0046bd 78%,
+          #002a83 100%
+        );
+
+      border:
+        2px solid
+        rgba(255,255,255,0.55);
+
+      box-shadow:
+        inset 0 4px 7px
+        rgba(255,255,255,0.50),
+
+        inset 0 -8px 12px
+        rgba(0,25,100,0.50);
+    }
+
+
+    /* -------------------------------------------------
+       SHIP
+       ------------------------------------------------- */
+
+    .ship-3d {
+      position: absolute;
+
+      left: 50%;
+      top: 45%;
+
+      width: 54%;
+      height: 48%;
+
+      transform:
+        translate(-50%, -50%);
+
+      z-index: 4;
+
+      filter:
+        drop-shadow(
+          0 4px 3px
+          rgba(0,25,70,0.35)
+        );
+    }
+
+
+    /* mast / cross */
+
+    .ship-cross {
+      position: absolute;
+
+      left: 50%;
+      top: -4%;
+
+      transform:
+        translateX(-50%);
+
+      color: #ffffff;
+
+      font-size:
+        clamp(19px, 5vw, 29px);
+
+      font-weight: 900;
+
+      line-height: 1;
+
+      text-shadow:
+        0 2px 2px
+        rgba(0,40,90,0.35);
+    }
+
+
+    /* upper bridge */
+
+    .ship-top {
+      position: absolute;
+
+      left: 28%;
+      top: 17%;
+
+      width: 44%;
+      height: 25%;
+
+      background:
+        linear-gradient(
+          145deg,
+          #ffffff 0%,
+          #e9f8ff 48%,
+          #b9d6e5 100%
+        );
+
+      border-radius:
+        7px 7px 2px 2px;
+
+      box-shadow:
+        inset 0 2px 2px
+        rgba(255,255,255,0.90),
+
+        0 2px 2px
+        rgba(0,30,80,0.30);
+    }
+
+
+    /* ship body */
+
+    .ship-body {
+      position: absolute;
+
+      left: 8%;
+      top: 39%;
+
+      width: 84%;
+      height: 49%;
+
+      background:
+        linear-gradient(
+          145deg,
+          #ffffff 0%,
+          #f4fbff 42%,
+          #b8cfdd 100%
+        );
+
+      clip-path:
+        polygon(
+          13% 0%,
+          87% 0%,
+          100% 72%,
+          67% 100%,
+          33% 100%,
+          0% 72%
+        );
+
+      box-shadow:
+        0 3px 4px
+        rgba(0,25,70,0.30);
+    }
+
+
+    /* ship windows */
+
+    .ship-window {
+      position: absolute;
+
+      top: 15%;
+
+      width: 9%;
+      height: 10%;
+
+      border-radius: 50%;
+
+      background:
+        #1451a8;
+
+      box-shadow:
+        inset 0 1px 1px
+        rgba(255,255,255,0.75);
+    }
+
+    .ship-window:nth-child(1) {
+      left: 35%;
+    }
+
+    .ship-window:nth-child(2) {
+      right: 35%;
+    }
+
+
+    /* -------------------------------------------------
+       3D OCEAN WAVES
+       ------------------------------------------------- */
+
+    .logo-wave {
+      position: absolute;
+
+      left: 9%;
+
+      width: 82%;
+
+      height: 17%;
+
+      border-radius: 50%;
+
+      transform:
+        skewX(-8deg);
+
+      z-index: 5;
+    }
+
+
+    .wave-back {
+      bottom: 19%;
+
+      background:
+        linear-gradient(
+          180deg,
+          #4ff3ff 0%,
+          #08bce9 45%,
+          #0078d8 100%
+        );
+
+      box-shadow:
+        0 3px 3px
+        rgba(0,25,90,0.40);
+    }
+
+
+    .wave-front {
+      bottom: 12%;
+
+      width: 74%;
+
+      left: 13%;
+
+      background:
+        linear-gradient(
+          180deg,
+          #77f8ff 0%,
+          #12cce8 40%,
+          #006ed0 100%
+        );
+
+      box-shadow:
+        0 4px 4px
+        rgba(0,25,90,0.45);
+    }
+
+
+    /* -------------------------------------------------
+       HEADER TITLE 3D
+       ------------------------------------------------- */
+
+    .brand-area > h1 {
+      text-shadow:
+        0 2px 0 #ffffff,
+        0 4px 0 rgba(0,95,180,0.55),
+        0 7px 10px rgba(0,30,80,0.35);
+
+      transform:
+        translateZ(12px);
+    }
+
+
+    .brand-area > p {
+      text-shadow:
+        0 2px 4px
+        rgba(0,35,80,0.35);
+    }
+
+
+    /* -------------------------------------------------
+       MOBILE
+       Keep current Home proportions.
+       ------------------------------------------------- */
+
+    @media (max-width: 600px),
+           (pointer: coarse) {
+
+      .brand-logo-3d {
+        width: 86px;
+        height: 86px;
+
+        margin-bottom: 2px;
+      }
+
+      .brand-area > h1 {
+        font-size: 28px;
+      }
+
+      .brand-area > p {
+        font-size: 14px;
+      }
+    }
+
+
+    /* -------------------------------------------------
+       SHORT MOBILE
+       ------------------------------------------------- */
+
+    @media (max-width: 600px) and (max-height: 700px),
+           (pointer: coarse) and (max-height: 700px) {
+
+      .brand-logo-3d {
+        width: 76px;
+        height: 76px;
+      }
+
+      .brand-area > h1 {
+        font-size: 25px;
+      }
+
+      .brand-area > p {
+        font-size: 12px;
+      }
+    }
+
+
+    /* -------------------------------------------------
+       DESKTOP
+       ------------------------------------------------- */
+
+    @media (min-width: 601px) {
+
+      .brand-logo-3d {
+        width: 96px;
+        height: 96px;
+      }
+
+      .brand-area > h1 {
+        font-size: 32px;
+      }
+    }
+
+  </style>
+
 </head>
+
 
 <body>
 
@@ -81,117 +523,77 @@
 
     <section class="home-panel">
 
-      <!-- =========================
-           BRAND
-           ========================= -->
+
+      <!-- =================================================
+           MEMORA 3D BRAND HEADER
+           ================================================= -->
 
       <header class="brand-area">
 
         <div
-          class="brand-logo"
+          class="brand-logo-3d"
           aria-hidden="true"
         >
 
-          <svg
-            viewBox="0 0 100 100"
-            role="presentation"
-          >
+          <div class="logo-glow"></div>
 
-            <defs>
+          <div class="logo-ring">
 
-              <linearGradient
-                id="logoBlue"
-                x1="0"
-                y1="0"
-                x2="1"
-                y2="1"
-              >
+            <div class="logo-inner">
 
-                <stop
-                  offset="0%"
-                  stop-color="#67e8ff"
-                />
+              <div class="ship-3d">
 
-                <stop
-                  offset="45%"
-                  stop-color="#1597ff"
-                />
+                <div class="ship-cross">
+                  ✚
+                </div>
 
-                <stop
-                  offset="100%"
-                  stop-color="#0057e7"
-                />
+                <div class="ship-top"></div>
 
-              </linearGradient>
+                <div class="ship-body">
 
-              <filter
-                id="logoShadow"
-                x="-30%"
-                y="-30%"
-                width="160%"
-                height="160%"
-              >
+                  <div class="ship-window"></div>
 
-                <feDropShadow
-                  dx="0"
-                  dy="4"
-                  stdDeviation="3"
-                  flood-opacity=".30"
-                />
+                  <div class="ship-window"></div>
 
-              </filter>
+                </div>
 
-            </defs>
+              </div>
 
-            <circle
-              cx="50"
-              cy="50"
-              r="43"
-              fill="url(#logoBlue)"
-              filter="url(#logoShadow)"
-            />
+              <div
+                class="logo-wave wave-back"
+              ></div>
 
-            <path
-              d="M28 55c-7-11 1-23 13-23 4-9 18-12 26-4 12-2 20 7 18 18 8 5 6 18-4 21H38c-9 0-15-5-10-12Z"
-              fill="none"
-              stroke="#fff"
-              stroke-width="5"
-              stroke-linecap="round"
-            />
+              <div
+                class="logo-wave wave-front"
+              ></div>
 
-            <path
-              d="M50 30v40M42 70h16"
-              stroke="#fff"
-              stroke-width="5"
-              stroke-linecap="round"
-            />
+            </div>
 
-            <circle
-              cx="50"
-              cy="47"
-              r="5"
-              fill="#fff"
-            />
-
-          </svg>
+          </div>
 
         </div>
 
-        <h1>MEMORA Lite</h1>
 
-        <p>Your Personal Memory</p>
+        <h1>
+          MEMORA Lite
+        </h1>
+
+        <p>
+          Your Personal Memory
+        </p>
 
       </header>
 
 
-      <!-- =========================
+      <!-- =================================================
            MAIN MENU
-           ========================= -->
+           ================================================= -->
 
       <section
         class="menu-grid"
         aria-label="Main menu"
       >
+
 
         <!-- VOICE -->
 
@@ -213,7 +615,9 @@
 
           <div class="text-area">
 
-            <strong>Voice</strong>
+            <strong>
+              Voice
+            </strong>
 
             <span>
               Speak &amp; Save
@@ -244,7 +648,9 @@
 
           <div class="text-area">
 
-            <strong>Text</strong>
+            <strong>
+              Text
+            </strong>
 
             <span>
               Write &amp; Save
@@ -275,7 +681,9 @@
 
           <div class="text-area">
 
-            <strong>Search</strong>
+            <strong>
+              Search
+            </strong>
 
             <span>
               Find Memories
@@ -306,7 +714,9 @@
 
           <div class="text-area">
 
-            <strong>Ask MEMORA</strong>
+            <strong>
+              Ask MEMORA
+            </strong>
 
             <span>
               Ask Your Memories
@@ -319,9 +729,9 @@
       </section>
 
 
-      <!-- =========================
+      <!-- =================================================
            SETTINGS
-           ========================= -->
+           ================================================= -->
 
       <button
         class="settings-card"
@@ -341,7 +751,9 @@
 
         <div class="settings-text-area">
 
-          <strong>Settings</strong>
+          <strong>
+            Settings
+          </strong>
 
           <span>
             Language, Voice, Backup
@@ -359,9 +771,9 @@
       </button>
 
 
-      <!-- =========================
+      <!-- =================================================
            FOOTER
-           ========================= -->
+           ================================================= -->
 
       <footer class="home-footer">
 
@@ -375,12 +787,15 @@
 
       </footer>
 
+
     </section>
 
   </main>
 
 
-  <!-- Stage message -->
+  <!-- =================================================
+       STAGE MESSAGE
+       ================================================= -->
 
   <div
     id="stage-message"
@@ -390,7 +805,9 @@
   ></div>
 
 
-  <!-- JavaScript -->
+  <!-- =================================================
+       JAVASCRIPT
+       ================================================= -->
 
   <script src="app.js"></script>
 
