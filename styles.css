@@ -35,16 +35,12 @@ body {
 
   color: #ffffff;
 
-  /* =====================================================
-     OPTIMASI BACKGROUND LAUT UNTUK HP
-     - Gunakan gambar yang sudah dikompres (misal max lebar 800-1200px)
-     - background-size: cover & center membuat ukuran menyesuaikan layar HP dengan ringan
-     ===================================================== */
+  /* Dioptimalkan untuk iPhone agar tidak berat saat loading */
   background:
     url("assets/background.png")
     center center /
     cover
-    no-repeat fixed;
+    no-repeat;
 }
 
 button {
@@ -323,4 +319,89 @@ button {
 
 /* =====================================================
    FOOTER
-   ================
+   ===================================================== */
+
+.home-footer {
+  flex: 0 0 auto;
+  padding-top: 4px;
+  text-align: center;
+  text-shadow: 0 2px 7px rgba(0, 35, 80, 0.35);
+}
+
+.home-footer strong,
+.home-footer span {
+  display: block;
+}
+
+.home-footer strong {
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.home-footer span {
+  margin-top: 1px;
+  font-size: 8px;
+  font-weight: 500;
+}
+
+/* =====================================================
+   STAGE MESSAGE
+   ===================================================== */
+
+.stage-message {
+  position: fixed;
+  left: 50%;
+  bottom: max(18px, env(safe-area-inset-bottom));
+  transform: translate(-50%, 20px);
+
+  width: min(calc(100% - 28px), 390px);
+  padding: 11px 15px;
+  border-radius: 13px;
+
+  background: rgba(15, 30, 45, 0.92);
+  color: #ffffff;
+  text-align: center;
+  font-size: 13px;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 20;
+}
+
+.stage-message.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* =====================================================
+   MOBILE (FULLSCREEN PWA)
+   ===================================================== */
+
+@media (max-width: 600px) {
+  .app-shell {
+    width: 100%;
+    height: 100dvh;
+    padding: 0;
+    display: block;
+  }
+
+  .home-panel {
+    width: 100%;
+    max-width: none;
+    height: 100dvh;
+    max-height: none;
+
+    margin: 0;
+    padding:
+      max(12px, env(safe-area-inset-top))
+      max(12px, env(safe-area-inset-right))
+      max(10px, env(safe-area-inset-bottom))
+      max(12px, env(safe-area-inset-left));
+
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    background: transparent;
+  }
+}
