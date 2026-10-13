@@ -1,11 +1,7 @@
-```javascript
 document.addEventListener("DOMContentLoaded", () => {
   "use strict";
 
   // MEMORA Lite - Smart Reminder
-  // Hanya app.js yang perlu diganti.
-  // Storage keys lama dipertahankan.
-
   const STORAGE_KEYS = {
     memories: "memora-lite-memories-v1",
     reminders: "memora-lite-reminders-v1"
@@ -177,7 +173,7 @@ document.addEventListener("DOMContentLoaded", () => {
       reminderFired:"Pengingat telah jatuh tempo",
       askReminderResults:"Pengingat terkait",
       askMemoryResults:"Catatan terkait",
-      noData:"Saya belum menemukan informasi tersimpan yang cukup untuk menjawab pertanyaan itu.",
+      noData:"I cannot find enough saved information to answer that question.",
       deleteReminder:"Hapus pengingat",
       deleteMemory:"Hapus catatan",
       reminderSavedAt:"Pengingat dibuat",
@@ -384,16 +380,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  
-function actionButton(label, primary = true) {
-  return make("button", {
-    type: "button",
-    style: "border:0;border-radius:12px;padding:12px 16px;min-height:44px;font:inherit;font-weight:700;cursor:pointer;background:" +
-      (primary ? "#0878ed" : "#edf2f7") +
-      ";color:" + (primary ? "#fff" : "#17324d") + ";"
-  }, label);
-}
-  
+  function actionButton(label, primary = true) {
+    return make("button", {
+      type: "button",
+      style: "border:0;border-radius:12px;padding:12px 16px;min-height:44px;font:inherit;font-weight:700;cursor:pointer;background:" +
+        (primary ? "#0878ed" : "#edf2f7") +
+        ";color:" + (primary ? "#fff" : "#17324d") + ";"
+    }, label);
+  }
 
   function noteLine(text) {
     return make("p", {
@@ -401,8 +395,6 @@ function actionButton(label, primary = true) {
     }, text);
   }
 
-  // Timestamp is immediate; GPS is requested asynchronously.
-  // Saving is never blocked by unavailable GPS.
   function getLocation() {
     return new Promise(resolve => {
       if (!navigator.geolocation) {
@@ -637,20 +629,6 @@ function actionButton(label, primary = true) {
       temp.remove();
       showMessage(ok ? t("copied") : "Copy failed");
     }
-  }
-
-  function addResultActions(container, text) {
-    const row = make("div", {
-      style:"display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;"
-    });
-    const listen = actionButton(t("listen"),false);
-    const copy = actionButton(t("copy"),false);
-    listen.style.minHeight = "38px";
-    copy.style.minHeight = "38px";
-    listen.addEventListener("click", () => speak(text));
-    copy.addEventListener("click", () => copyText(text));
-    row.append(listen,copy);
-    container.append(row);
   }
 
   function reminderStatus(reminder) {
@@ -1005,7 +983,6 @@ function actionButton(label, primary = true) {
         style:"margin:8px 0 0;font-size:18px;"
       },t("resultsHeading")));
 
-      // Relevant reminder answers, including schedule calculation.
       if (reminderMatches.length) {
         resultArea.append(make("h3", {
           style:"margin:8px 0 0;font-size:16px;"
@@ -1113,7 +1090,6 @@ function actionButton(label, primary = true) {
       let changed = false;
 
       reminders.forEach(reminder => {
-        // A reminder becoming due is NOT the same as the job being completed.
         if (!reminder.done && !reminder.completedAt &&
             !reminder.notifiedAt &&
             new Date(reminder.when).getTime() <= now) {
@@ -1141,15 +1117,18 @@ function actionButton(label, primary = true) {
     });
   }
 
-  document.querySelectorAll("[data-action]").forEach(button => {
-    button.addEventListener("click",() => {
-      const action = button.dataset.action;
-      if (action === "settings") { openSettings(); return; }
-      if (action === "voice") { openVoice(); return; }
-      if (action === "text") { openText(); return; }
-      if (action === "reminder") { openReminder(); return; }
-      if (action === "ask") { openAsk(); return; }
-    });
+  // Perbaikan utama: Menggunakan Event Delegation pada dokumen
+  // sehingga tombol menu selalu merespons klik meskipun elemen dimuat dinamis atau listener terlewat.
+  document.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-action]");
+    if (!button) return;
+    
+    const action = button.dataset.action;
+    if (action === "settings") { openSettings(); }
+    else if (action === "voice") { openVoice(); }
+    else if (action === "text") { openText(); }
+    else if (action === "reminder") { openReminder(); }
+    else if (action === "ask") { openAsk(); }
   });
 
   document.getElementById("settings-save")?.addEventListener("click",() => {
@@ -1173,4 +1152,3 @@ function actionButton(label, primary = true) {
   applyLanguage();
   scheduleReminderChecks();
 });
-```
