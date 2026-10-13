@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+Document.addEventListener("DOMContentLoaded", () => {
   "use strict";
 
   // MEMORA Lite V1 - Master Plan 07 Oct 2026
@@ -173,7 +173,7 @@ document.addEventListener("DOMContentLoaded", () => {
       reminderFired:"Pengingat telah jatuh tempo",
       askReminderResults:"Pengingat terkait",
       askMemoryResults:"Catatan terkait",
-      noData:"Saya belum menemukan informasi tersimpan yang cukup untuk menjawab pertanyaan itu.",
+      noData:"I cannot find enough saved information to answer that question.",
       deleteReminder:"Hapus pengingat",
       deleteMemory:"Hapus catatan",
       reminderSavedAt:"Reminder dibuat",
@@ -388,7 +388,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }, text);
   }
 
-  // Perekaman otomatis Tanggal, Waktu, dan Lokasi GPS sesuai Master Plan
   function getLocation() {
     return new Promise(resolve => {
       if (!navigator.geolocation) {
@@ -881,67 +880,3 @@ document.addEventListener("DOMContentLoaded", () => {
 
     listen.addEventListener("click", () => speak(`${title}. ${description}`));
     copy.addEventListener("click", () => copyText(`${title}\n${description}`));
-    actions.append(listen, copy);
-
-    if (type === "memory") {
-      const remove = actionButton(t("delete"),false);
-      remove.addEventListener("click", () => {
-        if (!window.confirm(t("confirmDelete"))) return;
-        writeList(STORAGE_KEYS.memories,
-          readList(STORAGE_KEYS.memories).filter(m => m.id !== item.id));
-        runLastSearch?.();
-      });
-      actions.append(remove);
-    }
-
-    if (type === "reminder" && !item.done && !item.completedAt) {
-      const complete = actionButton(t("complete"));
-      complete.addEventListener("click", async () => {
-        complete.disabled = true;
-        const metadata = await captureMetadata();
-        const reminders = readList(STORAGE_KEYS.reminders);
-        const target = reminders.find(r => r.id === item.id);
-        if (!target) return;
-
-        target.done = true;
-        target.completedAt = metadata.recordedAt;
-        target.completedLocation = metadata.location;
-        target.completionDisplayTime = metadata.displayTime;
-
-        if (writeList(STORAGE_KEYS.reminders, reminders)) {
-          showMessage(t("completedMessage"));
-          runLastSearch?.();
-        } else {
-          complete.disabled = false;
-        }
-      });
-      actions.append(complete);
-    }
-
-    card.append(actions);
-    container.append(card);
-  }
-
-  let runLastSearch = null;
-
-  function openAsk() {
-    const content = openFeature(t("askHeading"));
-    content.append(noteLine(t("askNote")));
-
-    const query = styledInput({
-      id:"memora-ask-query",type:"search",placeholder:t("askPlaceholder")
-    });
-    content.append(query);
-
-    const search = actionButton(t("searchButton"));
-    content.append(search);
-
-    const resultArea = make("div", {
-      style:"display:flex;flex-direction:column;gap:10px;"
-    });
-    content.append(resultArea);
-
-    function runSearch() {
-      resultArea.replaceChildren();
-
-      const raw
