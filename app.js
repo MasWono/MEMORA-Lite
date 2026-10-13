@@ -384,12 +384,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  function actionButton(label, primary = true) {
-    return make("button", {
-      type:"button",
-      style:`border:0;border-radius:12px;padding:12px 16px;min-height:44px;font:inherit;font-weight:700;cursor:pointer;background:${primary ? "#0878ed" : "#edf2f7"};color:${primary ? "#fff" : "#17324d"};`
-    }, label);
-  }
+  
+function actionButton(label, primary = true) {
+  return make("button", {
+    type: "button",
+    style: "border:0;border-radius:12px;padding:12px 16px;min-height:44px;font:inherit;font-weight:700;cursor:pointer;background:" +
+      (primary ? "#0878ed" : "#edf2f7") +
+      ";color:" + (primary ? "#fff" : "#17324d") + ";"
+  }, label);
+}
+  
 
   function noteLine(text) {
     return make("p", {
