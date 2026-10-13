@@ -3,56 +3,102 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const translations = {
     en: {
-      voiceTitle:"Voice", voiceSubtitle:"Speak & Save", textTitle:"Text", textSubtitle:"Write & Save",
-      reminderTitle:"Reminder", reminderSubtitle:"Remember on time", askTitle:"Ask MEMORA", askSubtitle:"Ask Your Memories",
-      settingsTitle:"Settings", settingsSubtitle:"Language and preferences", tagline:"Small notes. Big memories.",
-      footerLine:"Your personal memory, always with you.", languageLabel:"Language", cancel:"Cancel", save:"Save",
-      textHeading:"New memory", textPlaceholder:"Write your memory here...", category:"Category",
-      general:"General", work:"Work", travel:"Travel", personal:"Personal", material:"Material",
-      saveMemory:"Save memory", close:"Close", saved:"Memory saved on this device.", emptyText:"Please write something first.",
-      voiceHeading:"Voice memory", voiceIntro:"Tap Start listening and speak. Your browser must support speech recognition.",
-      startListening:"Start listening", stopListening:"Stop listening", transcriptPlaceholder:"Your speech will appear here...",
-      saveTranscript:"Save transcript", speechUnsupported:"Voice recognition is not supported in this browser. Try a recent version of Chrome.",
-      listening:"Listening…", reminderHeading:"New reminder", reminderTitleLabel:"Reminder title",
-      reminderPlaceholder:"What do you need to remember?", reminderDate:"Date and time", saveReminder:"Save reminder",
-      reminderSaved:"Reminder saved on this device.", emptyReminder:"Please enter a reminder title and date/time.",
-      reminderList:"Saved reminders", noReminders:"No reminders saved yet.", dueReminder:"Reminder due",
-      askHeading:"Ask your memories", askPlaceholder:"Search your saved memories…",
-      searchButton:"Search", resultsHeading:"Matching memories", noResults:"No matching memories found on this device.",
-      allMemories:"All saved memories", noMemories:"You have not saved any memories yet.",
-      delete:"Delete", confirmDelete:"Delete this item?", languageSaved:"Language saved.",
-      dateLabel:"Date", timeLabel:"Time", voiceSaved:"Voice memory saved on this device.",
+      voiceTitle:"Voice", voiceSubtitle:"Speak & Save",
+      textTitle:"Text", textSubtitle:"Write & Save",
+      reminderTitle:"Reminder", reminderSubtitle:"Remember on time",
+      askTitle:"Ask MEMORA", askSubtitle:"Ask Your Memories",
+      settingsTitle:"Settings", settingsSubtitle:"Language and preferences",
+      tagline:"Small notes. Big memories.",
+      footerLine:"Your personal memory, always with you.",
+      languageLabel:"Language", cancel:"Cancel", save:"Save",
+      textHeading:"New memory", textPlaceholder:"Write your memory here...",
+      category:"Category", general:"General", work:"Work",
+      travel:"Travel", personal:"Personal", material:"Material",
+      saveMemory:"Save memory", close:"Close",
+      saved:"Memory saved on this device.",
+      emptyText:"Please write something first.",
+      voiceHeading:"Voice memory",
+      voiceIntro:"Tap Start listening and speak. Your browser must support speech recognition.",
+      startListening:"Start listening", stopListening:"Stop listening",
+      transcriptPlaceholder:"Your speech will appear here...",
+      saveTranscript:"Save transcript",
+      speechUnsupported:"Voice recognition is not supported in this browser. Try a recent version of Chrome.",
+      listening:"Listening…", reminderHeading:"New reminder",
+      reminderTitleLabel:"Reminder title",
+      reminderPlaceholder:"What do you need to remember?",
+      reminderDate:"Date and time", saveReminder:"Save reminder",
+      reminderSaved:"Reminder saved on this device.",
+      emptyReminder:"Please enter a reminder title and date/time.",
+      reminderList:"Saved reminders", noReminders:"No reminders saved yet.",
+      dueReminder:"Reminder due",
+      askHeading:"Ask your memories",
+      askPlaceholder:"Search your saved memories…",
+      searchButton:"Search", resultsHeading:"Matching memories",
+      noResults:"No matching memories found on this device.",
+      allMemories:"All saved memories",
+      noMemories:"You have not saved any memories yet.",
+      delete:"Delete", confirmDelete:"Delete this item?",
+      languageSaved:"Language saved.",
+      dateLabel:"Date", timeLabel:"Time",
+      voiceSaved:"Voice memory saved on this device.",
       askNote:"MEMORA Lite searches memories stored on this device. Online AI answers are not connected yet.",
       textNote:"Memories are saved locally in this browser on this device.",
       reminderPermission:"If you want alerts while the app is closed, notification support and permission may be required.",
-      invalidDate:"Choose a future date and time.", deleteAll:"Delete", savedAt:"Saved",
-      messages:{}
+      invalidDate:"Choose a future date and time.",
+      deleteAll:"Delete", savedAt:"Saved", messages:{}
     },
+
     id: {
-      voiceTitle:"Suara", voiceSubtitle:"Bicara & Simpan", textTitle:"Teks", textSubtitle:"Tulis & Simpan",
-      reminderTitle:"Pengingat", reminderSubtitle:"Ingat tepat waktu", askTitle:"Tanya MEMORA", askSubtitle:"Tanya Memori Anda",
-      settingsTitle:"Pengaturan", settingsSubtitle:"Bahasa dan preferensi", tagline:"Catatan kecil. Kenangan besar.",
-      footerLine:"Memori pribadi Anda, selalu bersama Anda.", languageLabel:"Bahasa", cancel:"Batal", save:"Simpan",
-      textHeading:"Catatan baru", textPlaceholder:"Tulis kenangan atau catatan di sini...", category:"Kategori",
-      general:"Umum", work:"Pekerjaan", travel:"Perjalanan", personal:"Pribadi", material:"Material",
-      saveMemory:"Simpan catatan", close:"Tutup", saved:"Catatan tersimpan di perangkat ini.", emptyText:"Silakan tulis catatan terlebih dahulu.",
-      voiceHeading:"Catatan suara", voiceIntro:"Tekan Mulai mendengarkan lalu berbicaralah. Browser harus mendukung pengenalan suara.",
-      startListening:"Mulai mendengarkan", stopListening:"Berhenti mendengarkan", transcriptPlaceholder:"Hasil suara akan muncul di sini...",
-      saveTranscript:"Simpan hasil suara", speechUnsupported:"Pengenalan suara tidak didukung browser ini. Coba versi Chrome terbaru.",
-      listening:"Sedang mendengarkan…", reminderHeading:"Pengingat baru", reminderTitleLabel:"Judul pengingat",
-      reminderPlaceholder:"Apa yang perlu Anda ingat?", reminderDate:"Tanggal dan waktu", saveReminder:"Simpan pengingat",
-      reminderSaved:"Pengingat tersimpan di perangkat ini.", emptyReminder:"Masukkan judul dan tanggal/waktu pengingat.",
-      reminderList:"Daftar pengingat", noReminders:"Belum ada pengingat.", dueReminder:"Pengingat jatuh tempo",
-      askHeading:"Tanya memori Anda", askPlaceholder:"Cari catatan yang tersimpan…",
-      searchButton:"Cari", resultsHeading:"Catatan yang cocok", noResults:"Tidak ada catatan yang cocok di perangkat ini.",
-      allMemories:"Semua catatan tersimpan", noMemories:"Anda belum menyimpan catatan.",
-      delete:"Hapus", confirmDelete:"Hapus item ini?", languageSaved:"Bahasa disimpan.",
-      dateLabel:"Tanggal", timeLabel:"Jam", voiceSaved:"Catatan suara tersimpan di perangkat ini.",
+      voiceTitle:"Suara", voiceSubtitle:"Bicara & Simpan",
+      textTitle:"Teks", textSubtitle:"Tulis & Simpan",
+      reminderTitle:"Pengingat", reminderSubtitle:"Ingat tepat waktu",
+      askTitle:"Tanya MEMORA", askSubtitle:"Tanya Memori Anda",
+      settingsTitle:"Pengaturan",
+      settingsSubtitle:"Bahasa dan preferensi",
+      tagline:"Catatan kecil. Kenangan besar.",
+      footerLine:"Memori pribadi Anda, selalu bersama Anda.",
+      languageLabel:"Bahasa", cancel:"Batal", save:"Simpan",
+      textHeading:"Catatan baru",
+      textPlaceholder:"Tulis kenangan atau catatan di sini...",
+      category:"Kategori", general:"Umum", work:"Pekerjaan",
+      travel:"Perjalanan", personal:"Pribadi", material:"Material",
+      saveMemory:"Simpan catatan", close:"Tutup",
+      saved:"Catatan tersimpan di perangkat ini.",
+      emptyText:"Silakan tulis catatan terlebih dahulu.",
+      voiceHeading:"Catatan suara",
+      voiceIntro:"Tekan Mulai mendengarkan lalu berbicaralah. Browser harus mendukung pengenalan suara.",
+      startListening:"Mulai mendengarkan",
+      stopListening:"Berhenti mendengarkan",
+      transcriptPlaceholder:"Hasil suara akan muncul di sini...",
+      saveTranscript:"Simpan hasil suara",
+      speechUnsupported:"Pengenalan suara tidak didukung browser ini. Coba versi Chrome terbaru.",
+      listening:"Sedang mendengarkan…",
+      reminderHeading:"Pengingat baru",
+      reminderTitleLabel:"Judul pengingat",
+      reminderPlaceholder:"Apa yang perlu Anda ingat?",
+      reminderDate:"Tanggal dan waktu",
+      saveReminder:"Simpan pengingat",
+      reminderSaved:"Pengingat tersimpan di perangkat ini.",
+      emptyReminder:"Masukkan judul dan tanggal/waktu pengingat.",
+      reminderList:"Daftar pengingat",
+      noReminders:"Belum ada pengingat.",
+      dueReminder:"Pengingat jatuh tempo",
+      askHeading:"Tanya memori Anda",
+      askPlaceholder:"Cari catatan yang tersimpan…",
+      searchButton:"Cari",
+      resultsHeading:"Catatan yang cocok",
+      noResults:"Tidak ada catatan yang cocok di perangkat ini.",
+      allMemories:"Semua catatan tersimpan",
+      noMemories:"Anda belum menyimpan catatan.",
+      delete:"Hapus", confirmDelete:"Hapus item ini?",
+      languageSaved:"Bahasa disimpan.",
+      dateLabel:"Tanggal", timeLabel:"Jam",
+      voiceSaved:"Catatan suara tersimpan di perangkat ini.",
       askNote:"MEMORA Lite mencari catatan yang tersimpan di perangkat ini. Jawaban AI online belum terhubung.",
       textNote:"Catatan disimpan secara lokal di browser pada perangkat ini.",
       reminderPermission:"Untuk menerima pemberitahuan saat aplikasi tertutup, dukungan notifikasi dan izin mungkin diperlukan.",
-      invalidDate:"Pilih tanggal dan waktu di masa depan.", deleteAll:"Hapus", savedAt:"Disimpan",
-      messages:{}
+      invalidDate:"Pilih tanggal dan waktu di masa depan.",
+      deleteAll:"Hapus", savedAt:"Disimpan", messages:{}
     }
   };
 
@@ -62,13 +108,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const stageBox = document.getElementById("stage-message");
   const settingsDialog = document.getElementById("settings-dialog");
   const languageSelect = document.getElementById("language-select");
+
   let messageTimer;
   let recognition = null;
   let listening = false;
 
   const STORAGE_KEYS = {
-    memories: "memora-lite-memories-v1",
-    reminders: "memora-lite-reminders-v1"
+    memories:"memora-lite-memories-v1",
+    reminders:"memora-lite-reminders-v1"
   };
 
   function t(key) {
@@ -98,13 +145,17 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function uid() {
-    return Date.now().toString(36) + Math.random().toString(36).slice(2, 9);
+    return Date.now().toString(36) +
+      Math.random().toString(36).slice(2, 9);
   }
 
   function stamp(date = new Date()) {
     return date.toLocaleString(language === "id" ? "id-ID" : "en-GB", {
-      year:"numeric", month:"short", day:"2-digit",
-      hour:"2-digit", minute:"2-digit"
+      year:"numeric",
+      month:"short",
+      day:"2-digit",
+      hour:"2-digit",
+      minute:"2-digit"
     });
   }
 
@@ -113,10 +164,15 @@ document.addEventListener("DOMContentLoaded", () => {
       window.alert(message);
       return;
     }
+
     stageBox.textContent = message;
     stageBox.classList.add("show");
+
     clearTimeout(messageTimer);
-    messageTimer = setTimeout(() => stageBox.classList.remove("show"), 3000);
+    messageTimer = setTimeout(
+      () => stageBox.classList.remove("show"),
+      3000
+    );
   }
 
   function applyLanguage() {
@@ -129,15 +185,21 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     document.querySelectorAll("[data-action]").forEach(button => {
-      const label = button.querySelector("strong")?.textContent || button.dataset.action;
+      const label =
+        button.querySelector("strong")?.textContent ||
+        button.dataset.action;
+
       button.setAttribute("aria-label", label);
     });
 
-    if (languageSelect) languageSelect.value = language;
+    if (languageSelect) {
+      languageSelect.value = language;
+    }
   }
 
   function openSettings() {
     if (!settingsDialog || !languageSelect) return;
+
     languageSelect.value = language;
     settingsDialog.classList.add("open");
     settingsDialog.setAttribute("aria-hidden", "false");
@@ -145,6 +207,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function closeSettings() {
     if (!settingsDialog) return;
+
     settingsDialog.classList.remove("open");
     settingsDialog.setAttribute("aria-hidden", "true");
   }
@@ -153,25 +216,35 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("memora-feature-overlay")?.remove();
 
     if (recognition && listening) {
-      try { recognition.stop(); } catch (_) {}
+      try {
+        recognition.stop();
+      } catch (_) {}
     }
 
     listening = false;
-    document.removeEventListener("keydown", featureEscape);
   }
 
   function make(tag, attrs = {}, textContent = null) {
     const el = document.createElement(tag);
 
     Object.entries(attrs).forEach(([key, value]) => {
-      if (key === "class") el.className = value;
-      else if (key === "style") el.setAttribute("style", value);
-      else if (key.startsWith("aria-") || key === "role") el.setAttribute(key, value);
-      else if (key in el) el[key] = value;
-      else el.setAttribute(key, value);
+      if (key === "class") {
+        el.className = value;
+      } else if (key === "style") {
+        el.setAttribute("style", value);
+      } else if (key.startsWith("aria-") || key === "role") {
+        el.setAttribute(key, value);
+      } else if (key in el) {
+        el[key] = value;
+      } else {
+        el.setAttribute(key, value);
+      }
     });
 
-    if (textContent !== null) el.textContent = textContent;
+    if (textContent !== null) {
+      el.textContent = textContent;
+    }
+
     return el;
   }
 
@@ -215,8 +288,8 @@ document.addEventListener("DOMContentLoaded", () => {
     panel.append(content);
     overlay.append(panel);
 
-    overlay.addEventListener("click", e => {
-      if (e.target === overlay) closeFeature();
+    overlay.addEventListener("click", event => {
+      if (event.target === overlay) closeFeature();
     });
 
     document.addEventListener("keydown", featureEscape);
@@ -226,7 +299,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function featureEscape(event) {
-    if (event.key === "Escape") closeFeature();
+    if (event.key === "Escape") {
+      closeFeature();
+      document.removeEventListener("keydown", featureEscape);
+    }
   }
 
   function fieldLabel(text, forId) {
@@ -279,6 +355,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const memories = readList(STORAGE_KEYS.memories);
+
     memories.unshift({
       id:uid(),
       text:trimmed,
@@ -288,8 +365,7 @@ document.addEventListener("DOMContentLoaded", () => {
       displayTime:stamp()
     });
 
-    if (!writeList(STORAGE_KEYS.memories, memories)) return false;
-    return true;
+    return writeList(STORAGE_KEYS.memories, memories);
   }
 
   function openText() {
@@ -297,6 +373,7 @@ document.addEventListener("DOMContentLoaded", () => {
     content.append(noteLine(t("textNote")));
 
     const categoryId = "memora-text-category";
+
     content.append(fieldLabel(t("category"), categoryId));
 
     const category = styledSelect({id:categoryId});
@@ -314,6 +391,7 @@ document.addEventListener("DOMContentLoaded", () => {
     content.append(category);
 
     const textId = "memora-text-content";
+
     content.append(fieldLabel(t("textHeading"), textId));
 
     const textarea = styledTextarea({
@@ -337,15 +415,17 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    cancel.addEventListener("click", closeFeature);
+    cancel.addEventListener("click",closeFeature);
 
     actions.append(save,cancel);
     content.append(actions);
+
     textarea.focus();
   }
 
   function openVoice() {
     const content = openFeature(t("voiceHeading"));
+
     content.append(noteLine(t("voiceIntro")));
 
     const transcriptId = "memora-voice-transcript";
@@ -456,6 +536,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const content = openFeature(t("reminderHeading"));
 
     const titleId = "memora-reminder-title";
+
     content.append(fieldLabel(t("reminderTitleLabel"), titleId));
 
     const title = styledInput({
@@ -468,6 +549,7 @@ document.addEventListener("DOMContentLoaded", () => {
     content.append(title);
 
     const dateId = "memora-reminder-date";
+
     content.append(fieldLabel(t("reminderDate"), dateId));
 
     const date = styledInput({
@@ -480,10 +562,12 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
     date.min = now.toISOString().slice(0,16);
+
     content.append(date);
     content.append(noteLine(t("reminderPermission")));
 
     const save = actionButton(t("saveReminder"));
+
     content.append(save);
 
     save.addEventListener("click", () => {
@@ -519,17 +603,16 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    const listTitle = make("h3", {
+    content.append(make("h3", {
       style:"margin:10px 0 0;font-size:18px;"
-    },t("reminderList"));
+    },t("reminderList")));
 
-    content.append(listTitle);
     renderReminders(content);
   }
 
   function renderReminders(container) {
     const reminders = readList(STORAGE_KEYS.reminders)
-      .filter(r => !r.done)
+      .filter(reminder => !reminder.done)
       .sort((a,b) => new Date(a.when) - new Date(b.when));
 
     if (!reminders.length) {
@@ -553,6 +636,7 @@ document.addEventListener("DOMContentLoaded", () => {
       },stamp(new Date(reminder.when))));
 
       const remove = actionButton(t("delete"),false);
+
       remove.style.minHeight = "36px";
       remove.style.padding = "7px 10px";
 
@@ -562,7 +646,7 @@ document.addEventListener("DOMContentLoaded", () => {
         writeList(
           STORAGE_KEYS.reminders,
           readList(STORAGE_KEYS.reminders)
-            .filter(r => r.id !== reminder.id)
+            .filter(item => item.id !== reminder.id)
         );
 
         openReminder();
@@ -577,9 +661,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const content = openFeature(t("askHeading"));
     content.append(noteLine(t("askNote")));
 
-    const queryId = "memora-ask-query";
     const query = styledInput({
-      id:queryId,
+      id:"memora-ask-query",
       type:"search",
       placeholder:t("askPlaceholder")
     });
@@ -595,65 +678,163 @@ document.addEventListener("DOMContentLoaded", () => {
 
     content.append(resultArea);
 
+    const stopWords = new Set(
+      language === "id"
+        ? [
+            "apa","siapa","kapan","dimana","mana","mengapa",
+            "kenapa","bagaimana","berapa","apakah","saya",
+            "aku","anda","kamu","yang","di","ke","dari",
+            "pada","untuk","dengan","dan","atau","ini","itu",
+            "ada","adalah","tolong","cari","tunjukkan",
+            "ingatkan","tentang","catatan","memori","saat",
+            "hari","jam","tanggal"
+          ]
+        : [
+            "what","who","when","where","why","how","which",
+            "whose","whom","is","are","was","were","do","does",
+            "did","the","a","an","i","me","my","you","your",
+            "we","our","and","or","to","from","at","in","on",
+            "for","with","about","please","find","show","tell",
+            "remember","note","notes","memory","memories",
+            "today","date","time"
+          ]
+    );
+
+    function normalize(value) {
+      return value
+        .toLocaleLowerCase(language === "id" ? "id-ID" : "en-US")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g,"")
+        .replace(/[^\p{L}\p{N}\s]/gu," ")
+        .replace(/\s+/g," ")
+        .trim();
+    }
+
+    function getKeywords(value) {
+      return [...new Set(
+        normalize(value)
+          .split(" ")
+          .filter(word => word.length >= 2 && !stopWords.has(word))
+      )];
+    }
+
     function runSearch() {
       resultArea.replaceChildren();
 
-      const q = query.value.trim().toLocaleLowerCase(
-        language === "id" ? "id-ID" : "en-US"
-      );
-
+      const rawQuery = query.value.trim();
+      const keywords = getKeywords(rawQuery);
       const memories = readList(STORAGE_KEYS.memories);
 
-      const matches = q
-        ? memories.filter(memory =>
-            (memory.text + " " + memory.category + " " + memory.displayTime)
-              .toLocaleLowerCase(language === "id" ? "id-ID" : "en-US")
-              .includes(q)
-          )
-        : memories;
+      resultArea.append(make("h3", {
+        style:"margin:8px 0 0;font-size:18px;"
+      },t("resultsHeading")));
 
-      resultArea.append(
-        make("h3", {
-          style:"margin:8px 0 0;font-size:18px;"
-        }, q ? t("resultsHeading") : t("allMemories"))
-      );
-
-      if (!matches.length) {
-        resultArea.append(
-          noteLine(q ? t("noResults") : t("noMemories"))
-        );
+      if (!memories.length) {
+        resultArea.append(noteLine(t("noMemories")));
         return;
       }
 
-      matches.slice(0,50).forEach(memory => {
+      if (!rawQuery) {
+        resultArea.append(noteLine(t("noResults")));
+        return;
+      }
+
+      if (!keywords.length) {
+        resultArea.append(noteLine(
+          language === "id"
+            ? "Masukkan kata yang lebih spesifik, misalnya nama benda, pekerjaan, atau tempat."
+            : "Enter a more specific keyword, such as an item, job, or place."
+        ));
+        return;
+      }
+
+      const matches = memories
+        .map(memory => {
+          const text = normalize(
+            `${memory.text} ${memory.category || ""} ${memory.displayTime || ""}`
+          );
+
+          const tokens = text.split(" ");
+
+          const matched = keywords.filter(word => {
+            if (tokens.includes(word)) return true;
+
+            if (language === "id" && word.length >= 4) {
+              const variants = [
+                "me" + word,
+                "mem" + word,
+                "men" + word,
+                "meng" + word,
+                "ber" + word,
+                "ter" + word,
+                "di" + word
+              ];
+
+              if (variants.some(variant => tokens.includes(variant))) {
+                return true;
+              }
+
+              return tokens.some(token =>
+                token.length >= 4 &&
+                (token.includes(word) || word.includes(token))
+              );
+            }
+
+            return false;
+          });
+
+          return {
+            memory,
+            score:matched.length
+          };
+        })
+        .filter(item => item.score > 0)
+        .sort((a,b) =>
+          b.score - a.score ||
+          new Date(b.memory.createdAt) - new Date(a.memory.createdAt)
+        );
+
+      if (!matches.length) {
+        resultArea.append(noteLine(t("noResults")));
+        return;
+      }
+
+      resultArea.append(noteLine(
+        language === "id"
+          ? `${matches.length} catatan ditemukan.`
+          : `${matches.length} matching notes found.`
+      ));
+
+      matches.slice(0,50).forEach(item => {
+        const memory = item.memory;
+
         const card = make("article", {
           style:"border:1px solid #e2e8f0;border-radius:12px;padding:12px;"
         });
 
-        card.append(
-          make("div", {
-            style:"white-space:pre-wrap;overflow-wrap:anywhere;"
-          }, memory.text)
-        );
+        card.append(make("div", {
+          style:"white-space:pre-wrap;overflow-wrap:anywhere;"
+        },memory.text));
 
-        card.append(
-          make("div", {
-            style:"font-size:13px;color:#526579;margin-top:8px;"
-          }, `${memory.category || t("general")} · ${memory.displayTime || stamp(new Date(memory.createdAt))}`)
-        );
+        card.append(make("div", {
+          style:"font-size:13px;color:#526579;margin-top:8px;"
+        },`${memory.category || t("general")} · ${
+          memory.displayTime || stamp(new Date(memory.createdAt))
+        }`));
 
         const remove = actionButton(t("delete"),false);
+
         remove.style.marginTop = "8px";
         remove.style.padding = "7px 10px";
         remove.style.minHeight = "36px";
 
-        remove.addEventListener("click", () => {
+        remove.addEventListener("click",() => {
           if (!window.confirm(t("confirmDelete"))) return;
 
           writeList(
             STORAGE_KEYS.memories,
             readList(STORAGE_KEYS.memories)
-              .filter(item => item.id !== memory.id)
+              .filter(saved => saved.id !== memory.id)
           );
 
           runSearch();
@@ -702,7 +883,7 @@ document.addEventListener("DOMContentLoaded", () => {
             Notification.permission === "granted"
           ) {
             try {
-              new Notification("MEMORA Lite", {
+              new Notification("MEMORA Lite",{
                 body:msg
               });
             } catch (_) {}
@@ -745,21 +926,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (action === "ask") {
         openAsk();
-        return;
       }
     });
   });
 
   // Settings: save selected language
-  document.getElementById("settings-save")?.addEventListener("click",() => {
-    language = languageSelect?.value === "id" ? "id" : "en";
+  document.getElementById("settings-save")
+    ?.addEventListener("click",() => {
+      language = languageSelect?.value === "id" ? "id" : "en";
 
-    localStorage.setItem("memora-language",language);
+      localStorage.setItem("memora-language",language);
 
-    applyLanguage();
-    closeSettings();
-    showMessage(t("languageSaved"));
-  });
+      applyLanguage();
+      closeSettings();
+      showMessage(t("languageSaved"));
+    });
 
   document.getElementById("settings-cancel")
     ?.addEventListener("click",closeSettings);
