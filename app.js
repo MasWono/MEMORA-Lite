@@ -875,8 +875,161 @@ Document.addEventListener("DOMContentLoaded", () => {
     const actions = make("div", {
       style:"display:flex;gap:8px;flex-wrap:wrap;"
     });
-    const listen = actionButton(t("listen"),false);
-    const copy = actionButton(t("copy"),false);
+    actions.append(listen, copy);
+    card.append(actions);
+    container.append(card);
+  }
 
-    listen.addEventListener("click", () => speak(`${title}. ${description}`));
-    copy.addEventListener("click", () => copyText(`${title}\n${description}`));
+  function openAsk() {
+    const content = openFeature(t("askHeading"));
+    content.append(noteLine(t("askNote")));
+
+    const queryId = "memora-ask-input";
+    content.append(fieldLabel(t("askHeading"), queryId));
+    const input = styledInput({
+      id: queryId, type: "text", placeholder: t("askPlaceholder")
+    });
+    content.append(input);
+
+    const searchBtn = actionButton(t("searchButton"));
+    const listBtn = actionButton(t("allMemories"), false);
+    content.append(searchBtn, listBtn);
+
+    const resultsArea = make("div", {
+      style: "display:flex;flex-direction:column;gap:10px;margin-top:10px;"
+    });
+    content.append(resultsArea);
+
+    function runSearch() {
+      resultsArea.innerHTML = "";
+      const query = input.value.trim();
+      const terms = queryTerms(query);
+
+      const memories = readList(STORAGE_KEYS.memories);
+      const reminders = readList(STORAGE_KEYS.reminders);
+
+      if (!terms.length) {
+        resultsArea.append(noteLine(t("noResultsForQuery")));
+        return;
+      }
+
+      const scoredMemories = memories
+        .map(m => ({ item: m, score: scoreItem(m, terms) }))
+        .filter(x => x.score > 0)
+        .sort((a, b) => b.score - a.score);
+
+      const scoredReminders = reminders
+        .map(r => ({ item: r, score: scoreItem(r, terms) }))
+        .filter(x => x.score > 0)
+        .sort((a, b) => b.score - a.score);
+
+      if (!scoredMemories.length && !scoredReminders.length) {
+        resultsArea.append(noteLine(t("noResults")));
+        resultsArea.append(noteLine(t("queryHelp")));
+        return;
+      }
+
+      if (scoredReminders.length) {
+        resultsArea.append(make("h3", { style: "margin:0;font-size:18px;" }, t("askReminderResults")));
+        scoredReminders.forEach(({ item }) => {
+          addSearchResult(resultsArea, item.title, reminderDescription(item), item, "reminder");
+        });
+      }
+
+      if (scoredMemories.length) {
+        resultsArea.append(make("h3", { style: "margin:0;font-size:18px;" }, t("askMemoryResults")));
+        scoredMemories.forEach(({ item }) => {
+          addSearchResult(resultsArea, `${t("category")}: ${item.category}`, item.text, item, "memory");
+        });
+      }
+    }
+
+    function renderAllMemories() {
+      resultsArea.innerHTML = "";
+      const memories = readList(STORAGE_KEYS.memories);
+      const reminders = readList(STORAGE_KEYS.reminders);
+
+      if (!memories.length && !reminders.length) {
+        resultsArea.append(noteLine(t("noMemories")));
+        return;
+      }
+
+      resultsArea.append(make("h3", { style: "margin:0;font-size:18px;" }, t("allMemories")));
+      
+      reminders.forEach(item => {
+        addSearchResult(resultsArea, item.title, reminderDescription(item), item, "reminder");
+      });
+
+      memories.forEach(item => {
+        addSearchResult(resultsArea, `${t("category")}: ${item.category}`, item.text, item, "memory");
+      });
+    }
+
+    searchBtn.addEventListener("click", runSearch);
+    input.addEventListener("keydown", e => {
+      if (e.key === "Enter") runSearch();
+    });
+    listBtn.addEventListener("click", renderAllMemories);
+    input.focus();
+  }
+
+  function scheduleReminderChecks() {
+    if (reminderCheckTimer) clearInterval(reminderCheckTimer);
+    reminderCheckTimer = setInterval(() => {
+      const reminders = readList(STORAGE_KEYS.reminders);
+      const now = Date.now();
+      let changed = false;
+
+      reminders.forEach(r => {
+        if (!r.done && !r.completedAt && !r.notifiedAt) {
+          const when = new Date(r.when).getTime();
+          if (when <= now) {
+            r.notifiedAt = new Date().toISOString();
+            changed = true;
+            showMessage(`${t("reminderFired")}: ${r.title}`);
+            if ("Notification" in window && Notification.permission === "granted") {
+              try {
+                new Notification(t("reminderFired"), { body: r.title });
+              } catch (_) {}
+            }
+          }
+        }
+      });
+
+      if (changed) {
+        writeList(STORAGE_KEYS.reminders, reminders);
+      }
+    }, 30000);
+  }
+
+  // --- HUBUNGKAN TOMBOL MENU KE FUNGSI ---
+  document.addEventListener("click", e => {
+    const btn = e.target.closest("[data-action]");
+    if (!btn) return;
+    const action = btn.dataset.action;
+
+    if (action === "text") openText();
+    else if (action === "voice") openVoice();
+    else if (action === "reminder") openReminder();
+    else if (action === "ask") openAsk();
+    else if (action === "settings") openSettings();
+  });
+
+  // Event listener untuk pengaturan bahasa
+  if (languageSelect) {
+    languageSelect.addEventListener("change", e => {
+      language = e.target.value;
+      localStorage.setItem("memora-language", language);
+      applyLanguage();
+      showMessage(t("languageSaved"));
+    });
+  }
+
+  // Inisialisasi awal
+  applyLanguage();
+  scheduleReminderChecks();
+
+  if ("Notification" in window && Notification.permission === "default") {
+    Notification.requestPermission().catch(() => {});
+  }
+});
