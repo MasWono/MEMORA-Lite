@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", () => {
   "use strict";
 
@@ -18,34 +19,35 @@ document.addEventListener("DOMContentLoaded", () => {
       saved:"Memory saved on this device.",
       emptyText:"Please write something first.",
       voiceHeading:"Voice memory",
-      voiceIntro:"Tap Start listening and speak. Your browser must support speech recognition.",
+      voiceIntro:"Tap Start listening and speak.",
       startListening:"Start listening", stopListening:"Stop listening",
       transcriptPlaceholder:"Your speech will appear here...",
       saveTranscript:"Save transcript",
-      speechUnsupported:"Voice recognition is not supported in this browser. Try a recent version of Chrome.",
+      speechUnsupported:"Speech recognition is not supported in this browser. Try a recent version of Chrome.",
       listening:"Listening…", reminderHeading:"New reminder",
       reminderTitleLabel:"Reminder title",
       reminderPlaceholder:"What do you need to remember?",
       reminderDate:"Date and time", saveReminder:"Save reminder",
       reminderSaved:"Reminder saved on this device.",
-      emptyReminder:"Please enter a reminder title and date/time.",
+      emptyReminder:"Enter a reminder title and date/time.",
       reminderList:"Saved reminders", noReminders:"No reminders saved yet.",
-      dueReminder:"Reminder due",
-      askHeading:"Ask your memories",
+      dueReminder:"Reminder due", askHeading:"Ask your memories",
       askPlaceholder:"Search your saved memories…",
       searchButton:"Search", resultsHeading:"Matching memories",
-      noResults:"No matching memories found on this device.",
+      noResults:"No matching memories found.",
       allMemories:"All saved memories",
       noMemories:"You have not saved any memories yet.",
       delete:"Delete", confirmDelete:"Delete this item?",
       languageSaved:"Language saved.",
-      dateLabel:"Date", timeLabel:"Time",
       voiceSaved:"Voice memory saved on this device.",
-      askNote:"MEMORA Lite searches memories stored on this device. Online AI answers are not connected yet.",
+      askNote:"Search your saved memories. Online AI answers are not connected yet.",
       textNote:"Memories are saved locally in this browser on this device.",
-      reminderPermission:"If you want alerts while the app is closed, notification support and permission may be required.",
+      reminderPermission:"Reminders are checked while this page is open. Background alerts are not guaranteed.",
       invalidDate:"Choose a future date and time.",
-      deleteAll:"Delete", savedAt:"Saved", messages:{}
+      copy:"Copy", copied:"Copied to clipboard.",
+      copyFailed:"Could not copy. Please select and copy the text manually.",
+      speak:"Read aloud", stopSpeaking:"Stop reading",
+      dateLabel:"Date", timeLabel:"Time", messages:{}
     },
 
     id: {
@@ -66,12 +68,12 @@ document.addEventListener("DOMContentLoaded", () => {
       saved:"Catatan tersimpan di perangkat ini.",
       emptyText:"Silakan tulis catatan terlebih dahulu.",
       voiceHeading:"Catatan suara",
-      voiceIntro:"Tekan Mulai mendengarkan lalu berbicaralah. Browser harus mendukung pengenalan suara.",
+      voiceIntro:"Tekan Mulai mendengarkan lalu berbicaralah.",
       startListening:"Mulai mendengarkan",
       stopListening:"Berhenti mendengarkan",
       transcriptPlaceholder:"Hasil suara akan muncul di sini...",
       saveTranscript:"Simpan hasil suara",
-      speechUnsupported:"Pengenalan suara tidak didukung browser ini. Coba versi Chrome terbaru.",
+      speechUnsupported:"Pengenalan suara tidak didukung browser ini. Coba Chrome versi terbaru.",
       listening:"Sedang mendengarkan…",
       reminderHeading:"Pengingat baru",
       reminderTitleLabel:"Judul pengingat",
@@ -87,18 +89,20 @@ document.addEventListener("DOMContentLoaded", () => {
       askPlaceholder:"Cari catatan yang tersimpan…",
       searchButton:"Cari",
       resultsHeading:"Catatan yang cocok",
-      noResults:"Tidak ada catatan yang cocok di perangkat ini.",
+      noResults:"Tidak ditemukan catatan yang cocok.",
       allMemories:"Semua catatan tersimpan",
       noMemories:"Anda belum menyimpan catatan.",
       delete:"Hapus", confirmDelete:"Hapus item ini?",
       languageSaved:"Bahasa disimpan.",
-      dateLabel:"Tanggal", timeLabel:"Jam",
       voiceSaved:"Catatan suara tersimpan di perangkat ini.",
-      askNote:"MEMORA Lite mencari catatan yang tersimpan di perangkat ini. Jawaban AI online belum terhubung.",
+      askNote:"Cari catatan yang tersimpan. Jawaban AI online belum terhubung.",
       textNote:"Catatan disimpan secara lokal di browser pada perangkat ini.",
-      reminderPermission:"Untuk menerima pemberitahuan saat aplikasi tertutup, dukungan notifikasi dan izin mungkin diperlukan.",
+      reminderPermission:"Pengingat diperiksa saat halaman ini terbuka. Notifikasi saat halaman tertutup belum dijamin.",
       invalidDate:"Pilih tanggal dan waktu di masa depan.",
-      deleteAll:"Hapus", savedAt:"Disimpan", messages:{}
+      copy:"Salin", copied:"Teks berhasil disalin.",
+      copyFailed:"Tidak dapat menyalin. Silakan pilih dan salin teks secara manual.",
+      speak:"Bacakan", stopSpeaking:"Hentikan bacaan",
+      dateLabel:"Tanggal", timeLabel:"Jam", messages:{}
     }
   };
 
@@ -109,17 +113,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const settingsDialog = document.getElementById("settings-dialog");
   const languageSelect = document.getElementById("language-select");
 
+  const STORAGE_KEYS = {
+    memories: "memora-lite-memories-v1",
+    reminders: "memora-lite-reminders-v1"
+  };
+
   let messageTimer;
   let recognition = null;
   let listening = false;
-
-  const STORAGE_KEYS = {
-    memories:"memora-lite-memories-v1",
-    reminders:"memora-lite-reminders-v1"
-  };
+  let reminderCheckTimer = null;
+  let activeOverlay = null;
 
   function t(key) {
-    return (translations[language] && translations[language][key]) ||
+    return translations[language][key] ||
       translations.en[key] || key;
   }
 
@@ -151,11 +157,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function stamp(date = new Date()) {
     return date.toLocaleString(language === "id" ? "id-ID" : "en-GB", {
-      year:"numeric",
-      month:"short",
-      day:"2-digit",
-      hour:"2-digit",
-      minute:"2-digit"
+      year: "numeric",
+      month: "short",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit"
     });
   }
 
@@ -169,14 +175,13 @@ document.addEventListener("DOMContentLoaded", () => {
     stageBox.classList.add("show");
 
     clearTimeout(messageTimer);
-    messageTimer = setTimeout(
-      () => stageBox.classList.remove("show"),
-      3000
-    );
+    messageTimer = setTimeout(() => {
+      stageBox.classList.remove("show");
+    }, 3000);
   }
 
   function applyLanguage() {
-    const words = translations[language] || translations.en;
+    const words = translations[language];
     document.documentElement.lang = language;
 
     document.querySelectorAll("[data-i18n]").forEach(el => {
@@ -185,16 +190,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     document.querySelectorAll("[data-action]").forEach(button => {
-      const label =
+      button.setAttribute(
+        "aria-label",
         button.querySelector("strong")?.textContent ||
-        button.dataset.action;
-
-      button.setAttribute("aria-label", label);
+          button.dataset.action
+      );
     });
 
-    if (languageSelect) {
-      languageSelect.value = language;
-    }
+    if (languageSelect) languageSelect.value = language;
   }
 
   function openSettings() {
@@ -213,8 +216,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function closeFeature() {
-    document.getElementById("memora-feature-overlay")?.remove();
-
     if (recognition && listening) {
       try {
         recognition.stop();
@@ -222,29 +223,36 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     listening = false;
+
+    if ("speechSynthesis" in window) {
+      window.speechSynthesis.cancel();
+    }
+
+    if (activeOverlay) {
+      activeOverlay.remove();
+      activeOverlay = null;
+    }
+
+    document.removeEventListener("keydown", featureEscape);
+  }
+
+  function featureEscape(event) {
+    if (event.key === "Escape") closeFeature();
   }
 
   function make(tag, attrs = {}, textContent = null) {
     const el = document.createElement(tag);
 
     Object.entries(attrs).forEach(([key, value]) => {
-      if (key === "class") {
-        el.className = value;
-      } else if (key === "style") {
-        el.setAttribute("style", value);
-      } else if (key.startsWith("aria-") || key === "role") {
+      if (key === "class") el.className = value;
+      else if (key === "style") el.setAttribute("style", value);
+      else if (key.startsWith("aria-") || key === "role") {
         el.setAttribute(key, value);
-      } else if (key in el) {
-        el[key] = value;
-      } else {
-        el.setAttribute(key, value);
-      }
+      } else if (key in el) el[key] = value;
+      else el.setAttribute(key, value);
     });
 
-    if (textContent !== null) {
-      el.textContent = textContent;
-    }
-
+    if (textContent !== null) el.textContent = textContent;
     return el;
   }
 
@@ -252,37 +260,37 @@ document.addEventListener("DOMContentLoaded", () => {
     closeFeature();
 
     const overlay = make("div", {
-      id:"memora-feature-overlay",
-      style:"position:fixed;inset:0;z-index:9999;background:rgba(5,24,48,.62);display:flex;align-items:center;justify-content:center;padding:16px;overflow:auto;"
+      id: "memora-feature-overlay",
+      style: "position:fixed;inset:0;z-index:9999;background:rgba(5,24,48,.62);display:flex;align-items:center;justify-content:center;padding:16px;overflow:auto;"
     });
 
     const panel = make("section", {
-      role:"dialog",
-      "aria-modal":"true",
-      "aria-label":title,
-      style:"box-sizing:border-box;width:min(100%,560px);max-height:92dvh;overflow:auto;background:#fff;color:#17324d;border-radius:22px;padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.3);font:16px/1.45 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;"
+      role: "dialog",
+      "aria-modal": "true",
+      "aria-label": title,
+      style: "box-sizing:border-box;width:min(100%,560px);max-height:92dvh;overflow:auto;background:#fff;color:#17324d;border-radius:22px;padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.3);font:16px/1.45 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;"
     });
 
     const head = make("div", {
-      style:"display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;"
+      style: "display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;"
     });
 
     head.append(make("h2", {
-      style:"margin:0;font-size:23px;line-height:1.2;"
+      style: "margin:0;font-size:23px;line-height:1.2;"
     }, title));
 
-    const x = make("button", {
-      type:"button",
-      "aria-label":t("close"),
-      style:"border:0;border-radius:12px;padding:8px 12px;background:#edf2f7;color:#17324d;font-size:18px;cursor:pointer;"
+    const close = make("button", {
+      type: "button",
+      "aria-label": t("close"),
+      style: "border:0;border-radius:12px;padding:8px 12px;background:#edf2f7;color:#17324d;font-size:18px;cursor:pointer;"
     }, "×");
 
-    x.addEventListener("click", closeFeature);
-    head.append(x);
+    close.addEventListener("click", closeFeature);
+    head.append(close);
     panel.append(head);
 
     const content = make("div", {
-      style:"display:flex;flex-direction:column;gap:12px;"
+      style: "display:flex;flex-direction:column;gap:12px;"
     });
 
     panel.append(content);
@@ -292,57 +300,52 @@ document.addEventListener("DOMContentLoaded", () => {
       if (event.target === overlay) closeFeature();
     });
 
-    document.addEventListener("keydown", featureEscape);
     document.body.append(overlay);
+    activeOverlay = overlay;
+
+    document.addEventListener("keydown", featureEscape);
 
     return content;
   }
 
-  function featureEscape(event) {
-    if (event.key === "Escape") {
-      closeFeature();
-      document.removeEventListener("keydown", featureEscape);
-    }
-  }
-
   function fieldLabel(text, forId) {
     return make("label", {
-      htmlFor:forId,
-      style:"font-weight:700;display:block;margin-bottom:4px;"
+      htmlFor: forId,
+      style: "font-weight:700;display:block;margin-bottom:4px;"
     }, text);
   }
 
   function styledInput(attrs = {}) {
     return make("input", {
       ...attrs,
-      style:"box-sizing:border-box;width:100%;min-height:44px;border:1px solid #cbd5e1;border-radius:12px;padding:10px 12px;font:inherit;background:#fff;color:#17324d;"
+      style: "box-sizing:border-box;width:100%;min-height:44px;border:1px solid #cbd5e1;border-radius:12px;padding:10px 12px;font:inherit;background:#fff;color:#17324d;"
     });
   }
 
   function styledTextarea(attrs = {}) {
     return make("textarea", {
       ...attrs,
-      style:"box-sizing:border-box;width:100%;min-height:150px;border:1px solid #cbd5e1;border-radius:12px;padding:12px;font:inherit;background:#fff;color:#17324d;resize:vertical;"
+      style: "box-sizing:border-box;width:100%;min-height:150px;border:1px solid #cbd5e1;border-radius:12px;padding:12px;font:inherit;background:#fff;color:#17324d;resize:vertical;"
     });
   }
 
   function styledSelect(attrs = {}) {
     return make("select", {
       ...attrs,
-      style:"box-sizing:border-box;width:100%;min-height:44px;border:1px solid #cbd5e1;border-radius:12px;padding:10px 12px;font:inherit;background:#fff;color:#17324d;"
+      style: "box-sizing:border-box;width:100%;min-height:44px;border:1px solid #cbd5e1;border-radius:12px;padding:10px 12px;font:inherit;background:#fff;color:#17324d;"
     });
   }
 
   function actionButton(label, primary = true) {
     return make("button", {
-      type:"button",
-      style:`border:0;border-radius:12px;padding:12px 16px;min-height:44px;font:inherit;font-weight:700;cursor:pointer;background:${primary ? "#0878ed" : "#edf2f7"};color:${primary ? "#fff" : "#17324d"};`
+      type: "button",
+      style: `border:0;border-radius:12px;padding:12px 16px;min-height:44px;font:inherit;font-weight:700;cursor:pointer;background:${primary ? "#0878ed" : "#edf2f7"};color:${primary ? "#fff" : "#17324d"};`
     }, label);
   }
 
   function noteLine(text) {
     return make("p", {
-      style:"margin:0;color:#526579;font-size:14px;"
+      style: "margin:0;color:#526579;font-size:14px;"
     }, text);
   }
 
@@ -357,12 +360,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const memories = readList(STORAGE_KEYS.memories);
 
     memories.unshift({
-      id:uid(),
-      text:trimmed,
-      category:category || "general",
+      id: uid(),
+      text: trimmed,
+      category: category || "general",
       source,
-      createdAt:new Date().toISOString(),
-      displayTime:stamp()
+      createdAt: new Date().toISOString(),
+      displayTime: stamp()
     });
 
     return writeList(STORAGE_KEYS.memories, memories);
@@ -373,40 +376,38 @@ document.addEventListener("DOMContentLoaded", () => {
     content.append(noteLine(t("textNote")));
 
     const categoryId = "memora-text-category";
-
     content.append(fieldLabel(t("category"), categoryId));
 
-    const category = styledSelect({id:categoryId});
+    const category = styledSelect({ id: categoryId });
 
     [
-      ["general",t("general")],
-      ["work",t("work")],
-      ["travel",t("travel")],
-      ["personal",t("personal")],
-      ["material",t("material")]
-    ].forEach(([value,label]) => {
-      category.append(make("option",{value},label));
+      ["general", t("general")],
+      ["work", t("work")],
+      ["travel", t("travel")],
+      ["personal", t("personal")],
+      ["material", t("material")]
+    ].forEach(([value, label]) => {
+      category.append(make("option", { value }, label));
     });
 
     content.append(category);
 
     const textId = "memora-text-content";
-
     content.append(fieldLabel(t("textHeading"), textId));
 
     const textarea = styledTextarea({
-      id:textId,
-      placeholder:t("textPlaceholder")
+      id: textId,
+      placeholder: t("textPlaceholder")
     });
 
     content.append(textarea);
 
     const actions = make("div", {
-      style:"display:flex;gap:10px;flex-wrap:wrap;"
+      style: "display:flex;gap:10px;flex-wrap:wrap;"
     });
 
     const save = actionButton(t("saveMemory"));
-    const cancel = actionButton(t("close"),false);
+    const cancel = actionButton(t("close"), false);
 
     save.addEventListener("click", () => {
       if (saveMemory(textarea.value, category.value, "text")) {
@@ -415,50 +416,44 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    cancel.addEventListener("click",closeFeature);
+    cancel.addEventListener("click", closeFeature);
 
-    actions.append(save,cancel);
+    actions.append(save, cancel);
     content.append(actions);
-
     textarea.focus();
   }
 
   function openVoice() {
     const content = openFeature(t("voiceHeading"));
-
     content.append(noteLine(t("voiceIntro")));
 
-    const transcriptId = "memora-voice-transcript";
-
     const transcript = styledTextarea({
-      id:transcriptId,
-      placeholder:t("transcriptPlaceholder")
+      id: "memora-voice-transcript",
+      placeholder: t("transcriptPlaceholder")
     });
 
     content.append(transcript);
 
     const status = make("p", {
-      style:"margin:0;color:#526579;font-size:14px;"
+      style: "margin:0;color:#526579;font-size:14px;"
     });
 
     content.append(status);
 
     const actions = make("div", {
-      style:"display:flex;gap:10px;flex-wrap:wrap;"
+      style: "display:flex;gap:10px;flex-wrap:wrap;"
     });
 
     const start = actionButton(t("startListening"));
-    const save = actionButton(t("saveTranscript"),false);
-    const close = actionButton(t("close"),false);
+    const save = actionButton(t("saveTranscript"), false);
+    const close = actionButton(t("close"), false);
 
-    actions.append(start,save,close);
+    actions.append(start, save, close);
     content.append(actions);
-
-    close.addEventListener("click",closeFeature);
+    close.addEventListener("click", closeFeature);
 
     const SpeechRecognition =
-      window.SpeechRecognition ||
-      window.webkitSpeechRecognition;
+      window.SpeechRecognition || window.webkitSpeechRecognition;
 
     if (!SpeechRecognition) {
       start.disabled = true;
@@ -477,28 +472,24 @@ document.addEventListener("DOMContentLoaded", () => {
       };
 
       recognition.onresult = event => {
-        let finalText = "";
+        let text = "";
 
         for (let i = 0; i < event.results.length; i++) {
-          finalText += event.results[i][0].transcript +
+          text += event.results[i][0].transcript +
             (event.results[i].isFinal ? " " : "");
         }
 
-        transcript.value = finalText.trim();
+        transcript.value = text.trim();
       };
 
       recognition.onerror = event => {
         status.textContent = event.error === "not-allowed"
-          ? (
-              language === "id"
-                ? "Izin mikrofon ditolak. Izinkan mikrofon pada browser."
-                : "Microphone permission denied. Allow microphone access in your browser."
-            )
-          : (
-              language === "id"
-                ? "Pengenalan suara berhenti: "
-                : "Speech recognition stopped: "
-            ) + event.error;
+          ? (language === "id"
+            ? "Izin mikrofon ditolak. Izinkan mikrofon pada browser."
+            : "Microphone permission denied. Allow microphone access.")
+          : (language === "id"
+            ? "Pengenalan suara berhenti: "
+            : "Speech recognition stopped: ") + event.error;
       };
 
       recognition.onend = () => {
@@ -508,9 +499,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       start.addEventListener("click", () => {
         if (listening) {
-          try {
-            recognition.stop();
-          } catch (_) {}
+          try { recognition.stop(); } catch (_) {}
         } else {
           try {
             recognition.lang = language === "id" ? "id-ID" : "en-US";
@@ -534,40 +523,36 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function openReminder() {
     const content = openFeature(t("reminderHeading"));
-
     const titleId = "memora-reminder-title";
 
     content.append(fieldLabel(t("reminderTitleLabel"), titleId));
 
     const title = styledInput({
-      id:titleId,
-      type:"text",
-      placeholder:t("reminderPlaceholder"),
-      maxLength:180
+      id: titleId,
+      type: "text",
+      placeholder: t("reminderPlaceholder"),
+      maxLength: 180
     });
 
     content.append(title);
 
     const dateId = "memora-reminder-date";
-
     content.append(fieldLabel(t("reminderDate"), dateId));
 
     const date = styledInput({
-      id:dateId,
-      type:"datetime-local"
+      id: dateId,
+      type: "datetime-local"
     });
 
     const now = new Date(
       Date.now() - new Date().getTimezoneOffset() * 60000
     );
 
-    date.min = now.toISOString().slice(0,16);
-
+    date.min = now.toISOString().slice(0, 16);
     content.append(date);
     content.append(noteLine(t("reminderPermission")));
 
     const save = actionButton(t("saveReminder"));
-
     content.append(save);
 
     save.addEventListener("click", () => {
@@ -578,10 +563,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const when = new Date(date.value);
 
-      if (
-        Number.isNaN(when.getTime()) ||
-        when.getTime() <= Date.now()
-      ) {
+      if (Number.isNaN(when.getTime()) || when.getTime() <= Date.now()) {
         showMessage(t("invalidDate"));
         return;
       }
@@ -589,23 +571,22 @@ document.addEventListener("DOMContentLoaded", () => {
       const reminders = readList(STORAGE_KEYS.reminders);
 
       reminders.unshift({
-        id:uid(),
-        title:title.value.trim(),
-        when:when.toISOString(),
-        createdAt:new Date().toISOString(),
-        done:false
+        id: uid(),
+        title: title.value.trim(),
+        when: when.toISOString(),
+        createdAt: new Date().toISOString(),
+        done: false
       });
 
-      if (writeList(STORAGE_KEYS.reminders,reminders)) {
+      if (writeList(STORAGE_KEYS.reminders, reminders)) {
         closeFeature();
         showMessage(t("reminderSaved"));
-        scheduleReminderChecks();
       }
     });
 
     content.append(make("h3", {
-      style:"margin:10px 0 0;font-size:18px;"
-    },t("reminderList")));
+      style: "margin:10px 0 0;font-size:18px;"
+    }, t("reminderList")));
 
     renderReminders(content);
   }
@@ -613,7 +594,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function renderReminders(container) {
     const reminders = readList(STORAGE_KEYS.reminders)
       .filter(reminder => !reminder.done)
-      .sort((a,b) => new Date(a.when) - new Date(b.when));
+      .sort((a, b) => new Date(a.when) - new Date(b.when));
 
     if (!reminders.length) {
       container.append(noteLine(t("noReminders")));
@@ -622,21 +603,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     reminders.forEach(reminder => {
       const row = make("div", {
-        style:"display:flex;align-items:flex-start;justify-content:space-between;gap:10px;border:1px solid #e2e8f0;border-radius:12px;padding:10px;"
+        style: "display:flex;align-items:flex-start;justify-content:space-between;gap:10px;border:1px solid #e2e8f0;border-radius:12px;padding:10px;"
       });
 
       const details = make("div", {
-        style:"min-width:0;flex:1;"
+        style: "min-width:0;flex:1;"
       });
 
-      details.append(make("strong",{},reminder.title));
+      details.append(make("strong", {}, reminder.title));
 
       details.append(make("div", {
-        style:"font-size:13px;color:#526579;margin-top:3px;"
-      },stamp(new Date(reminder.when))));
+        style: "font-size:13px;color:#526579;margin-top:3px;"
+      }, stamp(new Date(reminder.when))));
 
-      const remove = actionButton(t("delete"),false);
-
+      const remove = actionButton(t("delete"), false);
       remove.style.minHeight = "36px";
       remove.style.padding = "7px 10px";
 
@@ -649,12 +629,68 @@ document.addEventListener("DOMContentLoaded", () => {
             .filter(item => item.id !== reminder.id)
         );
 
+        closeFeature();
         openReminder();
       });
 
-      row.append(details,remove);
+      row.append(details, remove);
       container.append(row);
     });
+  }
+
+  function normalize(value) {
+    return value
+      .toLocaleLowerCase(language === "id" ? "id-ID" : "en-US")
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^\p{L}\p{N}\s]/gu, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function copyText(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text)
+        .then(() => showMessage(t("copied")))
+        .catch(() => fallbackCopy(text));
+    } else {
+      fallbackCopy(text);
+    }
+  }
+
+  function fallbackCopy(text) {
+    const input = make("textarea", {
+      readonly: true,
+      style: "position:fixed;left:-9999px;top:0;"
+    });
+
+    input.value = text;
+    document.body.append(input);
+    input.select();
+
+    let success = false;
+
+    try {
+      success = document.execCommand("copy");
+    } catch (_) {}
+
+    input.remove();
+    showMessage(success ? t("copied") : t("copyFailed"));
+  }
+
+  function speakText(text) {
+    if (!("speechSynthesis" in window)) {
+      showMessage(language === "id"
+        ? "Suara tidak didukung browser ini."
+        : "Speech playback is not supported in this browser.");
+      return;
+    }
+
+    window.speechSynthesis.cancel();
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = language === "id" ? "id-ID" : "en-US";
+    window.speechSynthesis.speak(utterance);
   }
 
   function openAsk() {
@@ -662,9 +698,9 @@ document.addEventListener("DOMContentLoaded", () => {
     content.append(noteLine(t("askNote")));
 
     const query = styledInput({
-      id:"memora-ask-query",
-      type:"search",
-      placeholder:t("askPlaceholder")
+      id: "memora-ask-query",
+      type: "search",
+      placeholder: t("askPlaceholder")
     });
 
     content.append(query);
@@ -673,7 +709,7 @@ document.addEventListener("DOMContentLoaded", () => {
     content.append(search);
 
     const resultArea = make("div", {
-      style:"display:flex;flex-direction:column;gap:10px;"
+      style: "display:flex;flex-direction:column;gap:10px;"
     });
 
     content.append(resultArea);
@@ -682,12 +718,11 @@ document.addEventListener("DOMContentLoaded", () => {
       language === "id"
         ? [
             "apa","siapa","kapan","dimana","mana","mengapa",
-            "kenapa","bagaimana","berapa","apakah","saya",
-            "aku","anda","kamu","yang","di","ke","dari",
-            "pada","untuk","dengan","dan","atau","ini","itu",
-            "ada","adalah","tolong","cari","tunjukkan",
-            "ingatkan","tentang","catatan","memori","saat",
-            "hari","jam","tanggal"
+            "kenapa","bagaimana","berapa","apakah","saya","aku",
+            "anda","kamu","yang","di","ke","dari","pada","untuk",
+            "dengan","dan","atau","ini","itu","ada","adalah",
+            "tolong","cari","tunjukkan","ingatkan","tentang",
+            "catatan","memori","saat","hari","jam","tanggal"
           ]
         : [
             "what","who","when","where","why","how","which",
@@ -695,20 +730,10 @@ document.addEventListener("DOMContentLoaded", () => {
             "did","the","a","an","i","me","my","you","your",
             "we","our","and","or","to","from","at","in","on",
             "for","with","about","please","find","show","tell",
-            "remember","note","notes","memory","memories",
-            "today","date","time"
+            "remember","note","notes","memory","memories","today",
+            "date","time"
           ]
     );
-
-    function normalize(value) {
-      return value
-        .toLocaleLowerCase(language === "id" ? "id-ID" : "en-US")
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g,"")
-        .replace(/[^\p{L}\p{N}\s]/gu," ")
-        .replace(/\s+/g," ")
-        .trim();
-    }
 
     function getKeywords(value) {
       return [...new Set(
@@ -726,73 +751,56 @@ document.addEventListener("DOMContentLoaded", () => {
       const memories = readList(STORAGE_KEYS.memories);
 
       resultArea.append(make("h3", {
-        style:"margin:8px 0 0;font-size:18px;"
-      },t("resultsHeading")));
+        style: "margin:8px 0 0;font-size:18px;"
+      }, t("resultsHeading")));
 
       if (!memories.length) {
         resultArea.append(noteLine(t("noMemories")));
         return;
       }
 
-      if (!rawQuery) {
+      if (!rawQuery || !keywords.length) {
         resultArea.append(noteLine(t("noResults")));
         return;
       }
 
-      if (!keywords.length) {
-        resultArea.append(noteLine(
-          language === "id"
-            ? "Masukkan kata yang lebih spesifik, misalnya nama benda, pekerjaan, atau tempat."
-            : "Enter a more specific keyword, such as an item, job, or place."
-        ));
-        return;
-      }
+      const matches = memories.map(memory => {
+        const text = normalize(
+          `${memory.text} ${memory.category || ""} ${memory.displayTime || ""}`
+        );
 
-      const matches = memories
-        .map(memory => {
-          const text = normalize(
-            `${memory.text} ${memory.category || ""} ${memory.displayTime || ""}`
-          );
+        const tokens = text.split(" ");
 
-          const tokens = text.split(" ");
+        const matched = keywords.filter(word => {
+          if (tokens.includes(word)) return true;
 
-          const matched = keywords.filter(word => {
-            if (tokens.includes(word)) return true;
+          if (language === "id" && word.length >= 4) {
+            const variants = [
+              "me" + word, "mem" + word, "men" + word,
+              "meng" + word, "ber" + word, "ter" + word,
+              "di" + word
+            ];
 
-            if (language === "id" && word.length >= 4) {
-              const variants = [
-                "me" + word,
-                "mem" + word,
-                "men" + word,
-                "meng" + word,
-                "ber" + word,
-                "ter" + word,
-                "di" + word
-              ];
-
-              if (variants.some(variant => tokens.includes(variant))) {
-                return true;
-              }
-
-              return tokens.some(token =>
-                token.length >= 4 &&
-                (token.includes(word) || word.includes(token))
-              );
+            if (variants.some(variant => tokens.includes(variant))) {
+              return true;
             }
 
-            return false;
-          });
+            return tokens.some(token =>
+              token.length >= 4 &&
+              (token.includes(word) || word.includes(token))
+            );
+          }
 
-          return {
-            memory,
-            score:matched.length
-          };
-        })
-        .filter(item => item.score > 0)
-        .sort((a,b) =>
-          b.score - a.score ||
-          new Date(b.memory.createdAt) - new Date(a.memory.createdAt)
-        );
+          return false;
+        });
+
+        return { memory, score: matched.length };
+      })
+      .filter(item => item.score > 0)
+      .sort((a, b) =>
+        b.score - a.score ||
+        new Date(b.memory.createdAt) - new Date(a.memory.createdAt)
+      );
 
       if (!matches.length) {
         resultArea.append(noteLine(t("noResults")));
@@ -805,30 +813,36 @@ document.addEventListener("DOMContentLoaded", () => {
           : `${matches.length} matching notes found.`
       ));
 
-      matches.slice(0,50).forEach(item => {
+      matches.slice(0, 50).forEach(item => {
         const memory = item.memory;
 
         const card = make("article", {
-          style:"border:1px solid #e2e8f0;border-radius:12px;padding:12px;"
+          style: "border:1px solid #e2e8f0;border-radius:12px;padding:12px;"
         });
 
         card.append(make("div", {
-          style:"white-space:pre-wrap;overflow-wrap:anywhere;"
-        },memory.text));
+          style: "white-space:pre-wrap;overflow-wrap:anywhere;"
+        }, memory.text));
 
         card.append(make("div", {
-          style:"font-size:13px;color:#526579;margin-top:8px;"
-        },`${memory.category || t("general")} · ${
+          style: "font-size:13px;color:#526579;margin-top:8px;"
+        }, `${memory.category || t("general")} · ${
           memory.displayTime || stamp(new Date(memory.createdAt))
         }`));
 
-        const remove = actionButton(t("delete"),false);
+        const actions = make("div", {
+          style: "display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;"
+        });
 
-        remove.style.marginTop = "8px";
-        remove.style.padding = "7px 10px";
-        remove.style.minHeight = "36px";
+        const copy = actionButton(t("copy"), false);
+        copy.addEventListener("click", () => copyText(memory.text));
 
-        remove.addEventListener("click",() => {
+        const speak = actionButton(t("speak"), false);
+        speak.addEventListener("click", () => speakText(memory.text));
+
+        const remove = actionButton(t("delete"), false);
+
+        remove.addEventListener("click", () => {
           if (!window.confirm(t("confirmDelete"))) return;
 
           writeList(
@@ -840,26 +854,23 @@ document.addEventListener("DOMContentLoaded", () => {
           runSearch();
         });
 
-        card.append(remove);
+        actions.append(copy, speak, remove);
+        card.append(actions);
         resultArea.append(card);
       });
     }
 
-    search.addEventListener("click",runSearch);
+    search.addEventListener("click", runSearch);
 
-    query.addEventListener("keydown",event => {
+    query.addEventListener("keydown", event => {
       if (event.key === "Enter") runSearch();
     });
 
     runSearch();
   }
 
-  let reminderCheckTimer = null;
-
   function scheduleReminderChecks() {
-    if (reminderCheckTimer) {
-      clearInterval(reminderCheckTimer);
-    }
+    if (reminderCheckTimer) clearInterval(reminderCheckTimer);
 
     reminderCheckTimer = setInterval(() => {
       const now = Date.now();
@@ -867,97 +878,64 @@ document.addEventListener("DOMContentLoaded", () => {
       let changed = false;
 
       reminders.forEach(reminder => {
-        if (
-          !reminder.done &&
-          new Date(reminder.when).getTime() <= now
-        ) {
+        if (!reminder.done && new Date(reminder.when).getTime() <= now) {
           reminder.done = true;
           changed = true;
 
-          const msg = `${t("dueReminder")}: ${reminder.title}`;
-
-          showMessage(msg);
+          const message = `${t("dueReminder")}: ${reminder.title}`;
+          showMessage(message);
 
           if (
             "Notification" in window &&
             Notification.permission === "granted"
           ) {
             try {
-              new Notification("MEMORA Lite",{
-                body:msg
-              });
+              new Notification("MEMORA Lite", { body: message });
             } catch (_) {}
           } else if (document.visibilityState === "visible") {
-            window.alert(msg);
+            window.alert(message);
           }
         }
       });
 
-      if (changed) {
-        writeList(STORAGE_KEYS.reminders,reminders);
-      }
-    },15000);
+      if (changed) writeList(STORAGE_KEYS.reminders, reminders);
+    }, 15000);
   }
 
-  // Main menu actions
+  // Connect all home menu buttons.
   document.querySelectorAll("[data-action]").forEach(button => {
-    button.addEventListener("click",() => {
+    button.addEventListener("click", () => {
       const action = button.dataset.action;
 
-      if (action === "settings") {
-        openSettings();
-        return;
-      }
-
-      if (action === "voice") {
-        openVoice();
-        return;
-      }
-
-      if (action === "text") {
-        openText();
-        return;
-      }
-
-      if (action === "reminder") {
-        openReminder();
-        return;
-      }
-
-      if (action === "ask") {
-        openAsk();
-      }
+      if (action === "settings") openSettings();
+      else if (action === "voice") openVoice();
+      else if (action === "text") openText();
+      else if (action === "reminder") openReminder();
+      else if (action === "ask") openAsk();
     });
   });
 
-  // Settings: save selected language
   document.getElementById("settings-save")
-    ?.addEventListener("click",() => {
+    ?.addEventListener("click", () => {
       language = languageSelect?.value === "id" ? "id" : "en";
 
-      localStorage.setItem("memora-language",language);
-
+      localStorage.setItem("memora-language", language);
       applyLanguage();
       closeSettings();
       showMessage(t("languageSaved"));
     });
 
   document.getElementById("settings-cancel")
-    ?.addEventListener("click",closeSettings);
+    ?.addEventListener("click", closeSettings);
 
-  settingsDialog?.addEventListener("click",event => {
-    if (event.target === settingsDialog) {
-      closeSettings();
-    }
+  settingsDialog?.addEventListener("click", event => {
+    if (event.target === settingsDialog) closeSettings();
   });
 
-  document.addEventListener("keydown",event => {
-    if (event.key === "Escape") {
-      closeSettings();
-    }
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape") closeSettings();
   });
 
-  // Initialize MEMORA Lite
   applyLanguage();
   scheduleReminderChecks();
 });
