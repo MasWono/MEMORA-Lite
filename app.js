@@ -1,4 +1,4 @@
-Document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
   "use strict";
 
   // MEMORA Lite V1 - Master Plan 07 Oct 2026
@@ -875,6 +875,12 @@ Document.addEventListener("DOMContentLoaded", () => {
     const actions = make("div", {
       style:"display:flex;gap:8px;flex-wrap:wrap;"
     });
+    const listen = actionButton(t("listen"),false);
+    const copy = actionButton(t("copy"),false);
+
+    listen.addEventListener("click", () => speak(`${title}. ${description}`));
+    copy.addEventListener("click", () => copyText(`${title}\n${description}`));
+
     actions.append(listen, copy);
     card.append(actions);
     container.append(card);
