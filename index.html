@@ -11,7 +11,7 @@
 
   <meta
     name="theme-color"
-    content="#078aff"
+    content="#ff3b30"
   >
 
   <meta
@@ -615,13 +615,9 @@
 
           <div class="text-area">
 
-            <strong>
-              Voice
-            </strong>
+            <strong data-i18n="voiceTitle">Voice</strong>
 
-            <span>
-              Speak &amp; Save
-            </span>
+            <span data-i18n="voiceSubtitle">Speak &amp; Save</span>
 
           </div>
 
@@ -648,51 +644,24 @@
 
           <div class="text-area">
 
-            <strong>
-              Text
-            </strong>
+            <strong data-i18n="textTitle">Text</strong>
 
-            <span>
-              Write &amp; Save
-            </span>
+            <span data-i18n="textSubtitle">Write &amp; Save</span>
 
           </div>
 
         </button>
 
-
-        <!-- SEARCH -->
-
-        <button
-          class="menu-card search"
-          data-action="search"
-          type="button"
-        >
-
+        <!-- REMINDER -->
+        <button class="menu-card reminder" data-action="reminder" type="button">
           <div class="icon-area">
-
-            <img
-              src="assets/search.png"
-              alt=""
-              class="menu-icon"
-            >
-
+            <img src="assets/reminder.png" alt="" class="menu-icon">
           </div>
-
           <div class="text-area">
-
-            <strong>
-              Search
-            </strong>
-
-            <span>
-              Find Memories
-            </span>
-
+            <strong data-i18n="reminderTitle">Reminder</strong>
+            <span data-i18n="reminderSubtitle">Remember on time</span>
           </div>
-
         </button>
-
 
         <!-- ASK MEMORA -->
 
@@ -714,13 +683,9 @@
 
           <div class="text-area">
 
-            <strong>
-              Ask MEMORA
-            </strong>
+            <strong data-i18n="askTitle">Ask MEMORA</strong>
 
-            <span>
-              Ask Your Memories
-            </span>
+            <span data-i18n="askSubtitle">Ask Your Memories</span>
 
           </div>
 
@@ -751,13 +716,9 @@
 
         <div class="settings-text-area">
 
-          <strong>
-            Settings
-          </strong>
+          <strong data-i18n="settingsTitle">Settings</strong>
 
-          <span>
-            Language, Voice, Backup
-          </span>
+          <span data-i18n="settingsSubtitle">Language and preferences</span>
 
         </div>
 
@@ -777,13 +738,9 @@
 
       <footer class="home-footer">
 
-        <strong>
-          Small inputs. Big memories.
-        </strong>
+        <strong data-i18n="tagline">Small notes. Big memories.</strong>
 
-        <span>
-          Your personal memory, always with you.
-        </span>
+        <span data-i18n="footerLine">Your personal memory, always with you.</span>
 
       </footer>
 
@@ -796,6 +753,21 @@
   <!-- =================================================
        STAGE MESSAGE
        ================================================= -->
+
+  <div id="settings-dialog" class="settings-dialog" aria-hidden="true">
+    <div class="settings-dialog-card" role="dialog" aria-modal="true" aria-labelledby="settings-dialog-title">
+      <h2 id="settings-dialog-title" data-i18n="settingsTitle">Settings</h2>
+      <label for="language-select" data-i18n="languageLabel">Language</label>
+      <select id="language-select">
+        <option value="en">English</option>
+        <option value="id">Bahasa Indonesia</option>
+      </select>
+      <div class="settings-dialog-actions">
+        <button type="button" id="settings-cancel" data-i18n="cancel">Cancel</button>
+        <button type="button" id="settings-save" data-i18n="save">Save</button>
+      </div>
+    </div>
+  </div>
 
   <div
     id="stage-message"
