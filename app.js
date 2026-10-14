@@ -1,7 +1,6 @@
-Document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
   "use strict";
 
-  // MEMORA Lite V1 - Master Plan 07 Oct 2026
   const STORAGE_KEYS = {
     memories: "memora-lite-memories-v1",
     reminders: "memora-lite-reminders-v1"
@@ -21,7 +20,7 @@ Document.addEventListener("DOMContentLoaded", () => {
       category:"Category", general:"General", work:"Work",
       travel:"Travel", personal:"Personal", material:"Material",
       saveMemory:"Save memory", close:"Close",
-      saved:"Memory saved on this device with date, time, and location.",
+      saved:"Memory saved on this device.",
       emptyText:"Please write something first.",
       voiceHeading:"Voice memory",
       voiceIntro:"Tap Start listening and speak.",
@@ -53,7 +52,7 @@ Document.addEventListener("DOMContentLoaded", () => {
       delete:"Delete", confirmDelete:"Delete this item?",
       languageSaved:"Language saved.",
       dateLabel:"Date", timeLabel:"Time",
-      voiceSaved:"Voice memory saved on this device with date, time, and location.",
+      voiceSaved:"Voice memory saved on this device.",
       askNote:"MEMORA searches your local memories and reminders. Online AI is not connected.",
       textNote:"Memories are saved locally on this device.",
       reminderNote:"Reminders are one-time. Mark the work complete when it is actually finished.",
@@ -79,7 +78,7 @@ Document.addEventListener("DOMContentLoaded", () => {
       listen:"Listen",
       stopSpeaking:"Stop speaking",
       noSpeech:"Speech playback is not supported in this browser.",
-      locationPermission:"Location is saved automatically when permission and GPS are available.",
+      locationPermission:"Location is saved when permission and GPS are available. The record can still be saved without location.",
       reminderFired:"A reminder is due",
       askReminderResults:"Related reminders",
       askMemoryResults:"Related memories",
@@ -111,7 +110,7 @@ Document.addEventListener("DOMContentLoaded", () => {
       category:"Kategori", general:"Umum", work:"Pekerjaan",
       travel:"Perjalanan", personal:"Pribadi", material:"Material",
       saveMemory:"Simpan catatan", close:"Tutup",
-      saved:"Catatan tersimpan otomatis di perangkat ini beserta tanggal, waktu, dan lokasi.",
+      saved:"Catatan tersimpan di perangkat ini.",
       emptyText:"Silakan tulis catatan terlebih dahulu.",
       voiceHeading:"Catatan suara",
       voiceIntro:"Tekan Mulai mendengarkan lalu berbicaralah.",
@@ -143,7 +142,7 @@ Document.addEventListener("DOMContentLoaded", () => {
       delete:"Hapus", confirmDelete:"Hapus item ini?",
       languageSaved:"Bahasa disimpan.",
       dateLabel:"Tanggal", timeLabel:"Jam",
-      voiceSaved:"Catatan suara tersimpan otomatis beserta tanggal, waktu, dan lokasi.",
+      voiceSaved:"Catatan suara tersimpan di perangkat ini.",
       askNote:"MEMORA mencari catatan dan pengingat lokal. AI online belum terhubung.",
       textNote:"Catatan disimpan secara lokal di perangkat ini.",
       reminderNote:"Pengingat bersifat satu kali. Tandai selesai ketika pekerjaan benar-benar selesai.",
@@ -164,19 +163,19 @@ Document.addEventListener("DOMContentLoaded", () => {
       completionMissing:"Saya belum dapat menghitung tanggal berikutnya karena tanggal pekerjaan selesai belum tersedia.",
       location:"Lokasi",
       locationUnavailable:"Lokasi tidak tersedia",
-      copy:"Salin",
+      copy:"Copy",
       copied:"Berhasil disalin.",
       listen:"Dengarkan",
       stopSpeaking:"Berhenti berbicara",
       noSpeech:"Pembacaan suara tidak didukung browser ini.",
-      locationPermission:"Lokasi dicatat secara otomatis saat izin dan GPS tersedia.",
+      locationPermission:"Lokasi dicatat jika izin dan GPS tersedia. Data tetap dapat disimpan tanpa lokasi.",
       reminderFired:"Pengingat telah jatuh tempo",
       askReminderResults:"Pengingat terkait",
       askMemoryResults:"Catatan terkait",
       noData:"I cannot find enough saved information to answer that question.",
       deleteReminder:"Hapus pengingat",
       deleteMemory:"Hapus catatan",
-      reminderSavedAt:"Reminder dibuat",
+      reminderSavedAt:"Pengingat dibuat",
       intervalHint:"Digunakan untuk menghitung saran jadwal perawatan berikutnya setelah pekerjaan selesai.",
       reminderOverdue:"Pengingat ini terlambat. Statusnya belum otomatis diubah menjadi selesai.",
       completedMessage:"Waktu penyelesaian telah dicatat.",
@@ -236,6 +235,13 @@ Document.addEventListener("DOMContentLoaded", () => {
       year:"numeric", month:"short", day:"2-digit",
       hour:"2-digit", minute:"2-digit"
     });
+  }
+
+  function dateOnly(date) {
+    return new Date(date).toLocaleDateString(
+      language === "id" ? "id-ID" : "en-GB",
+      {year:"numeric",month:"short",day:"2-digit"}
+    );
   }
 
   function showMessage(message) {
@@ -388,21 +394,22 @@ Document.addEventListener("DOMContentLoaded", () => {
     }, text);
   }
 
-  function getLocation() {
+    function getLocation() {
     return new Promise(resolve => {
       if (!navigator.geolocation) {
         resolve(null);
         return;
       }
+
       navigator.geolocation.getCurrentPosition(
         position => resolve({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-          accuracy: position.coords.accuracy,
-          capturedAt: new Date().toISOString()
+          latitude:position.coords.latitude,
+          longitude:position.coords.longitude,
+          accuracy:position.coords.accuracy,
+          capturedAt:new Date().toISOString()
         }),
         () => resolve(null),
-        { enableHighAccuracy: false, timeout: 8000, maximumAge: 60000 }
+        {enableHighAccuracy:false,timeout:8000,maximumAge:60000}
       );
     });
   }
@@ -412,8 +419,8 @@ Document.addEventListener("DOMContentLoaded", () => {
     const location = await getLocation();
     return {
       recordedAt,
-      displayTime: stamp(new Date(recordedAt)),
-      location: location || null
+      displayTime:stamp(new Date(recordedAt)),
+      location:location || null
     };
   }
 
@@ -441,14 +448,14 @@ Document.addEventListener("DOMContentLoaded", () => {
     const memories = readList(STORAGE_KEYS.memories);
 
     memories.unshift({
-      id: uid(),
-      text: trimmed,
-      category: category || "general",
+      id:uid(),
+      text:trimmed,
+      category:category || "general",
       source,
-      createdAt: metadata.recordedAt,
-      recordedAt: metadata.recordedAt,
-      displayTime: metadata.displayTime,
-      location: metadata.location
+      createdAt:metadata.recordedAt,
+      recordedAt:metadata.recordedAt,
+      displayTime:metadata.displayTime,
+      location:metadata.location
     });
 
     return writeList(STORAGE_KEYS.memories, memories);
@@ -503,7 +510,6 @@ Document.addEventListener("DOMContentLoaded", () => {
   function openVoice() {
     const content = openFeature(t("voiceHeading"));
     content.append(noteLine(t("voiceIntro")));
-    content.append(noteLine(t("locationPermission")));
 
     const transcript = styledTextarea({
       id:"memora-voice-transcript",
@@ -603,6 +609,7 @@ Document.addEventListener("DOMContentLoaded", () => {
       showMessage(t("noSpeech"));
       return;
     }
+
     stopSpeaking();
     currentSpeech = new SpeechSynthesisUtterance(text);
     currentSpeech.lang = language === "id" ? "id-ID" : "en-US";
@@ -621,6 +628,20 @@ Document.addEventListener("DOMContentLoaded", () => {
       temp.remove();
       showMessage(ok ? t("copied") : "Copy failed");
     }
+  }
+
+  function addResultActions(container, text) {
+    const row = make("div", {
+      style:"display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;"
+    });
+    const listen = actionButton(t("listen"),false);
+    const copy = actionButton(t("copy"),false);
+    listen.style.minHeight = "38px";
+    copy.style.minHeight = "38px";
+    listen.addEventListener("click", () => speak(text));
+    copy.addEventListener("click", () => copyText(text));
+    row.append(listen,copy);
+    container.append(row);
   }
 
   function reminderStatus(reminder) {
@@ -725,22 +746,22 @@ Document.addEventListener("DOMContentLoaded", () => {
       const metadata = await captureMetadata();
       const reminders = readList(STORAGE_KEYS.reminders);
       reminders.unshift({
-        id: uid(),
-        title: title.value.trim(),
-        notes: notes.value.trim(),
-        when: when.toISOString(),
+        id:uid(),
+        title:title.value.trim(),
+        notes:notes.value.trim(),
+        when:when.toISOString(),
         intervalDays,
-        createdAt: metadata.recordedAt,
-        recordedAt: metadata.recordedAt,
-        displayTime: metadata.displayTime,
-        location: metadata.location,
-        done: false,
-        completedAt: null,
-        completedLocation: null,
-        notifiedAt: null
+        createdAt:metadata.recordedAt,
+        recordedAt:metadata.recordedAt,
+        displayTime:metadata.displayTime,
+        location:metadata.location,
+        done:false,
+        completedAt:null,
+        completedLocation:null,
+        notifiedAt:null
       });
 
-      if (writeList(STORAGE_KEYS.reminders, reminders)) {
+      if (writeList(STORAGE_KEYS.reminders,reminders)) {
         closeFeature();
         showMessage(t("reminderSaved"));
         scheduleReminderChecks();
@@ -781,7 +802,7 @@ Document.addEventListener("DOMContentLoaded", () => {
       if (reminder.intervalDays) {
         card.append(noteLine(`${t("interval")}: ${reminder.intervalDays}`));
       }
-      addMetadataLines(card, reminder);
+      addMetadataLines(card,reminder);
 
       if (reminder.completedAt) {
         card.append(noteLine(`${t("completedAt")}: ${stamp(new Date(reminder.completedAt))}`));
@@ -797,7 +818,7 @@ Document.addEventListener("DOMContentLoaded", () => {
       const copy = actionButton(t("copy"),false);
       listen.addEventListener("click", () => speak(reminderDescription(reminder)));
       copy.addEventListener("click", () => copyText(reminderDescription(reminder)));
-      actions.append(listen, copy);
+      actions.append(listen,copy);
 
       if (!reminder.done && !reminder.completedAt) {
         const complete = actionButton(t("complete"));
@@ -813,7 +834,7 @@ Document.addEventListener("DOMContentLoaded", () => {
           target.completedLocation = metadata.location;
           target.completionDisplayTime = metadata.displayTime;
 
-          if (writeList(STORAGE_KEYS.reminders, all)) {
+          if (writeList(STORAGE_KEYS.reminders,all)) {
             showMessage(t("completedMessage"));
             renderReminderList();
           } else {
@@ -827,7 +848,7 @@ Document.addEventListener("DOMContentLoaded", () => {
       remove.addEventListener("click", () => {
         if (!window.confirm(t("confirmDelete"))) return;
         const all = readList(STORAGE_KEYS.reminders).filter(r => r.id !== reminder.id);
-        if (writeList(STORAGE_KEYS.reminders, all)) renderReminderList();
+        if (writeList(STORAGE_KEYS.reminders,all)) renderReminderList();
       });
       actions.append(remove);
 
@@ -858,9 +879,9 @@ Document.addEventListener("DOMContentLoaded", () => {
 
   function scoreItem(item, terms) {
     const text = normalizeText([
-      item.text, item.title, item.notes, item.category, item.source
+      item.text,item.title,item.notes,item.category,item.source
     ].join(" "));
-    return terms.reduce((score, term) => score + (text.includes(term) ? 1 : 0), 0);
+    return terms.reduce((score,term) => score + (text.includes(term) ? 1 : 0),0);
   }
 
   function addSearchResult(container, title, description, item, type) {
@@ -880,103 +901,265 @@ Document.addEventListener("DOMContentLoaded", () => {
 
     listen.addEventListener("click", () => speak(`${title}. ${description}`));
     copy.addEventListener("click", () => copyText(`${title}\n${description}`));
-    actions.append(listen, copy);
+    actions.append(listen,copy);
+
+    if (type === "memory") {
+      const remove = actionButton(t("delete"),false);
+      remove.addEventListener("click", () => {
+        if (!window.confirm(t("confirmDelete"))) return;
+        writeList(STORAGE_KEYS.memories,
+          readList(STORAGE_KEYS.memories).filter(m => m.id !== item.id));
+        runLastSearch?.();
+      });
+      actions.append(remove);
+    }
+
+    if (type === "reminder" && !item.done && !item.completedAt) {
+      const complete = actionButton(t("complete"));
+      complete.addEventListener("click", async () => {
+        complete.disabled = true;
+        const metadata = await captureMetadata();
+        const reminders = readList(STORAGE_KEYS.reminders);
+        const target = reminders.find(r => r.id === item.id);
+        if (!target) return;
+
+        target.done = true;
+        target.completedAt = metadata.recordedAt;
+        target.completedLocation = metadata.location;
+        target.completionDisplayTime = metadata.displayTime;
+
+        if (writeList(STORAGE_KEYS.reminders,reminders)) {
+          showMessage(t("completedMessage"));
+          runLastSearch?.();
+        } else {
+          complete.disabled = false;
+        }
+      });
+      actions.append(complete);
+    }
+
     card.append(actions);
     container.append(card);
   }
+
+  let runLastSearch = null;
 
   function openAsk() {
     const content = openFeature(t("askHeading"));
     content.append(noteLine(t("askNote")));
 
-    const queryId = "memora-ask-query";
-    const queryInput = styledInput({
-      id: queryId, placeholder: t("askPlaceholder")
+    const query = styledInput({
+      id:"memora-ask-query",type:"search",placeholder:t("askPlaceholder")
     });
-    content.append(queryInput);
+    content.append(query);
 
-    const searchBtn = actionButton(t("searchButton"));
-    content.append(searchBtn);
+    const search = actionButton(t("searchButton"));
+    content.append(search);
 
-    const resultsContainer = make("div", { style: "display:flex;flex-direction:column;gap:10px;margin-top:10px;" });
-    content.append(resultsContainer);
+    const resultArea = make("div", {
+      style:"display:flex;flex-direction:column;gap:10px;"
+    });
+    content.append(resultArea);
 
-    searchBtn.addEventListener("click", () => {
-      resultsContainer.innerHTML = "";
-      const query = queryInput.value.trim();
-      const terms = queryTerms(query);
+    function runSearch() {
+      resultArea.replaceChildren();
 
+      const rawQuery = query.value.trim();
+      const q = normalizeText(rawQuery);
+      const terms = queryTerms(rawQuery);
       const memories = readList(STORAGE_KEYS.memories);
       const reminders = readList(STORAGE_KEYS.reminders);
 
-      let foundCount = 0;
-
-      memories.forEach(mem => {
-        if (!terms.length || scoreItem(mem, terms) > 0) {
-          foundCount++;
-          addSearchResult(resultsContainer, mem.category.toUpperCase(), mem.text, mem, "memory");
-        }
-      });
-
-      reminders.forEach(rem => {
-        if (!terms.length || scoreItem(rem, terms) > 0) {
-          foundCount++;
-          addSearchResult(resultsContainer, rem.title, reminderDescription(rem), rem, "reminder");
-        }
-      });
-
-      if (foundCount === 0) {
-        resultsContainer.append(noteLine(t("noResults")));
+      if (!q) {
+        resultArea.append(noteLine(t("queryHelp")));
+        return;
       }
+
+      const memoryMatches = memories
+        .map(item => ({item,score:scoreItem(item,terms)}))
+        .filter(x => x.score > 0)
+        .sort((a,b) => b.score-a.score)
+        .slice(0,30);
+
+      const reminderMatches = reminders
+        .map(item => ({item,score:scoreItem(item,terms)}))
+        .filter(x => x.score > 0)
+        .sort((a,b) => b.score-a.score)
+        .slice(0,30);
+
+      const asksNext = /(berikutnya|ke depan|lagi|next|upcoming|maintenance|perawatan)/i.test(q);
+      const asksOverdue = /(terlambat|overdue|jatuh tempo|late)/i.test(q);
+      const asksList = /(pengingat|reminder|jadwal|schedule)/i.test(q);
+      const asksLast = /(terakhir|last|selesai|completed|pernah)/i.test(q);
+
+      resultArea.append(make("h3", {
+        style:"margin:8px 0 0;font-size:18px;"
+      },t("resultsHeading")));
+
+      if (reminderMatches.length) {
+        resultArea.append(make("h3", {
+          style:"margin:8px 0 0;font-size:16px;"
+        },t("askReminderResults")));
+
+        reminderMatches.forEach(({item}) => {
+          addSearchResult(resultArea,item.title,reminderDescription(item),item,"reminder");
+        });
+
+        if (asksNext) {
+          const completed = reminderMatches
+            .map(x => x.item)
+            .filter(r => r.completedAt || r.done)
+            .sort((a,b) => new Date(b.completedAt || 0)-new Date(a.completedAt || 0));
+
+          if (completed.length) {
+            const last = completed[0];
+            const interval = Number(last.intervalDays);
+
+            let answer;
+            if (!last.completedAt) {
+              answer = t("completionMissing");
+            } else if (!Number.isInteger(interval) || interval < 1) {
+              answer = t("intervalMissing");
+            } else {
+              const next = new Date(last.completedAt);
+              next.setDate(next.getDate()+interval);
+              answer = `${t("nextDue")}: ${dateOnly(next)}. ${last.title}.`;
+            }
+
+            const calc = make("article", {
+              style:"border:1px solid #b9d8ff;background:#f0f7ff;border-radius:12px;padding:12px;"
+            });
+            calc.append(make("strong",{},t("nextDue")));
+            calc.append(make("p", {
+              style:"margin:8px 0;white-space:pre-wrap;"
+            },answer));
+            addResultActions(calc,answer);
+            resultArea.append(calc);
+          } else if (asksNext) {
+            const answer = t("noData");
+            const card = make("article", {
+              style:"border:1px solid #e2e8f0;border-radius:12px;padding:12px;"
+            });
+            card.append(noteLine(answer));
+            addResultActions(card,answer);
+            resultArea.append(card);
+          }
+        }
+
+        if (asksOverdue) {
+          const overdue = reminderMatches.map(x => x.item).filter(r =>
+            !r.done && !r.completedAt && new Date(r.when).getTime() < Date.now()
+          );
+          const answer = overdue.length
+            ? `${t("overdue")}: ${overdue.map(r => r.title).join(", ")}`
+            : (language === "id" ? "Tidak ada pengingat terlambat yang cocok." : "No matching overdue reminders.");
+          const card = make("article", {
+            style:"border:1px solid #e2e8f0;border-radius:12px;padding:12px;"
+          });
+          card.append(noteLine(answer));
+          addResultActions(card,answer);
+          resultArea.append(card);
+        }
+      }
+
+      if (memoryMatches.length) {
+        resultArea.append(make("h3", {
+          style:"margin:8px 0 0;font-size:16px;"
+        },t("askMemoryResults")));
+
+        memoryMatches.forEach(({item}) => {
+          const description = [
+            item.text,
+            `${t("category")}: ${item.category || t("general")}`,
+            `${t("created")}: ${stamp(new Date(item.recordedAt || item.createdAt))}`,
+            `${t("location")}: ${locationText(item.location)}`
+          ].join("\n");
+
+          addSearchResult(resultArea,
+            item.category || t("general"),description,item,"memory");
+        });
+      }
+
+      if (!memoryMatches.length && !reminderMatches.length) {
+        resultArea.append(noteLine(t("noResults")));
+        resultArea.append(noteLine(t("queryHelp")));
+      }
+    }
+
+    runLastSearch = runSearch;
+    search.addEventListener("click",runSearch);
+    query.addEventListener("keydown",event => {
+      if (event.key === "Enter") runSearch();
     });
+    runSearch();
   }
 
   function scheduleReminderChecks() {
     if (reminderCheckTimer) clearInterval(reminderCheckTimer);
-    reminderCheckTimer = setInterval(() => {
-      const reminders = readList(STORAGE_KEYS.reminders);
-      const now = Date.now();
-      let updated = false;
 
-      reminders.forEach(rem => {
-        if (!rem.done && !rem.notifiedAt && new Date(rem.when).getTime() <= now) {
-          rem.notifiedAt = new Date().toISOString();
-          updated = true;
-          showMessage(`${t("dueReminder")}: ${rem.title}`);
+    function checkReminders() {
+      const now = Date.now();
+      const reminders = readList(STORAGE_KEYS.reminders);
+      let changed = false;
+
+      reminders.forEach(reminder => {
+        if (!reminder.done && !reminder.completedAt &&
+            !reminder.notifiedAt &&
+            new Date(reminder.when).getTime() <= now) {
+          reminder.notifiedAt = new Date().toISOString();
+          changed = true;
+
+          const msg = `${t("reminderFired")}: ${reminder.title}`;
+          showMessage(msg);
+
+          if ("Notification" in window && Notification.permission === "granted") {
+            try { new Notification("MEMORA Lite", {body:msg}); } catch (_) {}
+          } else if (document.visibilityState === "visible") {
+            window.alert(msg);
+          }
         }
       });
 
-      if (updated) writeList(STORAGE_KEYS.reminders, reminders);
-    }, 30000);
-  }
+      if (changed) writeList(STORAGE_KEYS.reminders,reminders);
+    }
 
-  // Bind menu buttons cleanly with event delegation & preventDefault to fix blinking
-  document.addEventListener("click", e => {
-    const btn = e.target.closest("[data-action]");
-    if (!btn) return;
-    e.preventDefault();
-    const action = btn.dataset.action;
-
-    if (action === "text") openText();
-    else if (action === "voice") openVoice();
-    else if (action === "reminder") openReminder();
-    else if (action === "ask") openAsk();
-    else if (action === "settings") openSettings();
-  });
-
-  if (languageSelect) {
-    languageSelect.addEventListener("change", () => {
-      language = languageSelect.value;
-      localStorage.setItem("memora-language", language);
-      applyLanguage();
-      showMessage(t("languageSaved"));
+    checkReminders();
+    reminderCheckTimer = setInterval(checkReminders,15000);
+    document.addEventListener("visibilitychange",() => {
+      if (document.visibilityState === "visible") checkReminders();
     });
   }
 
-  const closeSettingsBtn = document.getElementById("close-settings");
-  if (closeSettingsBtn) {
-    closeSettingsBtn.addEventListener("click", closeSettings);
-  }
+  // Menggunakan event delegation agar tombol menu selalu merespons klik
+  document.body.addEventListener("click", event => {
+    const button = event.target.closest("[data-action]");
+    if (!button) return;
+    
+    const action = button.dataset.action;
+    if (action === "settings") { openSettings(); }
+    else if (action === "voice") { openVoice(); }
+    else if (action === "text") { openText(); }
+    else if (action === "reminder") { openReminder(); }
+    else if (action === "ask") { openAsk(); }
+  });
+
+  document.getElementById("settings-save")?.addEventListener("click",() => {
+    language = languageSelect?.value === "id" ? "id" : "en";
+    localStorage.setItem("memora-language",language);
+    applyLanguage();
+    closeSettings();
+    showMessage(t("languageSaved"));
+  });
+
+  document.getElementById("settings-cancel")?.addEventListener("click",closeSettings);
+
+  settingsDialog?.addEventListener("click",event => {
+    if (event.target === settingsDialog) closeSettings();
+  });
+
+  document.addEventListener("keydown",event => {
+    if (event.key === "Escape") closeSettings();
+  });
 
   applyLanguage();
   scheduleReminderChecks();
