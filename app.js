@@ -657,17 +657,160 @@ document.addEventListener("DOMContentLoaded", () => {
     currentSpeech = null;
   }
 
-  function speak(text) {
-    if (!("speechSynthesis" in window) || !window.SpeechSynthesisUtterance) {
-      showMessage(t("noSpeech"));
-      return;
-    }
+  
+function memoraNumberWords(n, lang) {
+  n = Math.floor(Math.abs(n));
 
-    stopSpeaking();
-    currentSpeech = new SpeechSynthesisUtterance(text);
-    currentSpeech.lang = language === "id" ? "id-ID" : "en-US";
-    window.speechSynthesis.speak(currentSpeech);
+  const smallID = [
+    "nol", "satu", "dua", "tiga", "empat", "lima",
+    "enam", "tujuh", "delapan", "sembilan", "sepuluh", "sebelas"
+  ];
+  const smallEN = [
+    "zero", "one", "two", "three", "four", "five",
+    "six", "seven", "eight", "nine", "ten", "eleven"
+  ];
+  const small = lang === "id" ? smallID : smallEN;
+
+  if (n < 12) return small[n];
+
+  if (lang === "id") {
+    if (n < 20) return memoraNumberWords(n - 10, lang) + " belas";
+    if (n < 100) return memoraNumberWords(Math.floor(n / 10), lang) +
+      " puluh" + (n % 10 ? " " + memoraNumberWords(n % 10, lang) : "");
+    if (n < 200) return "seratus" +
+      (n > 100 ? " " + memoraNumberWords(n - 100, lang) : "");
+    if (n < 1000) return memoraNumberWords(Math.floor(n / 100), lang) +
+      " ratus" + (n % 100 ? " " + memoraNumberWords(n % 100, lang) : "");
+    if (n < 2000) return "seribu" +
+      (n > 1000 ? " " + memoraNumberWords(n - 1000, lang) : "");
+
+    for (const [scale, name] of [
+      [1e9, "miliar"], [1e6, "juta"], [1e3, "ribu"]
+    ]) {
+      if (n >= scale) return memoraNumberWords(Math.floor(n / scale), lang) +
+        " " + name +
+        (n % scale ? " " + memoraNumberWords(n % scale, lang) : "");
+    }
+  } else {
+    if (n < 20) {
+      const extra = [
+        "twelve", "thirteen", "fourteen", "fifteen",
+        "sixteen", "seventeen", "eighteen", "nineteen"
+      ];
+      return extra[n - 12];
+    }
+    if (n < 100) {
+      const tens = [
+        "", "", "twenty", "thirty", "forty",
+        "fifty", "sixty", "seventy", "eighty", "ninety"
+      ];
+      return tens[Math.floor(n / 10)] +
+        (n % 10 ? " " + memoraNumberWords(n % 10, lang) : "");
+    }
+    if (n < 1000) return memoraNumberWords(Math.floor(n / 100), lang) +
+      " hundred" + (n % 100 ? " " + memoraNumberWords(n % 100, lang) : "");
+
+    for (const [scale, name] of [
+      [1e9, "billion"], [1e6, "million"], [1e3, "thousand"]
+    ]) {
+      if (n >= scale) return memoraNumberWords(Math.floor(n / scale), lang) +
+        " " + name +
+        (n % scale ? " " + memoraNumberWords(n % scale, lang) : "");
+    }
   }
+
+  return String(n);
+}
+
+function memoraPrepareSpeech(text) {
+  const lang = language === "id" ? "id" : "en";
+  let result = String(text || "");
+
+  // Uang: hanya Rupiah dan Dolar AS.
+  // Titik selalu dianggap pemisah ribuan, bukan desimal.
+  result = result.replace(
+    /(^|[^\p{L}\p{N}])(?:Rp\.?|IDR|USD|\$)\s*([0-9][0-9.]*)/giu,
+    (match, prefix, rawNumber) => {
+      const code = match.match(/Rp\.?|IDR|USD|\$/i)?.[0] || "";
+      const amount = Number(rawNumber.replace(/\./g, ""));
+      if (!Number.isSafeInteger(amount)) return match;
+
+      const words = memoraNumberWords(amount, lang);
+      const isRupiah = /^Rp\.?$|^IDR$/i.test(code);
+
+      if (lang === "id") {
+        return prefix + words + (isRupiah ? " rupiah" : " dolar Amerika");
+      }
+      return prefix + words + (isRupiah ? " Indonesian rupiah" : " US dollars");
+    }
+  );
+
+  // Jam 24 jam: 09:05, 14:30, 23:55.
+  result = result.replace(/\b([01]?\d|2[0-3]):([0-5]\d)\b/g,
+    (match, h, m) => {
+      const hour = Number(h);
+      const minute = Number(m);
+      if (lang === "id") {
+        return minute === 0
+          ? "jam " + memoraNumberWords(hour, lang)
+          : "jam " + memoraNumberWords(hour, lang) +
+            " " + memoraNumberWords(minute, lang);
+      }
+      return minute === 0
+        ? memoraNumberWords(hour, lang) + " o'clock"
+        : memoraNumberWords(hour, lang) +
+          (minute < 10 ? " oh " : " ") +
+          memoraNumberWords(minute, lang);
+    }
+  );
+
+  // Jangan membacakan URL Google Maps karakter demi karakter.
+  result = result.replace(/https?:\/\/\S+/gi,
+    lang === "id" ? "tautan Google Maps" : "Google Maps link");
+
+  return result;
+}
+
+  
+function speak(text) {
+  if (!("speechSynthesis" in window) ||
+      !window.SpeechSynthesisUtterance) {
+    showMessage(t("noSpeech"));
+    return;
+  }
+
+  stopSpeaking();
+
+  const utterance = new SpeechSynthesisUtterance(
+    memoraPrepareSpeech(text)
+  );
+
+  utterance.lang = language === "id" ? "id-ID" : "en-US";
+  utterance.rate = 0.88;
+  utterance.pitch = 1;
+  utterance.volume = 1;
+
+  const voices = window.speechSynthesis.getVoices();
+  const prefix = language === "id" ? "id" : "en";
+  const matchingVoice = voices.find(v =>
+    v.lang.toLowerCase().startsWith(prefix)
+  );
+
+  if (matchingVoice) utterance.voice = matchingVoice;
+
+  currentSpeech = utterance;
+
+  utterance.onend = () => {
+    if (currentSpeech === utterance) currentSpeech = null;
+  };
+
+  utterance.onerror = () => {
+    if (currentSpeech === utterance) currentSpeech = null;
+  };
+
+  window.speechSynthesis.speak(utterance);
+}
+
 
   async function copyText(text) {
     try {
