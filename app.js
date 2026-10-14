@@ -772,6 +772,31 @@ function memoraPrepareSpeech(text) {
 }
 
   
+
+function selectMemoraVoice(lang) {
+  const voices = window.speechSynthesis.getVoices();
+  const prefix = lang === "id" ? "id" : "en";
+
+  const matching = voices.filter(voice =>
+    voice.lang.toLowerCase().startsWith(prefix)
+  );
+
+  if (!matching.length) return null;
+
+  const preferredNames = lang === "id"
+    ? ["indonesia", "indonesian", "bahasa"]
+    : ["english", "natural"];
+
+  for (const keyword of preferredNames) {
+    const found = matching.find(voice =>
+      voice.name.toLowerCase().includes(keyword)
+    );
+    if (found) return found;
+  }
+
+  return matching.find(voice => voice.default) || matching[0];
+}
+
 function speak(text) {
   if (!("speechSynthesis" in window) ||
       !window.SpeechSynthesisUtterance) {
@@ -781,22 +806,25 @@ function speak(text) {
 
   stopSpeaking();
 
+  const lang = language === "id" ? "id" : "en";
   const utterance = new SpeechSynthesisUtterance(
     memoraPrepareSpeech(text)
   );
 
-  utterance.lang = language === "id" ? "id-ID" : "en-US";
-  utterance.rate = 0.88;
-  utterance.pitch = 1;
+  utterance.lang = lang === "id" ? "id-ID" : "en-US";
+  utterance.rate = 0.94;
+  utterance.pitch = 1.0;
   utterance.volume = 1;
 
-  const voices = window.speechSynthesis.getVoices();
-  const prefix = language === "id" ? "id" : "en";
-  const matchingVoice = voices.find(v =>
-    v.lang.toLowerCase().startsWith(prefix)
-  );
+  const voice = selectMemoraVoice(lang);
+  if (voice) {
+    utterance.voice = voice;
+    utterance.lang = voice.lang;
+  }
 
-  if (matchingVoice) utterance.voice = matchingVoice;
+  utterance.text = utterance.text
+    .replace(/([.!?])\s+/g, "$1 ")
+    .replace(/;\s*/g, "; ");
 
   currentSpeech = utterance;
 
@@ -810,6 +838,7 @@ function speak(text) {
 
   window.speechSynthesis.speak(utterance);
 }
+
 
 
   async function copyText(text) {
