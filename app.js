@@ -390,13 +390,22 @@ document.addEventListener("DOMContentLoaded", () => {
     }, label);
   }
 
+  function coloredActionButton(label, background, color = "#ffffff") {
+    const button = actionButton(label, false);
+    button.style.background = background;
+    button.style.color = color;
+    button.style.minHeight = "42px";
+    button.style.padding = "10px 13px";
+    return button;
+  }
+
   function noteLine(text) {
     return make("p", {
       style:"margin:0;color:#526579;font-size:14px;"
     }, text);
   }
 
-    function getLocation() {
+  function getLocation() {
     return new Promise(resolve => {
       if (!navigator.geolocation) {
         resolve(null);
@@ -429,6 +438,25 @@ document.addEventListener("DOMContentLoaded", () => {
   function locationText(location) {
     if (!location) return t("locationUnavailable");
     return `${location.latitude.toFixed(5)}, ${location.longitude.toFixed(5)}`;
+  }
+
+  function mapsUrl(location) {
+    if (!location ||
+        !Number.isFinite(Number(location.latitude)) ||
+        !Number.isFinite(Number(location.longitude))) {
+      return null;
+    }
+    const lat = Number(location.latitude);
+    const lon = Number(location.longitude);
+    if (lat < -90 || lat > 90 || lon < -180 || lon > 180) return null;
+    return `https://www.google.com/maps?q=${encodeURIComponent(`${lat},${lon}`)}`;
+  }
+
+  function copyableResultText(title, description, item) {
+    const parts = [title, description];
+    const url = mapsUrl(item?.location || item?.completedLocation || null);
+    if (url) parts.push(`${t("openMaps")}: ${url}`);
+    return parts.filter(Boolean).join("\n");
   }
 
   function appendMapLink(container, location) {
@@ -659,13 +687,20 @@ document.addEventListener("DOMContentLoaded", () => {
     const row = make("div", {
       style:"display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;"
     });
-    const listen = actionButton(t("listen"),false);
-    const copy = actionButton(t("copy"),false);
-    listen.style.minHeight = "38px";
-    copy.style.minHeight = "38px";
+    const listen = coloredActionButton(t("listen"), "#0878ed");
+    const copy = coloredActionButton(t("copy"), "#20a464");
+    const remove = coloredActionButton(t("delete"), "#e53935");
+    const stop = coloredActionButton(t("stopSpeaking"), "#f08c00");
+    const close = coloredActionButton(t("close"), "#7654c8");
     listen.addEventListener("click", () => speak(text));
     copy.addEventListener("click", () => copyText(text));
-    row.append(listen,copy);
+    remove.addEventListener("click", () => {
+      stopSpeaking();
+      container.remove();
+    });
+    stop.addEventListener("click", stopSpeaking);
+    close.addEventListener("click", closeFeature);
+    row.append(listen,copy,remove,stop,close);
     container.append(row);
   }
 
@@ -842,7 +877,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const listen = actionButton(t("listen"),false);
       const copy = actionButton(t("copy"),false);
       listen.addEventListener("click", () => speak(reminderDescription(reminder)));
-      copy.addEventListener("click", () => copyText(reminderDescription(reminder)));
+      copy.addEventListener("click", () => copyText(copyableResultText(reminder.title, reminderDescription(reminder), reminder)));
       actions.append(listen,copy);
 
       if (!reminder.done && !reminder.completedAt) {
@@ -966,25 +1001,30 @@ document.addEventListener("DOMContentLoaded", () => {
     appendMapLink(card, resultLocation);
 
     const actions = make("div", {
-      style:"display:flex;gap:8px;flex-wrap:wrap;"
+      style:"display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;"
     });
-    const listen = actionButton(t("listen"),false);
-    const copy = actionButton(t("copy"),false);
+    const listen = coloredActionButton(t("listen"), "#0878ed");
+    const copy = coloredActionButton(t("copy"), "#20a464");
+    const remove = coloredActionButton(t("delete"), "#e53935");
+    const stop = coloredActionButton(t("stopSpeaking"), "#f08c00");
+    const close = coloredActionButton(t("close"), "#7654c8");
 
     listen.addEventListener("click", () => speak(`${title}. ${description}`));
-    copy.addEventListener("click", () => copyText(`${title}\n${description}`));
-    actions.append(listen,copy);
+    copy.addEventListener("click", () => copyText(copyableResultText(title, description, item)));
+    stop.addEventListener("click", stopSpeaking);
+    close.addEventListener("click", closeFeature);
 
     if (type === "memory") {
-      const remove = actionButton(t("delete"),false);
       remove.addEventListener("click", () => {
         if (!window.confirm(t("confirmDelete"))) return;
         writeList(STORAGE_KEYS.memories,
           readList(STORAGE_KEYS.memories).filter(m => m.id !== item.id));
         runLastSearch?.();
       });
-      actions.append(remove);
+    } else {
+      remove.addEventListener("click", () => card.remove());
     }
+    actions.append(listen,copy,remove,stop,close);
 
     if (type === "reminder" && !item.done && !item.completedAt) {
       const complete = actionButton(t("complete"));
@@ -1206,7 +1246,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.body.addEventListener("click", event => {
     const button = event.target.closest("[data-action]");
     if (!button) return;
-    
+
     const action = button.dataset.action;
     if (action === "settings") { openSettings(); }
     else if (action === "voice") { openVoice(); }
