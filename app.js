@@ -784,8 +784,8 @@ function selectMemoraVoice(lang) {
   if (!matching.length) return null;
 
   const preferredNames = lang === "id"
-    ? ["indonesia", "indonesian", "bahasa"]
-    : ["english", "natural"];
+  ? ["female", "woman", "perempuan"]
+  : ["female", "woman"];
 
   for (const keyword of preferredNames) {
     const found = matching.find(voice =>
