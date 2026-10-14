@@ -773,6 +773,7 @@ function memoraPrepareSpeech(text) {
 
   
 
+
 function selectMemoraVoice(lang) {
   const voices = window.speechSynthesis.getVoices();
   const prefix = lang === "id" ? "id" : "en";
@@ -784,8 +785,8 @@ function selectMemoraVoice(lang) {
   if (!matching.length) return null;
 
   const preferredNames = lang === "id"
-  ? ["female", "woman", "perempuan"]
-  : ["female", "woman"];
+    ? ["female", "woman", "perempuan"]
+    : ["female", "woman"];
 
   for (const keyword of preferredNames) {
     const found = matching.find(voice =>
@@ -796,6 +797,11 @@ function selectMemoraVoice(lang) {
 
   return matching.find(voice => voice.default) || matching[0];
 }
+
+window.speechSynthesis.addEventListener("voiceschanged", () => {
+  window.speechSynthesis.getVoices();
+});
+
 
 function speak(text) {
   if (!("speechSynthesis" in window) ||
