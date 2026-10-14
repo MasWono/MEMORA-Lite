@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
       languageSaved:"Language saved.",
       dateLabel:"Date", timeLabel:"Time",
       voiceSaved:"Voice memory saved on this device.",
-      askNote:"MEMORA searches your local memories and reminders. Online AI is not connected.",
+      askNote:"MEMORA searches saved memories and reminders using local keyword matching. Online AI is not connected.",
       textNote:"Memories are saved locally on this device.",
       reminderNote:"Reminders are one-time. Mark the work complete when it is actually finished.",
       invalidDate:"Choose a future date and time.",
@@ -73,6 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
       completionMissing:"I cannot calculate the next date because the actual completion date is missing.",
       location:"Location",
       locationUnavailable:"Location unavailable",
+      openMaps:"Open in Google Maps",
       copy:"Copy",
       copied:"Copied.",
       listen:"Listen",
@@ -143,7 +144,7 @@ document.addEventListener("DOMContentLoaded", () => {
       languageSaved:"Bahasa disimpan.",
       dateLabel:"Tanggal", timeLabel:"Jam",
       voiceSaved:"Catatan suara tersimpan di perangkat ini.",
-      askNote:"MEMORA mencari catatan dan pengingat lokal. AI online belum terhubung.",
+      askNote:"MEMORA mencari catatan dan pengingat tersimpan dengan pencocokan kata lokal. AI online belum terhubung.",
       textNote:"Catatan disimpan secara lokal di perangkat ini.",
       reminderNote:"Pengingat bersifat satu kali. Tandai selesai ketika pekerjaan benar-benar selesai.",
       invalidDate:"Pilih tanggal dan jam di masa depan.",
@@ -163,6 +164,7 @@ document.addEventListener("DOMContentLoaded", () => {
       completionMissing:"Saya belum dapat menghitung tanggal berikutnya karena tanggal pekerjaan selesai belum tersedia.",
       location:"Lokasi",
       locationUnavailable:"Lokasi tidak tersedia",
+      openMaps:"Buka di Google Maps",
       copy:"Copy",
       copied:"Berhasil disalin.",
       listen:"Dengarkan",
@@ -429,12 +431,35 @@ document.addEventListener("DOMContentLoaded", () => {
     return `${location.latitude.toFixed(5)}, ${location.longitude.toFixed(5)}`;
   }
 
+  function appendMapLink(container, location) {
+    if (!location ||
+        !Number.isFinite(Number(location.latitude)) ||
+        !Number.isFinite(Number(location.longitude))) {
+      return false;
+    }
+
+    const lat = Number(location.latitude);
+    const lon = Number(location.longitude);
+    if (lat < -90 || lat > 90 || lon < -180 || lon > 180) return false;
+
+    const link = make("a", {
+      href: `https://www.google.com/maps?q=${encodeURIComponent(`${lat},${lon}`)}`,
+      target: "_blank",
+      rel: "noopener noreferrer",
+      style: "display:inline-flex;align-items:center;gap:6px;margin-top:8px;color:#0878ed;font-weight:700;text-decoration:underline;overflow-wrap:anywhere;"
+    }, `📍 ${t("openMaps")}`);
+    link.setAttribute("aria-label", t("openMaps"));
+    container.append(link);
+    return true;
+  }
+
   function addMetadataLines(container, item) {
     const created = item.recordedAt || item.createdAt;
     if (created) {
       container.append(noteLine(`${t("created")}: ${stamp(new Date(created))}`));
     }
     container.append(noteLine(`${t("location")}: ${locationText(item.location)}`));
+    appendMapLink(container, item.location);
   }
 
   async function saveMemory(text, category, source = "text") {
@@ -865,16 +890,60 @@ document.addEventListener("DOMContentLoaded", () => {
       .replace(/\s+/g," ").trim();
   }
 
+  // Padanan istilah Indonesia-Inggris untuk pencarian lokal tanpa layanan AI.
+  // Ini membantu mencari catatan yang ditulis dalam satu bahasa dengan pertanyaan
+  // dalam bahasa lain. Daftar dapat diperluas seiring pengujian.
+  const bilingualTerms = {
+    "three":["tiga"], "tiga":["three"],
+    "english":["inggris"], "inggris":["english"],
+    "phrases":["frasa", "ungkapan"], "phrase":["frasa", "ungkapan"],
+    "frasa":["phrases", "phrase"], "ungkapan":["phrases", "phrase"],
+    "learned":["belajar", "dipelajari"], "learn":["belajar"],
+    "belajar":["learned", "learn", "studied"], "dipelajari":["learned"],
+    "pump":["pompa"], "pompa":["pump"],
+    "filter":["filter"], "replace":["ganti", "mengganti"],
+    "ganti":["replace", "replaced"], "mengganti":["replace"],
+    "record":["catat", "mencatat"], "catat":["record", "recorded"],
+    "temperature":["suhu"], "suhu":["temperature"],
+    "received":["terima", "menerima"], "receive":["menerima"],
+    "terima":["received"], "menerima":["received", "receive"],
+    "supplier":["pemasok"], "pemasok":["supplier"],
+    "date":["tanggal"], "tanggal":["date"],
+    "time":["jam", "waktu"], "jam":["time"], "waktu":["time"],
+    "where":["lokasi", "tempat"], "lokasi":["location", "place"],
+    "location":["lokasi"], "place":["tempat", "lokasi"],
+    "port":["pelabuhan"], "pelabuhan":["port"],
+    "ship":["kapal"], "kapal":["ship"],
+    "maintenance":["perawatan"], "perawatan":["maintenance"],
+    "budget":["anggaran"], "anggaran":["budget"],
+    "savings":["tabungan"], "tabungan":["savings"],
+    "what":["apa"], "apa":["what"],
+    "many":["berapa"], "berapa":["how", "many"],
+    "oil":["oli"], "oli":["oil"],
+    "gasket":["gasket"], "water":["air"], "air":["water"]
+  };
+
   function queryTerms(query) {
     const stop = new Set([
       "kapan","apa","saya","kita","yang","dan","di","ke","dari","untuk",
       "lagi","akan","harus","berapa","tolong","cari","tampilkan","lihat",
       "the","when","what","where","how","do","we","i","my","our","is",
       "are","was","were","to","for","of","on","in","a","an","please",
-      "show","find","next","again","should","can","could","me"
+      "show","find","next","again","should","can","could","me","this",
+      "that","it","have","has","had","did"
     ]);
-    return normalizeText(query).split(" ")
+
+    const original = normalizeText(query).split(" ")
       .filter(word => word.length > 1 && !stop.has(word));
+    const expanded = new Set(original);
+    original.forEach(word => {
+      (bilingualTerms[word] || []).forEach(alias => {
+        normalizeText(alias).split(" ").forEach(part => {
+          if (part.length > 1 && !stop.has(part)) expanded.add(part);
+        });
+      });
+    });
+    return [...expanded];
   }
 
   function scoreItem(item, terms) {
@@ -892,6 +961,9 @@ document.addEventListener("DOMContentLoaded", () => {
     card.append(make("p", {
       style:"margin:8px 0;white-space:pre-wrap;overflow-wrap:anywhere;"
     }, description));
+
+    const resultLocation = item.location || item.completedLocation || null;
+    appendMapLink(card, resultLocation);
 
     const actions = make("div", {
       style:"display:flex;gap:8px;flex-wrap:wrap;"
