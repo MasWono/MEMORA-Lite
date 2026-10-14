@@ -880,3 +880,104 @@ Document.addEventListener("DOMContentLoaded", () => {
 
     listen.addEventListener("click", () => speak(`${title}. ${description}`));
     copy.addEventListener("click", () => copyText(`${title}\n${description}`));
+    actions.append(listen, copy);
+    card.append(actions);
+    container.append(card);
+  }
+
+  function openAsk() {
+    const content = openFeature(t("askHeading"));
+    content.append(noteLine(t("askNote")));
+
+    const queryId = "memora-ask-query";
+    const queryInput = styledInput({
+      id: queryId, placeholder: t("askPlaceholder")
+    });
+    content.append(queryInput);
+
+    const searchBtn = actionButton(t("searchButton"));
+    content.append(searchBtn);
+
+    const resultsContainer = make("div", { style: "display:flex;flex-direction:column;gap:10px;margin-top:10px;" });
+    content.append(resultsContainer);
+
+    searchBtn.addEventListener("click", () => {
+      resultsContainer.innerHTML = "";
+      const query = queryInput.value.trim();
+      const terms = queryTerms(query);
+
+      const memories = readList(STORAGE_KEYS.memories);
+      const reminders = readList(STORAGE_KEYS.reminders);
+
+      let foundCount = 0;
+
+      memories.forEach(mem => {
+        if (!terms.length || scoreItem(mem, terms) > 0) {
+          foundCount++;
+          addSearchResult(resultsContainer, mem.category.toUpperCase(), mem.text, mem, "memory");
+        }
+      });
+
+      reminders.forEach(rem => {
+        if (!terms.length || scoreItem(rem, terms) > 0) {
+          foundCount++;
+          addSearchResult(resultsContainer, rem.title, reminderDescription(rem), rem, "reminder");
+        }
+      });
+
+      if (foundCount === 0) {
+        resultsContainer.append(noteLine(t("noResults")));
+      }
+    });
+  }
+
+  function scheduleReminderChecks() {
+    if (reminderCheckTimer) clearInterval(reminderCheckTimer);
+    reminderCheckTimer = setInterval(() => {
+      const reminders = readList(STORAGE_KEYS.reminders);
+      const now = Date.now();
+      let updated = false;
+
+      reminders.forEach(rem => {
+        if (!rem.done && !rem.notifiedAt && new Date(rem.when).getTime() <= now) {
+          rem.notifiedAt = new Date().toISOString();
+          updated = true;
+          showMessage(`${t("dueReminder")}: ${rem.title}`);
+        }
+      });
+
+      if (updated) writeList(STORAGE_KEYS.reminders, reminders);
+    }, 30000);
+  }
+
+  // Bind menu buttons cleanly with event delegation & preventDefault to fix blinking
+  document.addEventListener("click", e => {
+    const btn = e.target.closest("[data-action]");
+    if (!btn) return;
+    e.preventDefault();
+    const action = btn.dataset.action;
+
+    if (action === "text") openText();
+    else if (action === "voice") openVoice();
+    else if (action === "reminder") openReminder();
+    else if (action === "ask") openAsk();
+    else if (action === "settings") openSettings();
+  });
+
+  if (languageSelect) {
+    languageSelect.addEventListener("change", () => {
+      language = languageSelect.value;
+      localStorage.setItem("memora-language", language);
+      applyLanguage();
+      showMessage(t("languageSaved"));
+    });
+  }
+
+  const closeSettingsBtn = document.getElementById("close-settings");
+  if (closeSettingsBtn) {
+    closeSettingsBtn.addEventListener("click", closeSettings);
+  }
+
+  applyLanguage();
+  scheduleReminderChecks();
+});
