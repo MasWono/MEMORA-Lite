@@ -849,8 +849,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // BAGIAN 2 BERLANJUT DI BAWAH INI.
-
   
   function renderReminderList() {
     const content = openFeature(t("reminderList"));
