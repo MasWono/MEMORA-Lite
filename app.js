@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", () => {
   "use strict";
 
@@ -24,68 +25,47 @@ document.addEventListener("DOMContentLoaded", () => {
       emptyText:"Please write something first.",
       voiceHeading:"Voice memory",
       voiceIntro:"Tap Start listening and speak.",
-      startListening:"Start listening",
-      stopListening:"Stop listening",
+      startListening:"Start listening", stopListening:"Stop listening",
       transcriptPlaceholder:"Your speech will appear here...",
       saveTranscript:"Save transcript",
       speechUnsupported:"Speech recognition is not supported in this browser.",
       listening:"Listening…",
-      reminderHeading:"New reminder",
-      reminderTitleLabel:"Reminder title",
+      reminderHeading:"New reminder", reminderTitleLabel:"Reminder title",
       reminderPlaceholder:"What do you need to remember?",
-      reminderDate:"Date and time",
-      saveReminder:"Save reminder",
+      reminderDate:"Date and time", saveReminder:"Save reminder",
       reminderSaved:"Reminder saved on this device.",
       emptyReminder:"Enter a reminder title and date/time.",
-      reminderList:"Reminder list",
-      showReminderList:"Reminder list",
-      addReminder:"Add reminder",
-      noReminders:"No reminders saved yet.",
-      dueReminder:"Reminder due",
-      askHeading:"Ask your memories",
+      reminderList:"Reminder list", showReminderList:"Reminder list",
+      addReminder:"Add reminder", noReminders:"No reminders saved yet.",
+      dueReminder:"Reminder due", askHeading:"Ask your memories",
       askPlaceholder:"Ask or search your memories and reminders...",
-      searchButton:"Search",
-      resultsHeading:"Search results",
+      searchButton:"Search", resultsHeading:"Search results",
       noResults:"No matching memories or reminders found.",
-      allMemories:"All saved memories",
-      noMemories:"You have not saved any memories yet.",
+      allMemories:"All saved memories", noMemories:"You have not saved any memories yet.",
       delete:"Delete", confirmDelete:"Delete this item?",
-      languageSaved:"Language saved.",
-      dateLabel:"Date", timeLabel:"Time",
+      languageSaved:"Language saved.", dateLabel:"Date", timeLabel:"Time",
       voiceSaved:"Voice memory saved on this device.",
       askNote:"MEMORA searches saved memories and reminders using local keyword matching. Online AI is not connected.",
       textNote:"Memories are saved locally on this device.",
       reminderNote:"Reminders are one-time. Mark the work complete when it is actually finished.",
       invalidDate:"Choose a future date and time.",
-      savedAt:"Recorded",
-      notes:"Notes (optional)",
+      savedAt:"Recorded", notes:"Notes (optional)",
       interval:"Maintenance interval in days (optional)",
-      complete:"Mark complete",
-      completed:"Completed",
-      upcoming:"Upcoming",
-      today:"Today",
-      overdue:"Overdue",
-      status:"Status",
-      created:"Created",
-      completedAt:"Actually completed",
+      complete:"Mark complete", completed:"Completed",
+      upcoming:"Upcoming", today:"Today", overdue:"Overdue",
+      status:"Status", created:"Created", completedAt:"Actually completed",
       nextDue:"Suggested next maintenance",
       intervalMissing:"I cannot calculate the next date because the maintenance interval is missing.",
       completionMissing:"I cannot calculate the next date because the actual completion date is missing.",
-      location:"Location",
-      locationUnavailable:"Location unavailable",
-      openMaps:"Open in Google Maps",
-      copy:"Copy",
-      copied:"Copied.",
-      listen:"Listen",
-      stopSpeaking:"Stop speaking",
+      location:"Location", locationUnavailable:"Location unavailable",
+      openMaps:"Open in Google Maps", copy:"Copy", copied:"Copied.",
+      listen:"Listen", stopSpeaking:"Stop speaking",
       noSpeech:"Speech playback is not supported in this browser.",
       locationPermission:"Location is saved when permission and GPS are available. The record can still be saved without location.",
-      reminderFired:"A reminder is due",
-      askReminderResults:"Related reminders",
+      reminderFired:"A reminder is due", askReminderResults:"Related reminders",
       askMemoryResults:"Related memories",
       noData:"I could not find enough saved information to answer that question.",
-      deleteReminder:"Delete reminder",
-      deleteMemory:"Delete memory",
+      deleteReminder:"Delete reminder", deleteMemory:"Delete memory",
       reminderSavedAt:"Reminder created",
       intervalHint:"Used to calculate the next suggested maintenance date after completion.",
       reminderOverdue:"This reminder is overdue. It has not been marked complete.",
@@ -93,9 +73,10 @@ document.addEventListener("DOMContentLoaded", () => {
       invalidInterval:"Enter a valid positive number of days.",
       noResultsForQuery:"No matching results found.",
       queryHelp:"Try a keyword such as pump, maintenance, or filter.",
-      unknownDate:"Date not recorded",
-      unknownTime:"Time not recorded",
-      permissionInfo:"Browser permissions may limit GPS or notifications, especially when the app is closed."
+      unknownDate:"Date not recorded", unknownTime:"Time not recorded",
+      permissionInfo:"Browser permissions may limit GPS or notifications, especially when the app is closed.",
+      notificationDenied:"Notifications are not permitted. Reminders can still be checked while the app is open.",
+      notificationUnsupported:"Notifications are not supported here. Reminders can still be checked while the app is open."
     },
     id: {
       voiceTitle:"Suara", voiceSubtitle:"Bicara & Simpan",
@@ -106,8 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
       tagline:"Catatan kecil. Kenangan besar.",
       footerLine:"Memori pribadi Anda, selalu bersama Anda.",
       languageLabel:"Bahasa", cancel:"Batal", save:"Simpan",
-      textHeading:"Catatan baru",
-      textPlaceholder:"Tulis catatan atau kenangan di sini...",
+      textHeading:"Catatan baru", textPlaceholder:"Tulis catatan atau kenangan di sini...",
       category:"Kategori", general:"Umum", work:"Pekerjaan",
       travel:"Perjalanan", personal:"Pribadi", material:"Material",
       saveMemory:"Simpan catatan", close:"Tutup",
@@ -115,68 +95,48 @@ document.addEventListener("DOMContentLoaded", () => {
       emptyText:"Silakan tulis catatan terlebih dahulu.",
       voiceHeading:"Catatan suara",
       voiceIntro:"Tekan Mulai mendengarkan lalu berbicaralah.",
-      startListening:"Mulai mendengarkan",
-      stopListening:"Berhenti mendengarkan",
+      startListening:"Mulai mendengarkan", stopListening:"Berhenti mendengarkan",
       transcriptPlaceholder:"Hasil suara akan muncul di sini...",
       saveTranscript:"Simpan hasil suara",
       speechUnsupported:"Pengenalan suara tidak didukung browser ini.",
       listening:"Sedang mendengarkan…",
-      reminderHeading:"Pengingat baru",
-      reminderTitleLabel:"Judul pengingat",
+      reminderHeading:"Pengingat baru", reminderTitleLabel:"Judul pengingat",
       reminderPlaceholder:"Apa yang perlu Anda ingat?",
-      reminderDate:"Tanggal dan jam",
-      saveReminder:"Simpan pengingat",
+      reminderDate:"Tanggal dan jam", saveReminder:"Simpan pengingat",
       reminderSaved:"Pengingat tersimpan di perangkat ini.",
       emptyReminder:"Masukkan judul dan tanggal/jam pengingat.",
-      reminderList:"Daftar pengingat",
-      showReminderList:"Daftar Pengingat",
-      addReminder:"Tambah pengingat",
-      noReminders:"Belum ada pengingat.",
+      reminderList:"Daftar pengingat", showReminderList:"Daftar Pengingat",
+      addReminder:"Tambah pengingat", noReminders:"Belum ada pengingat.",
       dueReminder:"Pengingat jatuh tempo",
       askHeading:"Tanya memori Anda",
       askPlaceholder:"Tanyakan atau cari catatan dan pengingat...",
-      searchButton:"Cari",
-      resultsHeading:"Hasil pencarian",
+      searchButton:"Cari", resultsHeading:"Hasil pencarian",
       noResults:"Tidak ditemukan catatan atau pengingat yang cocok.",
-      allMemories:"Semua catatan tersimpan",
-      noMemories:"Anda belum menyimpan catatan.",
+      allMemories:"Semua catatan tersimpan", noMemories:"Anda belum menyimpan catatan.",
       delete:"Hapus", confirmDelete:"Hapus item ini?",
-      languageSaved:"Bahasa disimpan.",
-      dateLabel:"Tanggal", timeLabel:"Jam",
+      languageSaved:"Bahasa disimpan.", dateLabel:"Tanggal", timeLabel:"Jam",
       voiceSaved:"Catatan suara tersimpan di perangkat ini.",
       askNote:"MEMORA mencari catatan dan pengingat tersimpan dengan pencocokan kata lokal. AI online belum terhubung.",
       textNote:"Catatan disimpan secara lokal di perangkat ini.",
       reminderNote:"Pengingat bersifat satu kali. Tandai selesai ketika pekerjaan benar-benar selesai.",
       invalidDate:"Pilih tanggal dan jam di masa depan.",
-      savedAt:"Dicatat",
-      notes:"Catatan (opsional)",
+      savedAt:"Dicatat", notes:"Catatan (opsional)",
       interval:"Interval perawatan dalam hari (opsional)",
-      complete:"Tandai Selesai",
-      completed:"Selesai",
-      upcoming:"Akan datang",
-      today:"Hari ini",
-      overdue:"Terlambat",
-      status:"Status",
-      created:"Dibuat",
-      completedAt:"Waktu pekerjaan selesai",
+      complete:"Tandai Selesai", completed:"Selesai",
+      upcoming:"Akan datang", today:"Hari ini", overdue:"Terlambat",
+      status:"Status", created:"Dibuat", completedAt:"Waktu pekerjaan selesai",
       nextDue:"Saran jadwal perawatan berikutnya",
       intervalMissing:"Saya belum dapat menghitung tanggal berikutnya karena interval perawatan belum tersedia.",
       completionMissing:"Saya belum dapat menghitung tanggal berikutnya karena tanggal pekerjaan selesai belum tersedia.",
-      location:"Lokasi",
-      locationUnavailable:"Lokasi tidak tersedia",
-      openMaps:"Buka di Google Maps",
-      copy:"Copy",
-      copied:"Berhasil disalin.",
-      listen:"Dengarkan",
-      stopSpeaking:"Berhenti berbicara",
+      location:"Lokasi", locationUnavailable:"Lokasi tidak tersedia",
+      openMaps:"Buka di Google Maps", copy:"Copy", copied:"Berhasil disalin.",
+      listen:"Dengarkan", stopSpeaking:"Berhenti berbicara",
       noSpeech:"Pembacaan suara tidak didukung browser ini.",
       locationPermission:"Lokasi dicatat jika izin dan GPS tersedia. Data tetap dapat disimpan tanpa lokasi.",
-      reminderFired:"Pengingat telah jatuh tempo",
-      askReminderResults:"Pengingat terkait",
+      reminderFired:"Pengingat telah jatuh tempo", askReminderResults:"Pengingat terkait",
       askMemoryResults:"Catatan terkait",
-      noData:"I cannot find enough saved information to answer that question.",
-      deleteReminder:"Hapus pengingat",
-      deleteMemory:"Hapus catatan",
+      noData:"Saya belum menemukan cukup informasi tersimpan untuk menjawab pertanyaan itu.",
+      deleteReminder:"Hapus pengingat", deleteMemory:"Hapus catatan",
       reminderSavedAt:"Pengingat dibuat",
       intervalHint:"Digunakan untuk menghitung saran jadwal perawatan berikutnya setelah pekerjaan selesai.",
       reminderOverdue:"Pengingat ini terlambat. Statusnya belum otomatis diubah menjadi selesai.",
@@ -184,9 +144,10 @@ document.addEventListener("DOMContentLoaded", () => {
       invalidInterval:"Masukkan jumlah hari positif yang benar.",
       noResultsForQuery:"Tidak ditemukan hasil yang cocok.",
       queryHelp:"Coba kata kunci seperti pompa, perawatan, atau filter.",
-      unknownDate:"Tanggal belum dicatat",
-      unknownTime:"Jam belum dicatat",
-      permissionInfo:"Izin browser dapat membatasi GPS atau notifikasi, terutama saat aplikasi ditutup."
+      unknownDate:"Tanggal belum dicatat", unknownTime:"Jam belum dicatat",
+      permissionInfo:"Izin browser dapat membatasi GPS atau notifikasi, terutama saat aplikasi ditutup.",
+      notificationDenied:"Izin notifikasi belum diberikan. Pengingat tetap dapat diperiksa saat aplikasi terbuka.",
+      notificationUnsupported:"Notifikasi tidak didukung di sini. Pengingat tetap dapat diperiksa saat aplikasi terbuka."
     }
   };
 
@@ -202,6 +163,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let listening = false;
   let reminderCheckTimer = null;
   let currentSpeech = null;
+  let lastReminderAlert = "";
 
   function t(key) {
     return translations[language]?.[key] || translations.en[key] || key;
@@ -242,7 +204,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function dateOnly(date) {
     return new Date(date).toLocaleDateString(
       language === "id" ? "id-ID" : "en-GB",
-      {year:"numeric",month:"short",day:"2-digit"}
+      {year:"numeric", month:"short", day:"2-digit"}
     );
   }
 
@@ -316,7 +278,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     const panel = make("section", {
-      role:"dialog","aria-modal":"true","aria-label":title,
+      role:"dialog", "aria-modal":"true", "aria-label":title,
       style:"box-sizing:border-box;width:min(100%,600px);max-height:92dvh;overflow:auto;background:#fff;color:#17324d;border-radius:22px;padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.3);font:16px/1.45 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;"
     });
 
@@ -326,12 +288,11 @@ document.addEventListener("DOMContentLoaded", () => {
     head.append(make("h2", {style:"margin:0;font-size:23px;line-height:1.2;"}, title));
 
     const x = make("button", {
-      type:"button","aria-label":t("close"),
+      type:"button", "aria-label":t("close"),
       style:"border:0;border-radius:12px;padding:8px 12px;background:#edf2f7;color:#17324d;font-size:18px;cursor:pointer;"
     }, "×");
     x.addEventListener("click", closeFeature);
     head.append(x);
-
     panel.append(head);
 
     const content = make("div", {
@@ -383,8 +344,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function actionButton(label, primary = true) {
     return make("button", {
-      type: "button",
-      style: "border:0;border-radius:12px;padding:12px 16px;min-height:44px;font:inherit;font-weight:700;cursor:pointer;background:" +
+      type:"button",
+      style:"border:0;border-radius:12px;padding:12px 16px;min-height:44px;font:inherit;font-weight:700;cursor:pointer;background:" +
         (primary ? "#0878ed" : "#edf2f7") +
         ";color:" + (primary ? "#fff" : "#17324d") + ";"
     }, label);
@@ -400,18 +361,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function noteLine(text) {
-    return make("p", {
-      style:"margin:0;color:#526579;font-size:14px;"
-    }, text);
+    return make("p", {style:"margin:0;color:#526579;font-size:14px;"}, text);
   }
 
   function getLocation() {
     return new Promise(resolve => {
-      if (!navigator.geolocation) {
-        resolve(null);
-        return;
-      }
-
+      if (!navigator.geolocation) return resolve(null);
       navigator.geolocation.getCurrentPosition(
         position => resolve({
           latitude:position.coords.latitude,
@@ -420,7 +375,7 @@ document.addEventListener("DOMContentLoaded", () => {
           capturedAt:new Date().toISOString()
         }),
         () => resolve(null),
-        {enableHighAccuracy:false,timeout:8000,maximumAge:60000}
+        {enableHighAccuracy:false, timeout:8000, maximumAge:60000}
       );
     });
   }
@@ -428,11 +383,7 @@ document.addEventListener("DOMContentLoaded", () => {
   async function captureMetadata() {
     const recordedAt = new Date().toISOString();
     const location = await getLocation();
-    return {
-      recordedAt,
-      displayTime:stamp(new Date(recordedAt)),
-      location:location || null
-    };
+    return {recordedAt, displayTime:stamp(new Date(recordedAt)), location:location || null};
   }
 
   function locationText(location) {
@@ -443,9 +394,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function mapsUrl(location) {
     if (!location ||
         !Number.isFinite(Number(location.latitude)) ||
-        !Number.isFinite(Number(location.longitude))) {
-      return null;
-    }
+        !Number.isFinite(Number(location.longitude))) return null;
     const lat = Number(location.latitude);
     const lon = Number(location.longitude);
     if (lat < -90 || lat > 90 || lon < -180 || lon > 180) return null;
@@ -460,21 +409,11 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function appendMapLink(container, location) {
-    if (!location ||
-        !Number.isFinite(Number(location.latitude)) ||
-        !Number.isFinite(Number(location.longitude))) {
-      return false;
-    }
-
-    const lat = Number(location.latitude);
-    const lon = Number(location.longitude);
-    if (lat < -90 || lat > 90 || lon < -180 || lon > 180) return false;
-
+    const url = mapsUrl(location);
+    if (!url) return false;
     const link = make("a", {
-      href: `https://www.google.com/maps?q=${encodeURIComponent(`${lat},${lon}`)}`,
-      target: "_blank",
-      rel: "noopener noreferrer",
-      style: "display:inline-flex;align-items:center;gap:6px;margin-top:8px;color:#0878ed;font-weight:700;text-decoration:underline;overflow-wrap:anywhere;"
+      href:url, target:"_blank", rel:"noopener noreferrer",
+      style:"display:inline-flex;align-items:center;gap:6px;margin-top:8px;color:#0878ed;font-weight:700;text-decoration:underline;overflow-wrap:anywhere;"
     }, `📍 ${t("openMaps")}`);
     link.setAttribute("aria-label", t("openMaps"));
     container.append(link);
@@ -483,9 +422,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function addMetadataLines(container, item) {
     const created = item.recordedAt || item.createdAt;
-    if (created) {
-      container.append(noteLine(`${t("created")}: ${stamp(new Date(created))}`));
-    }
+    if (created) container.append(noteLine(`${t("created")}: ${stamp(new Date(created))}`));
     container.append(noteLine(`${t("location")}: ${locationText(item.location)}`));
     appendMapLink(container, item.location);
   }
@@ -499,47 +436,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const metadata = await captureMetadata();
     const memories = readList(STORAGE_KEYS.memories);
-
     memories.unshift({
-      id:uid(),
-      text:trimmed,
-      category:category || "general",
-      source,
-      createdAt:metadata.recordedAt,
-      recordedAt:metadata.recordedAt,
-      displayTime:metadata.displayTime,
-      location:metadata.location
+      id:uid(), text:trimmed, category:category || "general", source,
+      createdAt:metadata.recordedAt, recordedAt:metadata.recordedAt,
+      displayTime:metadata.displayTime, location:metadata.location
     });
-
     return writeList(STORAGE_KEYS.memories, memories);
   }
 
   function openText() {
     const content = openFeature(t("textHeading"));
-    content.append(noteLine(t("textNote")));
-    content.append(noteLine(t("locationPermission")));
+    content.append(noteLine(t("textNote")), noteLine(t("locationPermission")));
 
     const categoryId = "memora-text-category";
     content.append(fieldLabel(t("category"), categoryId));
-
     const category = styledSelect({id:categoryId});
     [["general",t("general")],["work",t("work")],["travel",t("travel")],
-      ["personal",t("personal")],["material",t("material")]]
+     ["personal",t("personal")],["material",t("material")]]
       .forEach(([value,label]) => category.append(make("option",{value},label)));
     content.append(category);
 
     const textId = "memora-text-content";
     content.append(fieldLabel(t("textHeading"), textId));
-    const textarea = styledTextarea({
-      id:textId,placeholder:t("textPlaceholder")
-    });
+    const textarea = styledTextarea({id:textId, placeholder:t("textPlaceholder")});
     content.append(textarea);
 
-    const actions = make("div", {
-      style:"display:flex;gap:10px;flex-wrap:wrap;"
-    });
+    const actions = make("div",{style:"display:flex;gap:10px;flex-wrap:wrap;"});
     const save = actionButton(t("saveMemory"));
-    const cancel = actionButton(t("close"),false);
+    const cancel = actionButton(t("close"), false);
     actions.append(save,cancel);
     content.append(actions);
 
@@ -555,7 +479,6 @@ document.addEventListener("DOMContentLoaded", () => {
         save.textContent = t("saveMemory");
       }
     });
-
     cancel.addEventListener("click", closeFeature);
     textarea.focus();
   }
@@ -565,23 +488,19 @@ document.addEventListener("DOMContentLoaded", () => {
     content.append(noteLine(t("voiceIntro")));
 
     const transcript = styledTextarea({
-      id:"memora-voice-transcript",
-      placeholder:t("transcriptPlaceholder")
+      id:"memora-voice-transcript", placeholder:t("transcriptPlaceholder")
     });
     content.append(transcript);
 
     const status = noteLine("");
     content.append(status);
 
-    const actions = make("div", {
-      style:"display:flex;gap:10px;flex-wrap:wrap;"
-    });
+    const actions = make("div",{style:"display:flex;gap:10px;flex-wrap:wrap;"});
     const start = actionButton(t("startListening"));
-    const save = actionButton(t("saveTranscript"),false);
-    const close = actionButton(t("close"),false);
+    const save = actionButton(t("saveTranscript"), false);
+    const close = actionButton(t("close"), false);
     actions.append(start,save,close);
     content.append(actions);
-
     close.addEventListener("click", closeFeature);
 
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -600,7 +519,6 @@ document.addEventListener("DOMContentLoaded", () => {
         start.textContent = t("stopListening");
         status.textContent = t("listening");
       };
-
       recognition.onresult = event => {
         let finalText = "";
         for (let i = 0; i < event.results.length; i++) {
@@ -608,7 +526,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         transcript.value = finalText.trim();
       };
-
       recognition.onerror = event => {
         status.textContent = event.error === "not-allowed"
           ? (language === "id"
@@ -616,12 +533,10 @@ document.addEventListener("DOMContentLoaded", () => {
             : "Microphone permission denied. Allow microphone access.")
           : `${language === "id" ? "Pengenalan suara berhenti: " : "Speech recognition stopped: "}${event.error}`;
       };
-
       recognition.onend = () => {
         listening = false;
         start.textContent = t("startListening");
       };
-
       start.addEventListener("click", () => {
         if (listening) {
           try { recognition.stop(); } catch (_) {}
@@ -651,201 +566,112 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function stopSpeaking() {
-    if ("speechSynthesis" in window) {
-      window.speechSynthesis.cancel();
-    }
+    if ("speechSynthesis" in window) window.speechSynthesis.cancel();
     currentSpeech = null;
   }
 
-  
-function memoraNumberWords(n, lang) {
-  n = Math.floor(Math.abs(n));
+  function memoraNumberWords(n, lang) {
+    n = Math.floor(Math.abs(n));
+    const smallID = ["nol","satu","dua","tiga","empat","lima","enam","tujuh","delapan","sembilan","sepuluh","sebelas"];
+    const smallEN = ["zero","one","two","three","four","five","six","seven","eight","nine","ten","eleven"];
+    const small = lang === "id" ? smallID : smallEN;
+    if (n < 12) return small[n];
 
-  const smallID = [
-    "nol", "satu", "dua", "tiga", "empat", "lima",
-    "enam", "tujuh", "delapan", "sembilan", "sepuluh", "sebelas"
-  ];
-  const smallEN = [
-    "zero", "one", "two", "three", "four", "five",
-    "six", "seven", "eight", "nine", "ten", "eleven"
-  ];
-  const small = lang === "id" ? smallID : smallEN;
-
-  if (n < 12) return small[n];
-
-  if (lang === "id") {
-    if (n < 20) return memoraNumberWords(n - 10, lang) + " belas";
-    if (n < 100) return memoraNumberWords(Math.floor(n / 10), lang) +
-      " puluh" + (n % 10 ? " " + memoraNumberWords(n % 10, lang) : "");
-    if (n < 200) return "seratus" +
-      (n > 100 ? " " + memoraNumberWords(n - 100, lang) : "");
-    if (n < 1000) return memoraNumberWords(Math.floor(n / 100), lang) +
-      " ratus" + (n % 100 ? " " + memoraNumberWords(n % 100, lang) : "");
-    if (n < 2000) return "seribu" +
-      (n > 1000 ? " " + memoraNumberWords(n - 1000, lang) : "");
-
-    for (const [scale, name] of [
-      [1e9, "miliar"], [1e6, "juta"], [1e3, "ribu"]
-    ]) {
-      if (n >= scale) return memoraNumberWords(Math.floor(n / scale), lang) +
-        " " + name +
-        (n % scale ? " " + memoraNumberWords(n % scale, lang) : "");
+    if (lang === "id") {
+      if (n < 20) return memoraNumberWords(n-10,lang)+" belas";
+      if (n < 100) return memoraNumberWords(Math.floor(n/10),lang)+" puluh"+(n%10?" "+memoraNumberWords(n%10,lang):"");
+      if (n < 200) return "seratus"+(n>100?" "+memoraNumberWords(n-100,lang):"");
+      if (n < 1000) return memoraNumberWords(Math.floor(n/100),lang)+" ratus"+(n%100?" "+memoraNumberWords(n%100,lang):"");
+      if (n < 2000) return "seribu"+(n>1000?" "+memoraNumberWords(n-1000,lang):"");
+      for (const [scale,name] of [[1e9,"miliar"],[1e6,"juta"],[1e3,"ribu"]]) {
+        if (n >= scale) return memoraNumberWords(Math.floor(n/scale),lang)+" "+name+(n%scale?" "+memoraNumberWords(n%scale,lang):"");
+      }
+    } else {
+      if (n < 20) return ["twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen"][n-12];
+      if (n < 100) {
+        const tens = ["","","twenty","thirty","forty","fifty","sixty","seventy","eighty","ninety"];
+        return tens[Math.floor(n/10)]+(n%10?" "+memoraNumberWords(n%10,lang):"");
+      }
+      if (n < 1000) return memoraNumberWords(Math.floor(n/100),lang)+" hundred"+(n%100?" "+memoraNumberWords(n%100,lang):"");
+      for (const [scale,name] of [[1e9,"billion"],[1e6,"million"],[1e3,"thousand"]]) {
+        if (n >= scale) return memoraNumberWords(Math.floor(n/scale),lang)+" "+name+(n%scale?" "+memoraNumberWords(n%scale,lang):"");
+      }
     }
-  } else {
-    if (n < 20) {
-      const extra = [
-        "twelve", "thirteen", "fourteen", "fifteen",
-        "sixteen", "seventeen", "eighteen", "nineteen"
-      ];
-      return extra[n - 12];
-    }
-    if (n < 100) {
-      const tens = [
-        "", "", "twenty", "thirty", "forty",
-        "fifty", "sixty", "seventy", "eighty", "ninety"
-      ];
-      return tens[Math.floor(n / 10)] +
-        (n % 10 ? " " + memoraNumberWords(n % 10, lang) : "");
-    }
-    if (n < 1000) return memoraNumberWords(Math.floor(n / 100), lang) +
-      " hundred" + (n % 100 ? " " + memoraNumberWords(n % 100, lang) : "");
-
-    for (const [scale, name] of [
-      [1e9, "billion"], [1e6, "million"], [1e3, "thousand"]
-    ]) {
-      if (n >= scale) return memoraNumberWords(Math.floor(n / scale), lang) +
-        " " + name +
-        (n % scale ? " " + memoraNumberWords(n % scale, lang) : "");
-    }
+    return String(n);
   }
 
-  return String(n);
-}
+  function memoraPrepareSpeech(text) {
+    const lang = language === "id" ? "id" : "en";
+    let result = String(text || "");
 
-function memoraPrepareSpeech(text) {
-  const lang = language === "id" ? "id" : "en";
-  let result = String(text || "");
-
-  // Uang: hanya Rupiah dan Dolar AS.
-  // Titik selalu dianggap pemisah ribuan, bukan desimal.
-  result = result.replace(
-    /(^|[^\p{L}\p{N}])(?:Rp\.?|IDR|USD|\$)\s*([0-9][0-9.]*)/giu,
-    (match, prefix, rawNumber) => {
-      const code = match.match(/Rp\.?|IDR|USD|\$/i)?.[0] || "";
-      const amount = Number(rawNumber.replace(/\./g, ""));
-      if (!Number.isSafeInteger(amount)) return match;
-
-      const words = memoraNumberWords(amount, lang);
-      const isRupiah = /^Rp\.?$|^IDR$/i.test(code);
-
-      if (lang === "id") {
-        return prefix + words + (isRupiah ? " rupiah" : " dolar Amerika");
+    result = result.replace(
+      /(^|[^\p{L}\p{N}])(?:Rp\.?|IDR|USD|\$)\s*([0-9][0-9.]*)/giu,
+      (match,prefix,rawNumber) => {
+        const code = match.match(/Rp\.?|IDR|USD|\$/i)?.[0] || "";
+        const amount = Number(rawNumber.replace(/\./g,""));
+        if (!Number.isSafeInteger(amount)) return match;
+        const words = memoraNumberWords(amount,lang);
+        const isRupiah = /^Rp\.?$|^IDR$/i.test(code);
+        if (lang === "id") return prefix+words+(isRupiah?" rupiah":" dolar Amerika");
+        return prefix+words+(isRupiah?" Indonesian rupiah":" US dollars");
       }
-      return prefix + words + (isRupiah ? " Indonesian rupiah" : " US dollars");
-    }
-  );
-
-  // Jam 24 jam: 09:05, 14:30, 23:55.
-  result = result.replace(/\b([01]?\d|2[0-3]):([0-5]\d)\b/g,
-    (match, h, m) => {
-      const hour = Number(h);
-      const minute = Number(m);
-      if (lang === "id") {
-        return minute === 0
-          ? "jam " + memoraNumberWords(hour, lang)
-          : "jam " + memoraNumberWords(hour, lang) +
-            " " + memoraNumberWords(minute, lang);
-      }
-      return minute === 0
-        ? memoraNumberWords(hour, lang) + " o'clock"
-        : memoraNumberWords(hour, lang) +
-          (minute < 10 ? " oh " : " ") +
-          memoraNumberWords(minute, lang);
-    }
-  );
-
-  // Jangan membacakan URL Google Maps karakter demi karakter.
-  result = result.replace(/https?:\/\/\S+/gi,
-    lang === "id" ? "tautan Google Maps" : "Google Maps link");
-
-  return result;
-}
-
-  
-
-
-function selectMemoraVoice(lang) {
-  const voices = window.speechSynthesis.getVoices();
-  const prefix = lang === "id" ? "id" : "en";
-
-  const matching = voices.filter(voice =>
-    voice.lang.toLowerCase().startsWith(prefix)
-  );
-
-  if (!matching.length) return null;
-
-  const preferredNames = lang === "id"
-    ? ["female", "woman", "perempuan"]
-    : ["female", "woman"];
-
-  for (const keyword of preferredNames) {
-    const found = matching.find(voice =>
-      voice.name.toLowerCase().includes(keyword)
     );
-    if (found) return found;
+
+    result = result.replace(/\b([01]?\d|2[0-3]):([0-5]\d)\b/g,(match,h,m) => {
+      const hour = Number(h), minute = Number(m);
+      if (lang === "id") return minute===0
+        ? "jam "+memoraNumberWords(hour,lang)
+        : "jam "+memoraNumberWords(hour,lang)+" "+memoraNumberWords(minute,lang);
+      return minute===0
+        ? memoraNumberWords(hour,lang)+" o'clock"
+        : memoraNumberWords(hour,lang)+(minute<10?" oh ":" ")+memoraNumberWords(minute,lang);
+    });
+
+    return result.replace(/https?:\/\/\S+/gi,lang==="id"?"tautan Google Maps":"Google Maps link");
   }
 
-  return matching.find(voice => voice.default) || matching[0];
-}
-
-window.speechSynthesis.addEventListener("voiceschanged", () => {
-  window.speechSynthesis.getVoices();
-});
-
-
-function speak(text) {
-  if (!("speechSynthesis" in window) ||
-      !window.SpeechSynthesisUtterance) {
-    showMessage(t("noSpeech"));
-    return;
+  function selectMemoraVoice(lang) {
+    if (!("speechSynthesis" in window)) return null;
+    const voices = window.speechSynthesis.getVoices();
+    const matching = voices.filter(v => v.lang.toLowerCase().startsWith(lang));
+    if (!matching.length) return null;
+    const names = lang === "id" ? ["female","woman","perempuan"] : ["female","woman"];
+    for (const keyword of names) {
+      const found = matching.find(v => v.name.toLowerCase().includes(keyword));
+      if (found) return found;
+    }
+    return matching.find(v => v.default) || matching[0];
   }
 
-  stopSpeaking();
-
-  const lang = language === "id" ? "id" : "en";
-  const utterance = new SpeechSynthesisUtterance(
-    memoraPrepareSpeech(text)
-  );
-
-  utterance.lang = lang === "id" ? "id-ID" : "en-US";
-  utterance.rate = 0.94;
-  utterance.pitch = 1.0;
-  utterance.volume = 1;
-
-  const voice = selectMemoraVoice(lang);
-  if (voice) {
-    utterance.voice = voice;
-    utterance.lang = voice.lang;
+  function speak(text) {
+    if (!("speechSynthesis" in window) || !window.SpeechSynthesisUtterance) {
+      showMessage(t("noSpeech"));
+      return;
+    }
+    stopSpeaking();
+    const lang = language === "id" ? "id" : "en";
+    const utterance = new SpeechSynthesisUtterance(memoraPrepareSpeech(text));
+    utterance.lang = lang === "id" ? "id-ID" : "en-US";
+    utterance.rate = 0.94;
+    utterance.pitch = 1;
+    utterance.volume = 1;
+    const voice = selectMemoraVoice(lang);
+    if (voice) {
+      utterance.voice = voice;
+      utterance.lang = voice.lang;
+    }
+    utterance.text = utterance.text.replace(/([.!?])\s+/g,"$1 ").replace(/;\s*/g,"; ");
+    currentSpeech = utterance;
+    utterance.onend = () => { if (currentSpeech === utterance) currentSpeech = null; };
+    utterance.onerror = () => { if (currentSpeech === utterance) currentSpeech = null; };
+    window.speechSynthesis.speak(utterance);
   }
 
-  utterance.text = utterance.text
-    .replace(/([.!?])\s+/g, "$1 ")
-    .replace(/;\s*/g, "; ");
-
-  currentSpeech = utterance;
-
-  utterance.onend = () => {
-    if (currentSpeech === utterance) currentSpeech = null;
-  };
-
-  utterance.onerror = () => {
-    if (currentSpeech === utterance) currentSpeech = null;
-  };
-
-  window.speechSynthesis.speak(utterance);
-}
-
-
+  if ("speechSynthesis" in window) {
+    window.speechSynthesis.addEventListener("voiceschanged", () => {
+      window.speechSynthesis.getVoices();
+    });
+  }
 
   async function copyText(text) {
     try {
@@ -862,22 +688,17 @@ function speak(text) {
   }
 
   function addResultActions(container, text) {
-    const row = make("div", {
-      style:"display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;"
-    });
-    const listen = coloredActionButton(t("listen"), "#0878ed");
-    const copy = coloredActionButton(t("copy"), "#20a464");
-    const remove = coloredActionButton(t("delete"), "#e53935");
-    const stop = coloredActionButton(t("stopSpeaking"), "#f08c00");
-    const close = coloredActionButton(t("close"), "#7654c8");
-    listen.addEventListener("click", () => speak(text));
-    copy.addEventListener("click", () => copyText(text));
-    remove.addEventListener("click", () => {
-      stopSpeaking();
-      container.remove();
-    });
-    stop.addEventListener("click", stopSpeaking);
-    close.addEventListener("click", closeFeature);
+    const row = make("div",{style:"display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;"});
+    const listen = coloredActionButton(t("listen"),"#0878ed");
+    const copy = coloredActionButton(t("copy"),"#20a464");
+    const remove = coloredActionButton(t("delete"),"#e53935");
+    const stop = coloredActionButton(t("stopSpeaking"),"#f08c00");
+    const close = coloredActionButton(t("close"),"#7654c8");
+    listen.addEventListener("click",()=>speak(text));
+    copy.addEventListener("click",()=>copyText(text));
+    remove.addEventListener("click",()=>{stopSpeaking();container.remove();});
+    stop.addEventListener("click",stopSpeaking);
+    close.addEventListener("click",closeFeature);
     row.append(listen,copy,remove,stop,close);
     container.append(row);
   }
@@ -885,8 +706,8 @@ function speak(text) {
   function reminderStatus(reminder) {
     if (reminder.done || reminder.completedAt) return t("completed");
     const when = new Date(reminder.when).getTime();
-    const now = Date.now();
-    if (when < now) return t("overdue");
+    if (!Number.isFinite(when)) return t("unknownDate");
+    if (when < Date.now()) return t("overdue");
     if (new Date(reminder.when).toDateString() === new Date().toDateString()) return t("today");
     return t("upcoming");
   }
@@ -897,19 +718,35 @@ function speak(text) {
       `${t("dateLabel")}: ${stamp(new Date(reminder.when))}`,
       `${t("status")}: ${reminderStatus(reminder)}`
     ];
-
     if (reminder.notes) parts.push(`${t("notes")}: ${reminder.notes}`);
-    if (reminder.intervalDays) {
-      parts.push(`${t("interval")}: ${reminder.intervalDays}`);
-    }
+    if (reminder.intervalDays) parts.push(`${t("interval")}: ${reminder.intervalDays}`);
     if (reminder.recordedAt || reminder.createdAt) {
       parts.push(`${t("reminderSavedAt")}: ${stamp(new Date(reminder.recordedAt || reminder.createdAt))}`);
     }
-    if (reminder.completedAt) {
-      parts.push(`${t("completedAt")}: ${stamp(new Date(reminder.completedAt))}`);
-    }
+    if (reminder.completedAt) parts.push(`${t("completedAt")}: ${stamp(new Date(reminder.completedAt))}`);
     parts.push(`${t("location")}: ${locationText(reminder.location)}`);
     return parts.join(". ");
+  }
+
+  async function requestNotificationPermission() {
+    if (!("Notification" in window)) {
+      showMessage(t("notificationUnsupported"));
+      return false;
+    }
+    if (Notification.permission === "granted") return true;
+    if (Notification.permission === "denied") {
+      showMessage(t("notificationDenied"));
+      return false;
+    }
+    try {
+      // Panggil dari tindakan pengguna, misalnya tombol Simpan Reminder.
+      const permission = await Notification.requestPermission();
+      if (permission !== "granted") showMessage(t("notificationDenied"));
+      return permission === "granted";
+    } catch (_) {
+      showMessage(t("notificationUnsupported"));
+      return false;
+    }
   }
 
   function openReminder() {
@@ -920,44 +757,42 @@ function speak(text) {
     const content = openFeature(t("reminderHeading"));
     content.append(noteLine(t("reminderNote")));
     content.append(noteLine(t("locationPermission")));
+    content.append(noteLine(t("permissionInfo")));
 
     const titleId = "memora-reminder-title";
-    content.append(fieldLabel(t("reminderTitleLabel"), titleId));
+    content.append(fieldLabel(t("reminderTitleLabel"),titleId));
     const title = styledInput({
-      id:titleId,type:"text",
-      placeholder:t("reminderPlaceholder"),maxLength:180
+      id:titleId, type:"text", placeholder:t("reminderPlaceholder"), maxLength:180
     });
     content.append(title);
 
     const dateId = "memora-reminder-date";
-    content.append(fieldLabel(t("reminderDate"), dateId));
+    content.append(fieldLabel(t("reminderDate"),dateId));
     const date = styledInput({id:dateId,type:"datetime-local"});
-    const now = new Date(Date.now() - new Date().getTimezoneOffset() * 60000);
+    const now = new Date(Date.now()-new Date().getTimezoneOffset()*60000);
     date.min = now.toISOString().slice(0,16);
     content.append(date);
 
     const notesId = "memora-reminder-notes";
-    content.append(fieldLabel(t("notes"), notesId));
+    content.append(fieldLabel(t("notes"),notesId));
     const notes = styledTextarea({id:notesId});
     notes.style.minHeight = "70px";
     content.append(notes);
 
     const intervalId = "memora-reminder-interval";
-    content.append(fieldLabel(t("interval"), intervalId));
+    content.append(fieldLabel(t("interval"),intervalId));
     const interval = styledInput({
       id:intervalId,type:"number",min:"1",step:"1",inputMode:"numeric",
-      placeholder:language === "id" ? "Contoh: 30" : "Example: 30"
+      placeholder:language==="id"?"Contoh: 30":"Example: 30"
     });
-    content.append(interval);
-    content.append(noteLine(t("intervalHint")));
+    content.append(interval,noteLine(t("intervalHint")));
 
     const save = actionButton(t("saveReminder"));
     const list = actionButton(t("showReminderList"),false);
     content.append(save,list);
+    list.addEventListener("click",renderReminderList);
 
-    list.addEventListener("click", renderReminderList);
-
-    save.addEventListener("click", async () => {
+    save.addEventListener("click",async () => {
       if (!title.value.trim() || !date.value) {
         showMessage(t("emptyReminder"));
         return;
@@ -979,7 +814,11 @@ function speak(text) {
       }
 
       save.disabled = true;
-      save.textContent = language === "id" ? "Menyimpan..." : "Saving...";
+      save.textContent = language==="id"?"Menyimpan...":"Saving...";
+
+      // Minta izin hanya setelah pengguna menekan tombol.
+      // Penolakan izin tidak menghalangi penyimpanan Reminder.
+      await requestNotificationPermission();
 
       const metadata = await captureMetadata();
       const reminders = readList(STORAGE_KEYS.reminders);
@@ -1010,14 +849,17 @@ function speak(text) {
     });
   }
 
+  // BAGIAN 2 BERLANJUT DI BAWAH INI.
+
+  
   function renderReminderList() {
     const content = openFeature(t("reminderList"));
     const add = actionButton(t("addReminder"));
-    add.addEventListener("click", renderReminderForm);
+    add.addEventListener("click",renderReminderForm);
     content.append(add);
 
     const reminders = readList(STORAGE_KEYS.reminders)
-      .sort((a,b) => new Date(a.when) - new Date(b.when));
+      .sort((a,b)=>new Date(a.when)-new Date(b.when));
 
     if (!reminders.length) {
       content.append(noteLine(t("noReminders")));
@@ -1025,46 +867,44 @@ function speak(text) {
     }
 
     reminders.forEach(reminder => {
-      const card = make("article", {
+      const card = make("article",{
         style:"border:1px solid #e2e8f0;border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:8px;"
       });
 
-      card.append(make("strong", {
+      card.append(make("strong",{
         style:"font-size:17px;overflow-wrap:anywhere;"
-      }, reminder.title));
+      },reminder.title));
 
       card.append(noteLine(`${t("dateLabel")}: ${stamp(new Date(reminder.when))}`));
       card.append(noteLine(`${t("status")}: ${reminderStatus(reminder)}`));
 
       if (reminder.notes) card.append(noteLine(`${t("notes")}: ${reminder.notes}`));
-      if (reminder.intervalDays) {
-        card.append(noteLine(`${t("interval")}: ${reminder.intervalDays}`));
-      }
+      if (reminder.intervalDays) card.append(noteLine(`${t("interval")}: ${reminder.intervalDays}`));
       addMetadataLines(card,reminder);
 
       if (reminder.completedAt) {
         card.append(noteLine(`${t("completedAt")}: ${stamp(new Date(reminder.completedAt))}`));
-      } else if (new Date(reminder.when).getTime() < Date.now()) {
+      } else if (new Date(reminder.when).getTime()<Date.now()) {
         card.append(noteLine(t("reminderOverdue")));
       }
 
-      const actions = make("div", {
-        style:"display:flex;gap:8px;flex-wrap:wrap;"
-      });
-
+      const actions = make("div",{style:"display:flex;gap:8px;flex-wrap:wrap;"});
       const listen = actionButton(t("listen"),false);
       const copy = actionButton(t("copy"),false);
-      listen.addEventListener("click", () => speak(reminderDescription(reminder)));
-      copy.addEventListener("click", () => copyText(copyableResultText(reminder.title, reminderDescription(reminder), reminder)));
+
+      listen.addEventListener("click",()=>speak(reminderDescription(reminder)));
+      copy.addEventListener("click",()=>copyText(
+        copyableResultText(reminder.title,reminderDescription(reminder),reminder)
+      ));
       actions.append(listen,copy);
 
       if (!reminder.done && !reminder.completedAt) {
         const complete = actionButton(t("complete"));
-        complete.addEventListener("click", async () => {
+        complete.addEventListener("click",async()=>{
           complete.disabled = true;
           const metadata = await captureMetadata();
           const all = readList(STORAGE_KEYS.reminders);
-          const target = all.find(r => r.id === reminder.id);
+          const target = all.find(r=>r.id===reminder.id);
           if (!target) return;
 
           target.done = true;
@@ -1083,57 +923,55 @@ function speak(text) {
       }
 
       const remove = actionButton(t("delete"),false);
-      remove.addEventListener("click", () => {
+      remove.addEventListener("click",()=>{
         if (!window.confirm(t("confirmDelete"))) return;
-        const all = readList(STORAGE_KEYS.reminders).filter(r => r.id !== reminder.id);
+        const all = readList(STORAGE_KEYS.reminders).filter(r=>r.id!==reminder.id);
         if (writeList(STORAGE_KEYS.reminders,all)) renderReminderList();
       });
       actions.append(remove);
-
       card.append(actions);
       content.append(card);
     });
   }
 
   function normalizeText(value) {
-    return String(value || "")
-      .toLocaleLowerCase(language === "id" ? "id-ID" : "en-US")
+    return String(value||"")
+      .toLocaleLowerCase(language==="id"?"id-ID":"en-US")
       .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
       .replace(/[^\p{L}\p{N}\s-]/gu," ")
       .replace(/\s+/g," ").trim();
   }
 
-  // Padanan istilah Indonesia-Inggris untuk pencarian lokal tanpa layanan AI.
-  // Ini membantu mencari catatan yang ditulis dalam satu bahasa dengan pertanyaan
-  // dalam bahasa lain. Daftar dapat diperluas seiring pengujian.
   const bilingualTerms = {
-    "three":["tiga"], "tiga":["three"],
-    "english":["inggris"], "inggris":["english"],
-    "phrases":["frasa", "ungkapan"], "phrase":["frasa", "ungkapan"],
-    "frasa":["phrases", "phrase"], "ungkapan":["phrases", "phrase"],
-    "learned":["belajar", "dipelajari"], "learn":["belajar"],
-    "belajar":["learned", "learn", "studied"], "dipelajari":["learned"],
-    "pump":["pompa"], "pompa":["pump"],
-    "filter":["filter"], "replace":["ganti", "mengganti"],
-    "ganti":["replace", "replaced"], "mengganti":["replace"],
-    "record":["catat", "mencatat"], "catat":["record", "recorded"],
-    "temperature":["suhu"], "suhu":["temperature"],
-    "received":["terima", "menerima"], "receive":["menerima"],
-    "terima":["received"], "menerima":["received", "receive"],
-    "supplier":["pemasok"], "pemasok":["supplier"],
-    "date":["tanggal"], "tanggal":["date"],
-    "time":["jam", "waktu"], "jam":["time"], "waktu":["time"],
-    "where":["lokasi", "tempat"], "lokasi":["location", "place"],
-    "location":["lokasi"], "place":["tempat", "lokasi"],
-    "port":["pelabuhan"], "pelabuhan":["port"],
-    "ship":["kapal"], "kapal":["ship"],
-    "maintenance":["perawatan"], "perawatan":["maintenance"],
-    "budget":["anggaran"], "anggaran":["budget"],
-    "savings":["tabungan"], "tabungan":["savings"],
-    "what":["apa"], "apa":["what"],
-    "many":["berapa"], "berapa":["how", "many"],
-    "oil":["oli"], "oli":["oil"],
-    "gasket":["gasket"], "water":["air"], "air":["water"]
+    "three":["tiga"],"tiga":["three"],
+    "english":["inggris"],"inggris":["english"],
+    "phrases":["frasa","ungkapan"],"phrase":["frasa","ungkapan"],
+    "frasa":["phrases","phrase"],"ungkapan":["phrases","phrase"],
+    "learned":["belajar","dipelajari"],"learn":["belajar"],
+    "belajar":["learned","learn","studied"],"dipelajari":["learned"],
+    "pump":["pompa"],"pompa":["pump"],
+    "filter":["filter"],"replace":["ganti","mengganti"],
+    "ganti":["replace","replaced"],"mengganti":["replace"],
+    "record":["catat","mencatat"],"catat":["record","recorded"],
+    "temperature":["suhu"],"suhu":["temperature"],
+    "received":["terima","menerima"],"receive":["menerima"],
+    "terima":["received"],"menerima":["received","receive"],
+    "supplier":["pemasok"],"pemasok":["supplier"],
+    "date":["tanggal"],"tanggal":["date"],
+    "time":["jam","waktu"],"jam":["time"],"waktu":["time"],
+    "where":["lokasi","tempat"],"lokasi":["location","place"],
+    "location":["lokasi"],"place":["tempat","lokasi"],
+    "port":["pelabuhan"],"pelabuhan":["port"],
+    "ship":["kapal"],"kapal":["ship"],
+    "maintenance":["perawatan"],"perawatan":["maintenance"],
+    "budget":["anggaran"],"anggaran":["budget"],
+    "savings":["tabungan"],"tabungan":["savings"],
+    "what":["apa"],"apa":["what"],
+    "many":["berapa"],"berapa":["how","many"],
+    "oil":["oli"],"oli":["oil"],
+    "gasket":["gasket"],"water":["air"],"air":["water"],
+    "reminder":["pengingat"],"pengingat":["reminder"],
+    "completed":["selesai"],"selesai":["completed"]
   };
 
   function queryTerms(query) {
@@ -1147,70 +985,84 @@ function speak(text) {
     ]);
 
     const original = normalizeText(query).split(" ")
-      .filter(word => word.length > 1 && !stop.has(word));
+      .filter(word=>word.length>1&&!stop.has(word));
     const expanded = new Set(original);
-    original.forEach(word => {
-      (bilingualTerms[word] || []).forEach(alias => {
-        normalizeText(alias).split(" ").forEach(part => {
-          if (part.length > 1 && !stop.has(part)) expanded.add(part);
+
+    original.forEach(word=>{
+      (bilingualTerms[word]||[]).forEach(alias=>{
+        normalizeText(alias).split(" ").forEach(part=>{
+          if (part.length>1&&!stop.has(part)) expanded.add(part);
         });
       });
     });
     return [...expanded];
   }
 
-  function scoreItem(item, terms) {
+  function scoreItem(item,terms) {
     const text = normalizeText([
       item.text,item.title,item.notes,item.category,item.source
     ].join(" "));
-    return terms.reduce((score,term) => score + (text.includes(term) ? 1 : 0),0);
+    return terms.reduce((score,term)=>score+(text.includes(term)?1:0),0);
   }
 
-  function addSearchResult(container, title, description, item, type) {
-    const card = make("article", {
+  let runLastSearch = null;
+
+  function addSearchResult(container,title,description,item,type) {
+    const card = make("article",{
       style:"border:1px solid #e2e8f0;border-radius:12px;padding:12px;"
     });
-    card.append(make("strong", {}, title));
-    card.append(make("p", {
+    card.append(make("strong",{},title));
+    card.append(make("p",{
       style:"margin:8px 0;white-space:pre-wrap;overflow-wrap:anywhere;"
-    }, description));
+    },description));
 
-    const resultLocation = item.location || item.completedLocation || null;
-    appendMapLink(card, resultLocation);
+    appendMapLink(card,item.location||item.completedLocation||null);
 
-    const actions = make("div", {
+    const actions = make("div",{
       style:"display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;"
     });
-    const listen = coloredActionButton(t("listen"), "#0878ed");
-    const copy = coloredActionButton(t("copy"), "#20a464");
-    const remove = coloredActionButton(t("delete"), "#e53935");
-    const stop = coloredActionButton(t("stopSpeaking"), "#f08c00");
-    const close = coloredActionButton(t("close"), "#7654c8");
+    const listen = coloredActionButton(t("listen"),"#0878ed");
+    const copy = coloredActionButton(t("copy"),"#20a464");
+    const remove = coloredActionButton(t("delete"),"#e53935");
+    const stop = coloredActionButton(t("stopSpeaking"),"#f08c00");
+    const close = coloredActionButton(t("close"),"#7654c8");
 
-    listen.addEventListener("click", () => speak(`${title}. ${description}`));
-    copy.addEventListener("click", () => copyText(copyableResultText(title, description, item)));
-    stop.addEventListener("click", stopSpeaking);
-    close.addEventListener("click", closeFeature);
+    listen.addEventListener("click",()=>speak(`${title}. ${description}`));
+    copy.addEventListener("click",()=>copyText(
+      copyableResultText(title,description,item)
+    ));
+    stop.addEventListener("click",stopSpeaking);
+    close.addEventListener("click",closeFeature);
 
-    if (type === "memory") {
-      remove.addEventListener("click", () => {
+    if (type==="memory") {
+      remove.addEventListener("click",()=>{
         if (!window.confirm(t("confirmDelete"))) return;
-        writeList(STORAGE_KEYS.memories,
-          readList(STORAGE_KEYS.memories).filter(m => m.id !== item.id));
-        runLastSearch?.();
+        const ok = writeList(
+          STORAGE_KEYS.memories,
+          readList(STORAGE_KEYS.memories).filter(m=>m.id!==item.id)
+        );
+        if (ok) runLastSearch?.();
       });
     } else {
-      remove.addEventListener("click", () => card.remove());
+      remove.addEventListener("click",()=>{
+        if (!window.confirm(t("confirmDelete"))) return;
+        const ok = writeList(
+          STORAGE_KEYS.reminders,
+          readList(STORAGE_KEYS.reminders).filter(r=>r.id!==item.id)
+        );
+        if (ok) runLastSearch?.();
+      });
     }
+
     actions.append(listen,copy,remove,stop,close);
 
-    if (type === "reminder" && !item.done && !item.completedAt) {
+    if (type==="reminder"&&!item.done&&!item.completedAt) {
       const complete = actionButton(t("complete"));
-      complete.addEventListener("click", async () => {
+      complete.addEventListener("click",async()=>{
         complete.disabled = true;
         const metadata = await captureMetadata();
         const reminders = readList(STORAGE_KEYS.reminders);
-        const target = reminders.find(r => r.id === item.id);
+        const target = reminders.find(r=>r.id===item.id);
         if (!target) return;
 
         target.done = true;
@@ -1232,8 +1084,6 @@ function speak(text) {
     container.append(card);
   }
 
-  let runLastSearch = null;
-
   function openAsk() {
     const content = openFeature(t("askHeading"));
     content.append(noteLine(t("askNote")));
@@ -1246,7 +1096,7 @@ function speak(text) {
     const search = actionButton(t("searchButton"));
     content.append(search);
 
-    const resultArea = make("div", {
+    const resultArea = make("div",{
       style:"display:flex;flex-direction:column;gap:10px;"
     });
     content.append(resultArea);
@@ -1266,84 +1116,78 @@ function speak(text) {
       }
 
       const memoryMatches = memories
-        .map(item => ({item,score:scoreItem(item,terms)}))
-        .filter(x => x.score > 0)
-        .sort((a,b) => b.score-a.score)
-        .slice(0,30);
+        .map(item=>({item,score:scoreItem(item,terms)}))
+        .filter(x=>x.score>0)
+        .sort((a,b)=>b.score-a.score).slice(0,30);
 
       const reminderMatches = reminders
-        .map(item => ({item,score:scoreItem(item,terms)}))
-        .filter(x => x.score > 0)
-        .sort((a,b) => b.score-a.score)
-        .slice(0,30);
+        .map(item=>({item,score:scoreItem(item,terms)}))
+        .filter(x=>x.score>0)
+        .sort((a,b)=>b.score-a.score).slice(0,30);
 
       const asksNext = /(berikutnya|ke depan|lagi|next|upcoming|maintenance|perawatan)/i.test(q);
       const asksOverdue = /(terlambat|overdue|jatuh tempo|late)/i.test(q);
-      const asksList = /(pengingat|reminder|jadwal|schedule)/i.test(q);
-      const asksLast = /(terakhir|last|selesai|completed|pernah)/i.test(q);
 
-      resultArea.append(make("h3", {
+      resultArea.append(make("h3",{
         style:"margin:8px 0 0;font-size:18px;"
       },t("resultsHeading")));
 
       if (reminderMatches.length) {
-        resultArea.append(make("h3", {
+        resultArea.append(make("h3",{
           style:"margin:8px 0 0;font-size:16px;"
         },t("askReminderResults")));
 
-        reminderMatches.forEach(({item}) => {
+        reminderMatches.forEach(({item})=>{
           addSearchResult(resultArea,item.title,reminderDescription(item),item,"reminder");
         });
 
         if (asksNext) {
-          const completed = reminderMatches
-            .map(x => x.item)
-            .filter(r => r.completedAt || r.done)
-            .sort((a,b) => new Date(b.completedAt || 0)-new Date(a.completedAt || 0));
+          const completed = reminderMatches.map(x=>x.item)
+            .filter(r=>r.completedAt||r.done)
+            .sort((a,b)=>new Date(b.completedAt||0)-new Date(a.completedAt||0));
 
           if (completed.length) {
             const last = completed[0];
             const interval = Number(last.intervalDays);
-
             let answer;
-            if (!last.completedAt) {
-              answer = t("completionMissing");
-            } else if (!Number.isInteger(interval) || interval < 1) {
-              answer = t("intervalMissing");
-            } else {
+
+            if (!last.completedAt) answer = t("completionMissing");
+            else if (!Number.isInteger(interval)||interval<1) answer = t("intervalMissing");
+            else {
               const next = new Date(last.completedAt);
               next.setDate(next.getDate()+interval);
               answer = `${t("nextDue")}: ${dateOnly(next)}. ${last.title}.`;
             }
 
-            const calc = make("article", {
+            const calc = make("article",{
               style:"border:1px solid #b9d8ff;background:#f0f7ff;border-radius:12px;padding:12px;"
             });
             calc.append(make("strong",{},t("nextDue")));
-            calc.append(make("p", {
+            calc.append(make("p",{
               style:"margin:8px 0;white-space:pre-wrap;"
             },answer));
             addResultActions(calc,answer);
             resultArea.append(calc);
-          } else if (asksNext) {
-            const answer = t("noData");
-            const card = make("article", {
+          } else {
+            const card = make("article",{
               style:"border:1px solid #e2e8f0;border-radius:12px;padding:12px;"
             });
-            card.append(noteLine(answer));
-            addResultActions(card,answer);
+            card.append(noteLine(t("noData")));
+            addResultActions(card,t("noData"));
             resultArea.append(card);
           }
         }
 
         if (asksOverdue) {
-          const overdue = reminderMatches.map(x => x.item).filter(r =>
-            !r.done && !r.completedAt && new Date(r.when).getTime() < Date.now()
+          const overdue = reminderMatches.map(x=>x.item).filter(r=>
+            !r.done&&!r.completedAt&&new Date(r.when).getTime()<Date.now()
           );
           const answer = overdue.length
-            ? `${t("overdue")}: ${overdue.map(r => r.title).join(", ")}`
-            : (language === "id" ? "Tidak ada pengingat terlambat yang cocok." : "No matching overdue reminders.");
-          const card = make("article", {
+            ? `${t("overdue")}: ${overdue.map(r=>r.title).join(", ")}`
+            : (language==="id"
+              ? "Tidak ada pengingat terlambat yang cocok."
+              : "No matching overdue reminders.");
+          const card = make("article",{
             style:"border:1px solid #e2e8f0;border-radius:12px;padding:12px;"
           });
           card.append(noteLine(answer));
@@ -1353,24 +1197,22 @@ function speak(text) {
       }
 
       if (memoryMatches.length) {
-        resultArea.append(make("h3", {
+        resultArea.append(make("h3",{
           style:"margin:8px 0 0;font-size:16px;"
         },t("askMemoryResults")));
 
-        memoryMatches.forEach(({item}) => {
+        memoryMatches.forEach(({item})=>{
           const description = [
             item.text,
-            `${t("category")}: ${item.category || t("general")}`,
-            `${t("created")}: ${stamp(new Date(item.recordedAt || item.createdAt))}`,
+            `${t("category")}: ${item.category||t("general")}`,
+            `${t("created")}: ${stamp(new Date(item.recordedAt||item.createdAt))}`,
             `${t("location")}: ${locationText(item.location)}`
           ].join("\n");
-
-          addSearchResult(resultArea,
-            item.category || t("general"),description,item,"memory");
+          addSearchResult(resultArea,item.category||t("general"),description,item,"memory");
         });
       }
 
-      if (!memoryMatches.length && !reminderMatches.length) {
+      if (!memoryMatches.length&&!reminderMatches.length) {
         resultArea.append(noteLine(t("noResults")));
         resultArea.append(noteLine(t("queryHelp")));
       }
@@ -1378,63 +1220,94 @@ function speak(text) {
 
     runLastSearch = runSearch;
     search.addEventListener("click",runSearch);
-    query.addEventListener("keydown",event => {
-      if (event.key === "Enter") runSearch();
+    query.addEventListener("keydown",event=>{
+      if (event.key==="Enter") runSearch();
     });
     runSearch();
+  }
+
+  // Pemeriksaan lokal: hanya bekerja saat JavaScript aplikasi berjalan.
+  function checkReminders() {
+    if (document.visibilityState!=="visible") return;
+
+    const now = Date.now();
+    const reminders = readList(STORAGE_KEYS.reminders);
+    const due = reminders.filter(reminder=>
+      !reminder.done &&
+      !reminder.completedAt &&
+      !reminder.notifiedAt &&
+      Number.isFinite(new Date(reminder.when).getTime()) &&
+      new Date(reminder.when).getTime()<=now
+    );
+
+    if (!due.length) return;
+
+    // Tandai hanya jika perubahan berhasil disimpan.
+    due.forEach(reminder=>{
+      reminder.notifiedAt = new Date().toISOString();
+    });
+
+    if (!writeList(STORAGE_KEYS.reminders,reminders)) {
+      due.forEach(reminder=>{ reminder.notifiedAt = null; });
+      return;
+    }
+
+    due.forEach(reminder=>{
+      const message = `${t("reminderFired")}: ${reminder.title}`;
+      showMessage(message);
+
+      // Notifikasi sistem dicoba jika izin telah diberikan.
+      // iOS dapat membatasi notifikasi ketika web app tidak aktif.
+      if ("Notification" in window && Notification.permission==="granted") {
+        try {
+          new Notification("MEMORA Lite",{
+            body:reminder.title,
+            tag:`memora-reminder-${reminder.id}`
+          });
+        } catch (_) {
+          // Pesan aplikasi tetap ditampilkan jika notifikasi sistem gagal.
+        }
+      }
+
+      // Alert hanya ketika aplikasi benar-benar sedang terlihat.
+      // Hindari alert berulang untuk item yang sama.
+      if (lastReminderAlert!==reminder.id) {
+        lastReminderAlert = reminder.id;
+        window.alert(message);
+      }
+    });
   }
 
   function scheduleReminderChecks() {
     if (reminderCheckTimer) clearInterval(reminderCheckTimer);
 
-    function checkReminders() {
-      const now = Date.now();
-      const reminders = readList(STORAGE_KEYS.reminders);
-      let changed = false;
-
-      reminders.forEach(reminder => {
-        if (!reminder.done && !reminder.completedAt &&
-            !reminder.notifiedAt &&
-            new Date(reminder.when).getTime() <= now) {
-          reminder.notifiedAt = new Date().toISOString();
-          changed = true;
-
-          const msg = `${t("reminderFired")}: ${reminder.title}`;
-          showMessage(msg);
-
-          if ("Notification" in window && Notification.permission === "granted") {
-            try { new Notification("MEMORA Lite", {body:msg}); } catch (_) {}
-          } else if (document.visibilityState === "visible") {
-            window.alert(msg);
-          }
-        }
-      });
-
-      if (changed) writeList(STORAGE_KEYS.reminders,reminders);
-    }
-
     checkReminders();
     reminderCheckTimer = setInterval(checkReminders,15000);
-    document.addEventListener("visibilitychange",() => {
-      if (document.visibilityState === "visible") checkReminders();
-    });
+
+    // Satu handler saja; tidak menambah listener setiap kali jadwal dipanggil.
+    document.removeEventListener("visibilitychange",handleReminderVisibility);
+    document.addEventListener("visibilitychange",handleReminderVisibility);
   }
 
-  // Menggunakan event delegation agar tombol menu selalu merespons klik
-  document.body.addEventListener("click", event => {
+  function handleReminderVisibility() {
+    if (document.visibilityState==="visible") checkReminders();
+  }
+
+  // Event delegation untuk semua tombol menu Home.
+  document.body.addEventListener("click",event=>{
     const button = event.target.closest("[data-action]");
     if (!button) return;
 
     const action = button.dataset.action;
-    if (action === "settings") { openSettings(); }
-    else if (action === "voice") { openVoice(); }
-    else if (action === "text") { openText(); }
-    else if (action === "reminder") { openReminder(); }
-    else if (action === "ask") { openAsk(); }
+    if (action==="settings") openSettings();
+    else if (action==="voice") openVoice();
+    else if (action==="text") openText();
+    else if (action==="reminder") openReminder();
+    else if (action==="ask") openAsk();
   });
 
-  document.getElementById("settings-save")?.addEventListener("click",() => {
-    language = languageSelect?.value === "id" ? "id" : "en";
+  document.getElementById("settings-save")?.addEventListener("click",()=>{
+    language = languageSelect?.value==="id"?"id":"en";
     localStorage.setItem("memora-language",language);
     applyLanguage();
     closeSettings();
@@ -1443,14 +1316,15 @@ function speak(text) {
 
   document.getElementById("settings-cancel")?.addEventListener("click",closeSettings);
 
-  settingsDialog?.addEventListener("click",event => {
-    if (event.target === settingsDialog) closeSettings();
+  settingsDialog?.addEventListener("click",event=>{
+    if (event.target===settingsDialog) closeSettings();
   });
 
-  document.addEventListener("keydown",event => {
-    if (event.key === "Escape") closeSettings();
+  document.addEventListener("keydown",event=>{
+    if (event.key==="Escape") closeSettings();
   });
 
   applyLanguage();
   scheduleReminderChecks();
 });
+
