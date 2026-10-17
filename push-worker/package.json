@@ -1,0 +1,16 @@
+
+{
+  "name": "memora-lite-push",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "deploy": "wrangler deploy"
+  },
+  "dependencies": {
+    "@mmmike/web-push": "latest"
+  },
+  "devDependencies": {
+    "wrangler": "latest"
+  }
+}
